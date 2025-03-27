@@ -1,1 +1,110 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>Placeholder</title></head><body><h1>Initial Commit</h1></body></html>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>CTC Market Update Map</title>
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <style>
+    body { margin: 0; padding: 0; font-family: sans-serif; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    #sidebar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 12px;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      background: #fff;
+      text-align: center;
+      font-size: 12px;
+      padding: 8px;
+      border-top: 1px solid #ddd;
+      z-index: 1;
+    }
+    #unsupported {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<div id="sidebar">
+  <strong>Toggle Layers:</strong><br>
+  <label><input type="checkbox" id="county" checked aria-label="Toggle Counties Layer"> Counties</label><br>
+  <label><input type="checkbox" id="zip" checked aria-label="Toggle ZIP Codes Layer"> ZIP Codes</label><br>
+  <label><input type="checkbox" id="city" checked aria-label="Toggle Cities Layer"> Cities</label><br>
+  <label><input type="checkbox" id="msa" checked aria-label="Toggle MSAs Layer"> MSAs</label><br>
+</div>
+
+<div id="map"></div>
+<div id="unsupported">Your browser does not support Mapbox GL JS. Please update your browser.</div>
+
+<footer>
+  Powered by <a href="https://agentez.ai" target="_blank">Agentez.ai</a> |
+  Partnered with <a href="https://getyourpiece.com" target="_blank">GetYourPiece.com</a> |
+  Customized for <a href="https://cleartoclosehometeam.com" target="_blank">ClearToCloseHomeTeam.com</a>
+</footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (!mapboxgl.supported()) {
+      document.getElementById('unsupported').style.display = 'block';
+      return;
+    }
+
+    const accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
+    if (!accessToken) {
+      alert('Mapbox access token is missing. Please provide a valid token.');
+      return;
+    }
+
+    mapboxgl.accessToken = accessToken;
+
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/rtamayo7/cm8ozqb6o003701qtags8bwsf',
+      center: [-81.8, 26.2],
+      zoom: 7
+    });
+
+    map.on('load', () => {
+      const layers = ['county', 'zip', 'city', 'msa'];
+
+      layers.forEach(layer => {
+        const checkbox = document.getElementById(layer);
+        checkbox.addEventListener('change', () => {
+          const visibility = checkbox.checked ? 'visible' : 'none';
+          const mapLayer = layer + '-layer';
+          if (map.getLayer(mapLayer)) {
+            map.setLayoutProperty(mapLayer, 'visibility', visibility);
+          } else {
+            console.warn(`Layer "${mapLayer}" does not exist on the map.`);
+          }
+        });
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
