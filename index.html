@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -86,6 +85,22 @@
       center: [-81.8, 26.2],
       zoom: 7
     });
+
+    // Add navigation controls (zoom and rotation)
+    map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+
+    // Add fullscreen control
+    map.addControl(new mapboxgl.FullscreenControl());
+
+    // Add scale control
+    map.addControl(new mapboxgl.ScaleControl({
+      maxWidth: 100,
+      unit: 'imperial'
+    }));
+
+    // Enable touch gestures for mobile-friendly panning
+    map.dragPan.enable();
+    map.touchZoomRotate.enable();
 
     map.on('load', () => {
       const layers = ['county', 'zip', 'city', 'msa'];
