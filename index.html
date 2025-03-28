@@ -11,9 +11,8 @@
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
     #sidebar {
       position: absolute;
-      top: 0;
-      left: 0;
-      margin: 12px;
+      top: 60px;
+      left: 10px;
       background: white;
       padding: 10px;
       border-radius: 8px;
@@ -42,6 +41,10 @@
       border-radius: 8px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
       text-align: center;
+    }
+    .mapboxgl-ctrl-top-left {
+      margin-top: 120px;
+      margin-left: 10px;
     }
   </style>
 </head>
@@ -86,25 +89,16 @@
       zoom: 7
     });
 
-    // Add navigation controls (zoom and rotation)
+    map.setPadding({ top: 10, left: 150, right: 10, bottom: 50 });
+
     map.addControl(new mapboxgl.NavigationControl(), 'top-left');
+    map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
 
-    // Add fullscreen control
-    map.addControl(new mapboxgl.FullscreenControl());
-
-    // Add scale control
-    map.addControl(new mapboxgl.ScaleControl({
-      maxWidth: 100,
-      unit: 'imperial'
-    }));
-
-    // Enable touch gestures for mobile-friendly panning
     map.dragPan.enable();
     map.touchZoomRotate.enable();
 
     map.on('load', () => {
       const layers = ['county', 'zip', 'city', 'msa'];
-
       layers.forEach(layer => {
         const checkbox = document.getElementById(layer);
         checkbox.addEventListener('change', () => {
@@ -116,6 +110,10 @@
             console.warn(`Layer "${mapLayer}" does not exist on the map.`);
           }
         });
+      });
+
+      map.on('error', (e) => {
+        console.warn('Mapbox tile loading error:', e.error.message);
       });
     });
   });
