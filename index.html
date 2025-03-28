@@ -60,10 +60,10 @@
 <div id="sidebar">
   <strong>Toggle Layers:</strong>
   <form id="layer-toggle">
-    <label><input type="radio" name="layer" value="msa" checked aria-label="Toggle MSAs Layer"> MSAs</label><br>
-    <label><input type="radio" name="layer" value="county" aria-label="Toggle Counties Layer"> Counties</label><br>
-    <label><input type="radio" name="layer" value="city" aria-label="Toggle Cities Layer"> Cities</label><br>
-    <label><input type="radio" name="layer" value="zip" aria-label="Toggle ZIP Codes Layer"> ZIP Codes</label><br>
+    <label><input type="radio" name="layer" value="msa" checked> MSAs</label><br>
+    <label><input type="radio" name="layer" value="county"> Counties</label><br>
+    <label><input type="radio" name="layer" value="city"> Cities</label><br>
+    <label><input type="radio" name="layer" value="zip"> ZIP Codes</label><br>
   </form>
 </div>
 
@@ -80,13 +80,7 @@
       return;
     }
 
-    const accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
-    if (!accessToken) {
-      alert('Mapbox access token is missing. Please provide a valid token.');
-      return;
-    }
-
-    mapboxgl.accessToken = accessToken;
+    mapboxgl.accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
 
     const map = new mapboxgl.Map({
       container: 'map',
@@ -96,13 +90,9 @@
     });
 
     map.setPadding({ top: 10, left: 150, right: 10, bottom: 50 });
-
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
     map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
     map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }));
-
-    map.dragPan.enable();
-    map.touchZoomRotate.enable();
 
     const layerMap = {
       msa: 'ctc-msas-florida-6reteb',
@@ -112,27 +102,21 @@
     };
 
     map.on('load', () => {
-      Object.keys(layerMap).forEach(layer => {
-        const visibility = layer === 'msa' ? 'visible' : 'none';
-        if (map.getLayer(layerMap[layer])) {
-          map.setLayoutProperty(layerMap[layer], 'visibility', visibility);
+      // Show only MSA by default
+      Object.entries(layerMap).forEach(([key, layerId]) => {
+        if (map.getLayer(layerId)) {
+          map.setLayoutProperty(layerId, 'visibility', key === 'msa' ? 'visible' : 'none');
         }
       });
 
-      const form = document.getElementById('layer-toggle');
-      form.addEventListener('change', (e) => {
-        const selectedLayer = e.target.value;
-        Object.keys(layerMap).forEach(layer => {
-          const visibility = layer === selectedLayer ? 'visible' : 'none';
-          if (map.getLayer(layerMap[layer])) {
-            map.setLayoutProperty(layerMap[layer], 'visibility', visibility);
+      // Radio button logic
+      document.getElementById('layer-toggle').addEventListener('change', (e) => {
+        const selected = e.target.value;
+        Object.entries(layerMap).forEach(([key, layerId]) => {
+          if (map.getLayer(layerId)) {
+            map.setLayoutProperty(layerId, 'visibility', key === selected ? 'visible' : 'none');
           }
         });
-        console.log(`Layer visible: ${selectedLayer}`);
-      });
-
-      map.on('error', (e) => {
-        console.warn('Mapbox tile loading error:', e.error.message);
       });
     });
   });
