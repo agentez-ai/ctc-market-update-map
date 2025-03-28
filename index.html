@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -60,10 +61,10 @@
 <div id="sidebar">
   <strong>Toggle Layers:</strong>
   <form id="layer-toggle">
-    <label><input type="radio" name="layer" value="msa" checked> MSAs</label><br>
-    <label><input type="radio" name="layer" value="county"> Counties</label><br>
-    <label><input type="radio" name="layer" value="city"> Cities</label><br>
-    <label><input type="radio" name="layer" value="zip"> ZIP Codes</label><br>
+    <label><input type="radio" name="layer" value="msa" checked aria-label="Toggle MSAs Layer"> MSAs</label><br>
+    <label><input type="radio" name="layer" value="county" aria-label="Toggle Counties Layer"> Counties</label><br>
+    <label><input type="radio" name="layer" value="city" aria-label="Toggle Cities Layer"> Cities</label><br>
+    <label><input type="radio" name="layer" value="zip" aria-label="Toggle ZIP Codes Layer"> ZIP Codes</label><br>
   </form>
 </div>
 
@@ -80,7 +81,13 @@
       return;
     }
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
+    const accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
+    if (!accessToken) {
+      alert('Mapbox access token is missing. Please provide a valid token.');
+      return;
+    }
+
+    mapboxgl.accessToken = accessToken;
 
     const map = new mapboxgl.Map({
       container: 'map',
@@ -94,28 +101,35 @@
     map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
     map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }));
 
+    map.dragPan.enable();
+    map.touchZoomRotate.enable();
+
     const layerMap = {
-      msa: 'ctc-msas-florida-6reteb',
-      county: 'ctc-counties-florida-dtteh4',
-      city: 'ctc-cities-core7-63tvk2',
-      zip: 'ctc-zipcodes-core7-5l5cvy'
+      msa: ['ctc-msas-florida-6reteb-fill', 'ctc-msas-florida-6reteb-label'],
+      county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label'],
+      city: ['ctc-cities-core7-63tvk2-fill', 'ctc-cities-core7-63tvk2-label'],
+      zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
     };
 
     map.on('load', () => {
-      // Show only MSA by default
-      Object.entries(layerMap).forEach(([key, layerId]) => {
-        if (map.getLayer(layerId)) {
-          map.setLayoutProperty(layerId, 'visibility', key === 'msa' ? 'visible' : 'none');
-        }
+      Object.keys(layerMap).forEach(layer => {
+        const visibility = layer === 'msa' ? 'visible' : 'none';
+        layerMap[layer].forEach(layerId => {
+          if (map.getLayer(layerId)) {
+            map.setLayoutProperty(layerId, 'visibility', visibility);
+          }
+        });
       });
 
-      // Radio button logic
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
-        const selected = e.target.value;
-        Object.entries(layerMap).forEach(([key, layerId]) => {
-          if (map.getLayer(layerId)) {
-            map.setLayoutProperty(layerId, 'visibility', key === selected ? 'visible' : 'none');
-          }
+        const selectedLayer = e.target.value;
+        Object.keys(layerMap).forEach(layer => {
+          const visibility = layer === selectedLayer ? 'visible' : 'none';
+          layerMap[layer].forEach(layerId => {
+            if (map.getLayer(layerId)) {
+              map.setLayoutProperty(layerId, 'visibility', visibility);
+            }
+          });
         });
       });
     });
