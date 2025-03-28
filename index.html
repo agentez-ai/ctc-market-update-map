@@ -10,14 +10,10 @@
     body { margin: 0; padding: 0; font-family: sans-serif; }
     #map { position: absolute; top: 0; bottom: 0; width: 100%; }
     #sidebar {
-      position: absolute;
-      top: 10px;
-      left: 10px;
       background: white;
       padding: 10px;
       border-radius: 8px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      z-index: 1;
     }
     #sidebar label:hover {
       cursor: pointer;
@@ -48,10 +44,12 @@
       text-align: center;
     }
     .mapboxgl-ctrl-top-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 10px;
       margin-left: 10px;
-    }
-    .mapboxgl-ctrl.mapboxgl-ctrl-group {
-      margin-top: 90px;
     }
     .mapboxgl-ctrl-scale {
       display: block !important;
@@ -60,6 +58,9 @@
 </head>
 <body>
 
+<div id="map"></div>
+<div id="unsupported">Your browser does not support Mapbox GL JS. Please update your browser.</div>
+
 <div id="sidebar">
   <strong>Toggle Layers:</strong><br>
   <label><input type="checkbox" id="county" checked aria-label="Toggle Counties Layer"> Counties</label><br>
@@ -67,9 +68,6 @@
   <label><input type="checkbox" id="city" checked aria-label="Toggle Cities Layer"> Cities</label><br>
   <label><input type="checkbox" id="msa" checked aria-label="Toggle MSAs Layer"> MSAs</label><br>
 </div>
-
-<div id="map"></div>
-<div id="unsupported">Your browser does not support Mapbox GL JS. Please update your browser.</div>
 
 <footer>
   Powered by <a href="https://agentez.ai" target="_blank">Agentez.ai</a> |
