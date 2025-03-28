@@ -119,7 +119,8 @@
         }
       });
 
-      document.getElementById('layer-toggle').addEventListener('change', (e) => {
+      const form = document.getElementById('layer-toggle');
+      form.addEventListener('change', (e) => {
         const selectedLayer = e.target.value;
         Object.keys(layerMap).forEach(layer => {
           const visibility = layer === selectedLayer ? 'visible' : 'none';
@@ -127,6 +128,7 @@
             map.setLayoutProperty(layerMap[layer], 'visibility', visibility);
           }
         });
+        console.log(`Layer visible: ${selectedLayer}`);
       });
 
       map.on('error', (e) => {
