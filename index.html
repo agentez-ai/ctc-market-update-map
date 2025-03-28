@@ -58,11 +58,13 @@
 <div id="unsupported">Your browser does not support Mapbox GL JS. Please update your browser.</div>
 
 <div id="sidebar">
-  <strong>Toggle Layers:</strong><br>
-  <label><input type="checkbox" id="county" checked aria-label="Toggle Counties Layer"> Counties</label><br>
-  <label><input type="checkbox" id="zip" checked aria-label="Toggle ZIP Codes Layer"> ZIP Codes</label><br>
-  <label><input type="checkbox" id="city" checked aria-label="Toggle Cities Layer"> Cities</label><br>
-  <label><input type="checkbox" id="msa" checked aria-label="Toggle MSAs Layer"> MSAs</label><br>
+  <strong>Toggle Layers:</strong>
+  <form id="layer-toggle">
+    <label><input type="radio" name="layer" value="msa" checked aria-label="Toggle MSAs Layer"> MSAs</label><br>
+    <label><input type="radio" name="layer" value="county" aria-label="Toggle Counties Layer"> Counties</label><br>
+    <label><input type="radio" name="layer" value="city" aria-label="Toggle Cities Layer"> Cities</label><br>
+    <label><input type="radio" name="layer" value="zip" aria-label="Toggle ZIP Codes Layer"> ZIP Codes</label><br>
+  </form>
 </div>
 
 <footer>
@@ -95,41 +97,34 @@
 
     map.setPadding({ top: 10, left: 150, right: 10, bottom: 50 });
 
-    // Add navigation controls (zoom and rotation) to the bottom-right corner
     map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-
-    // Add fullscreen control in the top-right corner
     map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
-
-    // Restore the scale bar in the bottom-left corner
-    map.addControl(new mapboxgl.ScaleControl({
-      maxWidth: 100,
-      unit: 'imperial'
-    }));
+    map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }));
 
     map.dragPan.enable();
     map.touchZoomRotate.enable();
 
-    // Layer toggle logic with updated layerMap
     const layerMap = {
+      msa: 'ctc-msas-florida-6reteb',
       county: 'ctc-counties-florida-dtteh4',
-      zip: 'ctc-zipcodes-core7-5l5cvy',
       city: 'ctc-cities-core7-63tvk2',
-      msa: 'ctc-msas-florida-6reteb'
+      zip: 'ctc-zipcodes-core7-5l5cvy'
     };
 
     map.on('load', () => {
-      const layers = Object.keys(layerMap);
+      Object.keys(layerMap).forEach(layer => {
+        const visibility = layer === 'msa' ? 'visible' : 'none';
+        if (map.getLayer(layerMap[layer])) {
+          map.setLayoutProperty(layerMap[layer], 'visibility', visibility);
+        }
+      });
 
-      layers.forEach(layer => {
-        const checkbox = document.getElementById(layer);
-        checkbox.addEventListener('change', () => {
-          const mapLayer = layerMap[layer];
-          if (map.getLayer(mapLayer)) {
-            const visibility = checkbox.checked ? 'visible' : 'none';
-            map.setLayoutProperty(mapLayer, 'visibility', visibility);
-          } else {
-            console.warn(`Layer "${mapLayer}" does not exist on the map.`);
+      document.getElementById('layer-toggle').addEventListener('change', (e) => {
+        const selectedLayer = e.target.value;
+        Object.keys(layerMap).forEach(layer => {
+          const visibility = layer === selectedLayer ? 'visible' : 'none';
+          if (map.getLayer(layerMap[layer])) {
+            map.setLayoutProperty(layerMap[layer], 'visibility', visibility);
           }
         });
       });
