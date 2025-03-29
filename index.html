@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,11 +81,6 @@
     }
 
     const accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
-    if (!accessToken) {
-      alert('Mapbox access token is missing. Please provide a valid token.');
-      return;
-    }
-
     mapboxgl.accessToken = accessToken;
 
     const map = new mapboxgl.Map({
@@ -101,9 +95,6 @@
     map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
     map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }));
 
-    map.dragPan.enable();
-    map.touchZoomRotate.enable();
-
     const layerMap = {
       msa: ['tcc_florida_msas-6reteb-fill', 'tcc_florida_msas-6reteb-label'],
       county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label'],
@@ -117,17 +108,23 @@
         layerMap[layer].forEach(layerId => {
           if (map.getLayer(layerId)) {
             map.setLayoutProperty(layerId, 'visibility', visibility);
+            console.log(`Initial visibility for ${layerId}: ${visibility}`);
           }
         });
       });
 
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
         const selectedLayer = e.target.value;
+        console.log(`Toggling to layer: ${selectedLayer}`);
+
         Object.keys(layerMap).forEach(layer => {
           const visibility = layer === selectedLayer ? 'visible' : 'none';
           layerMap[layer].forEach(layerId => {
             if (map.getLayer(layerId)) {
               map.setLayoutProperty(layerId, 'visibility', visibility);
+              console.log(`Setting visibility for ${layerId}: ${visibility}`);
+            } else {
+              console.warn(`Layer not found: ${layerId}`);
             }
           });
         });
