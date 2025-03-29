@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -102,32 +103,30 @@
       zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
     };
 
-    map.on('load', () => {
-      Object.keys(layerMap).forEach(layer => {
-        const visibility = layer === 'msa' ? 'visible' : 'none';
-        layerMap[layer].forEach(layerId => {
-          if (map.getLayer(layerId)) {
-            map.setLayoutProperty(layerId, 'visibility', visibility);
-            console.log(`Initial visibility for ${layerId}: ${visibility}`);
-          }
-        });
+    function toggleLayerVisibility(selectedLayer) {
+      Object.values(layerMap).flat().forEach(layerId => {
+        if (map.getLayer(layerId)) {
+          map.setLayoutProperty(layerId, 'visibility', 'none');
+          console.log(`Hiding: ${layerId}`);
+        }
       });
 
-      document.getElementById('layer-toggle').addEventListener('change', (e) => {
-        const selectedLayer = e.target.value;
-        console.log(`Toggling to layer: ${selectedLayer}`);
-
-        Object.keys(layerMap).forEach(layer => {
-          const visibility = layer === selectedLayer ? 'visible' : 'none';
-          layerMap[layer].forEach(layerId => {
-            if (map.getLayer(layerId)) {
-              map.setLayoutProperty(layerId, 'visibility', visibility);
-              console.log(`Setting visibility for ${layerId}: ${visibility}`);
-            } else {
-              console.warn(`Layer not found: ${layerId}`);
-            }
-          });
+      if (layerMap[selectedLayer]) {
+        layerMap[selectedLayer].forEach(layerId => {
+          if (map.getLayer(layerId)) {
+            map.setLayoutProperty(layerId, 'visibility', 'visible');
+            console.log(`Showing: ${layerId}`);
+          }
         });
+      } else {
+        console.warn(`Unknown layer group selected: ${selectedLayer}`);
+      }
+    }
+
+    map.on('load', () => {
+      toggleLayerVisibility('msa');
+      document.getElementById('layer-toggle').addEventListener('change', (e) => {
+        toggleLayerVisibility(e.target.value);
       });
     });
   });
