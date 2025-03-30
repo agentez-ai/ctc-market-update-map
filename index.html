@@ -19,7 +19,7 @@
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
       z-index: 1;
     }
-    #footer {
+    footer {
       position: absolute;
       bottom: 10px;
       left: 50%;
@@ -30,6 +30,13 @@
       font-size: 12px;
       box-shadow: 0 0 15px rgba(0,0,0,0.2);
       z-index: 1;
+    }
+    footer a {
+      text-decoration: none;
+      color: #007bff;
+    }
+    footer a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -45,13 +52,11 @@
     <label><input type="radio" name="layer" value="zip"> ZIP Codes</label><br>
   </form>
 </div>
-
 <footer>
   Powered by <a href="https://agentez.ai" target="_blank">Agentez.ai</a> |
   Partnered with <a href="https://getyourpiece.com" target="_blank">GetYourPiece.com</a> |
   Customized for <a href="https://cleartoclosehometeam.com" target="_blank">ClearToCloseHomeTeam.com</a>
 </footer>
-
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
