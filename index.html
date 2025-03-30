@@ -89,15 +89,19 @@
     window.map.on('load', () => {
       console.log('Map loaded.');
 
-      // Show all layers initially
+      // Set default visibility: Only show MSAs
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
           if (window.map.getLayer(layerId)) {
-            window.map.setLayoutProperty(layerId, 'visibility', 'visible');
-            console.log(`Showing layer: ${layerId}`);
+            const visibility = layerGroup === 'msa' ? 'visible' : 'none';
+            window.map.setLayoutProperty(layerId, 'visibility', visibility);
+            console.log(`Setting visibility for ${layerId}: ${visibility}`);
           }
         });
       });
+
+      // Apply default filter to MSAs
+      applyFilters('msa');
 
       // Add event listener for toggling layers
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
@@ -114,8 +118,8 @@
         layerMap[layerGroup].forEach(layerId => {
           if (window.map.getLayer(layerId)) {
             const visibility = layerGroup === selectedLayer ? 'visible' : 'none';
-            console.log(`Setting visibility for ${layerId}: ${visibility}`);
             window.map.setLayoutProperty(layerId, 'visibility', visibility);
+            console.log(`Setting visibility for ${layerId}: ${visibility}`);
           }
         });
       });
