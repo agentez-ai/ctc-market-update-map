@@ -138,8 +138,13 @@
       console.log('Map loaded successfully.');
 
       // Fix layer ordering: Move county labels above their fill layer and MSA fill layer
-      map.moveLayer('ctc-counties-florida-dtteh4-label', 'ctc-counties-florida-dtteh4-fill');
-      map.moveLayer('ctc-counties-florida-dtteh4-label', 'ctc-msas-florida-6reteb-fill');
+      if (map.getLayer('ctc-counties-florida-dtteh4-label') && map.getLayer('ctc-counties-florida-dtteh4-fill')) {
+        map.moveLayer('ctc-counties-florida-dtteh4-label', 'ctc-counties-florida-dtteh4-fill');
+      }
+
+      if (map.getLayer('ctc-counties-florida-dtteh4-label') && map.getLayer('ctc-msas-florida-6reteb-fill')) {
+        map.moveLayer('ctc-counties-florida-dtteh4-label', 'ctc-msas-florida-6reteb-fill');
+      }
 
       // Set default visibility: Only show MSAs
       Object.keys(layerMap).forEach(layerGroup => {
