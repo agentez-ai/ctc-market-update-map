@@ -8,7 +8,7 @@
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <style>
     body { margin: 0; padding: 0; font-family: sans-serif; }
-    #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    #map { position: absolute; top: 0; bottom: 0; width: 100%; z-index: 0; }
     #sidebar {
       position: absolute;
       top: 10px;
@@ -62,7 +62,7 @@
 
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
+      style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd', // Your custom style
       center: [-81.8, 26.2],
       zoom: 7
     });
@@ -126,7 +126,7 @@
     };
 
     map.on('load', () => {
-      console.log('Map loaded.');
+      console.log('Map loaded successfully.');
 
       // Fix layer ordering: Move county labels above their fill layer and MSA fill layer
       map.moveLayer('ctc-counties-florida-dtteh4-label', 'ctc-counties-florida-dtteh4-fill');
