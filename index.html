@@ -164,6 +164,7 @@
       if (filters[selectedLayer]) {
         layerMap[selectedLayer].forEach(layerId => {
           if (map.getLayer(layerId)) {
+            console.log(`Applying filter to ${layerId}:`, filters[selectedLayer]);
             map.setFilter(layerId, filters[selectedLayer]);
           }
         });
