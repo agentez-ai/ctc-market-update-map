@@ -137,9 +137,9 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Fix layer ordering: Move county labels above their fill layer
-      if (map.getLayer('ctc-counties-florida-dtteh4-label') && map.getLayer('ctc-counties-florida-dtteh4-fill')) {
-        map.moveLayer('ctc-counties-florida-dtteh4-label', 'ctc-counties-florida-dtteh4-fill');
+      // Fix layer ordering: Move county labels above all other layers
+      if (map.getLayer('ctc-counties-florida-dtteh4-label')) {
+        map.moveLayer('ctc-counties-florida-dtteh4-label');
       }
 
       // Set default visibility: Only show MSAs
