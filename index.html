@@ -103,18 +103,32 @@
       zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
     };
 
+    map.on('load', () => {
+      map.setFilter('ctc-counties-florida-dtteh4-label', [
+        'in',
+        ['get', 'NAMELSAD'],
+        'Miami-Dade County', 'Broward County', 'Palm Beach County',
+        'Collier County', 'Lee County', 'Charlotte County', 'Hendry County'
+      ]);
+
+      map.setFilter('ctc-msas-florida-6reteb-label', [
+        'in',
+        ['get', 'NAME'],
+        'Miami-Fort Lauderdale-West Palm Beach, FL', 'Naples-Marco Island, FL',
+        'Cape Coral-Fort Myers, FL', 'Punta Gorda, FL', 'Clewiston, FL'
+      ]);
+
+      toggleLayerVisibility('msa');
+
+      document.getElementById('layer-toggle').addEventListener('change', (e) => {
+        toggleLayerVisibility(e.target.value);
+      });
+    });
+
     function toggleLayerVisibility(selectedLayer) {
       Object.values(layerMap).flat().forEach(layerId => {
         if (map.getLayer(layerId)) {
           map.setLayoutProperty(layerId, 'visibility', 'none');
-          try {
-            if (map.getPaintProperty(layerId, 'fill-opacity') !== undefined) {
-              map.setPaintProperty(layerId, 'fill-opacity', 0);
-            }
-          } catch (err) {
-            console.warn(`No fill-opacity to hide for ${layerId}`);
-          }
-          console.log(`Hiding: ${layerId}`);
         }
       });
 
@@ -122,28 +136,10 @@
         layerMap[selectedLayer].forEach(layerId => {
           if (map.getLayer(layerId)) {
             map.setLayoutProperty(layerId, 'visibility', 'visible');
-            try {
-              if (map.getPaintProperty(layerId, 'fill-opacity') !== undefined) {
-                map.setPaintProperty(layerId, 'fill-opacity', 1);
-              }
-            } catch (err) {
-              console.warn(`No fill-opacity to show for ${layerId}`);
-            }
-            console.log(`Showing: ${layerId}`);
           }
         });
-      } else {
-        console.warn(`Unknown layer group selected: ${selectedLayer}`);
       }
     }
-
-    map.on('load', () => {
-      toggleLayerVisibility('msa');
-
-      document.getElementById('layer-toggle').addEventListener('change', (e) => {
-        toggleLayerVisibility(e.target.value);
-      });
-    });
   });
 </script>
 
