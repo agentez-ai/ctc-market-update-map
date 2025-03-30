@@ -107,7 +107,13 @@
       Object.values(layerMap).flat().forEach(layerId => {
         if (map.getLayer(layerId)) {
           map.setLayoutProperty(layerId, 'visibility', 'none');
-          console.log(`Hiding: ${layerId}`);
+          try {
+            if (map.getPaintProperty(layerId, 'fill-opacity') !== undefined) {
+              map.setPaintProperty(layerId, 'fill-opacity', 0);
+            }
+          } catch (e) {
+            console.warn(`No fill-opacity to hide for ${layerId}`);
+          }
         }
       });
 
@@ -115,11 +121,15 @@
         layerMap[selectedLayer].forEach(layerId => {
           if (map.getLayer(layerId)) {
             map.setLayoutProperty(layerId, 'visibility', 'visible');
-            console.log(`Showing: ${layerId}`);
+            try {
+              if (map.getPaintProperty(layerId, 'fill-opacity') !== undefined) {
+                map.setPaintProperty(layerId, 'fill-opacity', 1);
+              }
+            } catch (e) {
+              console.warn(`No fill-opacity to show for ${layerId}`);
+            }
           }
         });
-      } else {
-        console.warn(`Unknown layer group selected: ${selectedLayer}`);
       }
     }
 
