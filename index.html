@@ -79,20 +79,11 @@
     map.on('load', () => {
       console.log('Map loaded.');
 
-      // Verify source-layer names
-      const msaSource = map.getSource('tcc_florida_msas-6reteb');
-      if (msaSource && msaSource.vectorLayers) {
-        console.log('MSA source layers:', msaSource.vectorLayers.map(layer => layer.id));
-      } else {
-        console.error('MSA source or vectorLayers not found.');
-      }
+      // Fix layer ordering: Move county labels above MSA fill layer
+      map.moveLayer('ctc-counties-florida-dtteh4-label', 'ctc-msas-florida-6reteb-fill');
 
-      const countySource = map.getSource('florida_counties-dtteh4');
-      if (countySource && countySource.vectorLayers) {
-        console.log('County source layers:', countySource.vectorLayers.map(layer => layer.id));
-      } else {
-        console.error('County source or vectorLayers not found.');
-      }
+      // Set zoom range for county labels
+      map.setLayerZoomRange('ctc-counties-florida-dtteh4-label', 7, 22);
 
       // Set default visibility: Only show MSAs
       Object.keys(layerMap).forEach(layerGroup => {
@@ -159,6 +150,12 @@
           if (filters[selectedLayer] && map.getLayer(layerId)) {
             map.setFilter(layerId, filters[selectedLayer][layerType]);
             console.log(`Filter applied to ${layerId} (${layerType}):`, filters[selectedLayer][layerType]);
+
+            // Update label layer paint properties
+            if (layerType === 'label') {
+              map.setPaintProperty(layerId, 'text-opacity', 1);
+              map.setLayoutProperty(layerId, 'text-field', ['get', 'NAME']);
+            }
           }
         });
       } catch (error) {
