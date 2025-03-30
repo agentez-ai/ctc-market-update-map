@@ -83,19 +83,15 @@
     map.on('load', () => {
       console.log('Map loaded.');
 
-      // Hide all layers initially
+      // Show all layers initially
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
           if (map.getLayer(layerId)) {
-            map.setLayoutProperty(layerId, 'visibility', 'none');
-            console.log(`Hiding layer: ${layerId}`);
+            map.setLayoutProperty(layerId, 'visibility', 'visible');
+            console.log(`Showing layer: ${layerId}`);
           }
         });
       });
-
-      // Default to MSAs on load
-      toggleLayerVisibility('msa');
-      applyFilters('msa');
 
       // Add event listener for toggling layers
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
