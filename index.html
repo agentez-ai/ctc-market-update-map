@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,7 +96,7 @@
     map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }));
 
     const layerMap = {
-      msa: ['ctc-msas-florida-6reteb-fill', 'tcc_florida_msas-6reteb-label'],
+      msa: ['ctc-msas-florida-6reteb-fill', 'ctc-msas-florida-6reteb-label'],
       county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label'],
       city: ['ctc-cities-core7-63tvk2-fill', 'ctc-cities-core7-63tvk2-label'],
       zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
@@ -106,21 +105,14 @@
     function toggleLayerVisibility(selectedLayer) {
       Object.values(layerMap).flat().forEach(layerId => {
         if (map.getLayer(layerId)) {
+          map.setLayoutProperty(layerId, 'visibility', 'none');
           try {
-            map.setLayoutProperty(layerId, 'visibility', 'none');
-          } catch (err) {
-            console.warn(`Layout error hiding ${layerId}:`, err);
-          }
-
-          try {
-            const hasOpacity = map.getPaintProperty(layerId, 'fill-opacity');
-            if (typeof hasOpacity !== 'undefined') {
+            if (map.getPaintProperty(layerId, 'fill-opacity') !== undefined) {
               map.setPaintProperty(layerId, 'fill-opacity', 0);
             }
           } catch (err) {
             console.warn(`No fill-opacity to hide for ${layerId}`);
           }
-
           console.log(`Hiding: ${layerId}`);
         }
       });
@@ -128,21 +120,14 @@
       if (layerMap[selectedLayer]) {
         layerMap[selectedLayer].forEach(layerId => {
           if (map.getLayer(layerId)) {
+            map.setLayoutProperty(layerId, 'visibility', 'visible');
             try {
-              map.setLayoutProperty(layerId, 'visibility', 'visible');
-            } catch (err) {
-              console.warn(`Layout error showing ${layerId}:`, err);
-            }
-
-            try {
-              const hasOpacity = map.getPaintProperty(layerId, 'fill-opacity');
-              if (typeof hasOpacity !== 'undefined') {
+              if (map.getPaintProperty(layerId, 'fill-opacity') !== undefined) {
                 map.setPaintProperty(layerId, 'fill-opacity', 1);
               }
             } catch (err) {
               console.warn(`No fill-opacity to show for ${layerId}`);
             }
-
             console.log(`Showing: ${layerId}`);
           }
         });
