@@ -71,13 +71,13 @@
     const filters = {
       msa: [
         'in',
-        ['get', 'NAME'],
+        'NAME', // Corrected syntax: no ['get', 'NAME']
         'Miami-Fort Lauderdale-West Palm Beach, FL', 'Naples-Marco Island, FL',
         'Cape Coral-Fort Myers, FL', 'Punta Gorda, FL', 'Clewiston, FL'
       ],
       county: [
         'in',
-        ['get', 'NAMELSAD'],
+        'NAMELSAD', // Corrected syntax: no ['get', 'NAMELSAD']
         'Miami-Dade County', 'Broward County', 'Palm Beach County',
         'Collier County', 'Lee County', 'Charlotte County', 'Hendry County'
       ],
@@ -110,6 +110,14 @@
         toggleLayerVisibility(selectedLayer);
         applyFilters(selectedLayer);
       });
+
+      // Debugging: Log properties on click
+      window.map.on('click', (e) => {
+        const features = window.map.queryRenderedFeatures(e.point);
+        if (features.length) {
+          console.log('Feature properties:', features[0].properties);
+        }
+      });
     });
 
     // Toggle layer visibility
@@ -127,24 +135,24 @@
 
     // Apply filters to the selected layer
     function applyFilters(selectedLayer) {
-      // Clear filters for all layers
-      Object.keys(layerMap).forEach(layerGroup => {
-        layerMap[layerGroup].forEach(layerId => {
-          if (window.map.getLayer(layerId)) {
-            window.map.setFilter(layerId, null);
-            console.log(`Clearing filter for ${layerId}`);
+      try {
+        // Clear filters for all layers
+        Object.keys(layerMap).forEach(layerGroup => {
+          const fillLayer = layerMap[layerGroup][0]; // Only apply to fill layers
+          if (window.map.getLayer(fillLayer)) {
+            window.map.setFilter(fillLayer, null);
+            console.log(`Clearing filter for ${fillLayer}`);
           }
         });
-      });
 
-      // Apply filters for the selected layer
-      if (filters[selectedLayer]) {
-        layerMap[selectedLayer].forEach(layerId => {
-          if (window.map.getLayer(layerId)) {
-            console.log(`Applying filter to ${layerId}:`, filters[selectedLayer]);
-            window.map.setFilter(layerId, filters[selectedLayer]);
-          }
-        });
+        // Apply filters for the selected layer
+        const fillLayer = layerMap[selectedLayer][0]; // Only apply to fill layers
+        if (filters[selectedLayer] && window.map.getLayer(fillLayer)) {
+          console.log(`Applying filter to ${fillLayer}:`, filters[selectedLayer]);
+          window.map.setFilter(fillLayer, filters[selectedLayer]);
+        }
+      } catch (error) {
+        console.error('Filter error:', error);
       }
     }
   });
