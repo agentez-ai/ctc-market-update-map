@@ -24,18 +24,6 @@
       background-color: #f3f3f3;
       border-radius: 4px;
     }
-    #footer {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: white;
-      padding: 5px 10px;
-      border-radius: 8px;
-      font-size: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      z-index: 1;
-    }
   </style>
 </head>
 <body>
@@ -49,9 +37,6 @@
     <label><input type="radio" name="layer" value="city"> Cities</label><br>
     <label><input type="radio" name="layer" value="zip"> ZIP Codes</label><br>
   </form>
-</div>
-<div id="footer">
-  Powered by Agentez.ai | Created for CTC Home Team
 </div>
 
 <script>
@@ -71,17 +56,6 @@
       center: [-81.8, 26.2],
       zoom: 7
     });
-
-    // Add zoom controls
-    const nav = new mapboxgl.NavigationControl();
-    map.addControl(nav, 'top-right');
-
-    // Add scale bar
-    const scale = new mapboxgl.ScaleControl({
-      maxWidth: 100,
-      unit: 'imperial' // Displays miles
-    });
-    map.addControl(scale, 'bottom-right');
 
     // Define layers and filters
     const layerMap = {
