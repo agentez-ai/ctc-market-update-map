@@ -40,9 +40,6 @@
 </div>
 
 <script>
-  // Declare the map globally so it works everywhere
-  window.map = null;
-
   document.addEventListener('DOMContentLoaded', () => {
     if (!mapboxgl.supported()) {
       alert('Your browser does not support Mapbox GL JS.');
@@ -53,7 +50,7 @@
     const accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
     mapboxgl.accessToken = accessToken;
 
-    window.map = new mapboxgl.Map({
+    const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
       center: [-81.8, 26.2],
@@ -68,46 +65,41 @@
       zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
     };
 
-    const sources = {
-      msa: 'tcc_florida_msas-6reteb',
-      county: 'florida_counties-dtteh4',
-      city: 'core7_cities-63tvk2',
-      zip: 'core7_zipcodes-5l5cvy'
-    };
-
     const filters = {
-      msa: [
-        'in',
-        'NAME', // Property name
-        'Miami-Fort Lauderdale-West Palm Beach, FL', 
-        'Naples-Marco Island, FL',
-        'Cape Coral-Fort Myers, FL', 
-        'Punta Gorda, FL', 
-        'Clewiston, FL'
-      ],
-      county: [
-        'in',
-        'NAMELSAD', // Property name
-        'Miami-Dade County', 
-        'Broward County', 
-        'Palm Beach County',
-        'Collier County', 
-        'Lee County', 
-        'Charlotte County', 
-        'Hendry County'
-      ]
+      msa: {
+        fill: ['in', 'NAME', 'Miami-Fort Lauderdale-West Palm Beach, FL', 'Naples-Marco Island, FL', 'Cape Coral-Fort Myers, FL', 'Punta Gorda, FL', 'Clewiston, FL'],
+        label: ['in', 'NAME', 'Miami-Fort Lauderdale-West Palm Beach, FL', 'Naples-Marco Island, FL', 'Cape Coral-Fort Myers, FL', 'Punta Gorda, FL', 'Clewiston, FL']
+      },
+      county: {
+        fill: ['in', 'NAMELSAD', 'Miami-Dade County', 'Broward County', 'Palm Beach County', 'Collier County', 'Lee County', 'Charlotte County', 'Hendry County'],
+        label: ['in', 'COUNTY', 'Miami-Dade County', 'Broward County', 'Palm Beach County', 'Collier County', 'Lee County', 'Charlotte County', 'Hendry County']
+      }
     };
 
-    // Wait for the map to load
-    window.map.on('load', () => {
+    map.on('load', () => {
       console.log('Map loaded.');
+
+      // Verify source-layer names
+      const msaSource = map.getSource('tcc_florida_msas-6reteb');
+      if (msaSource && msaSource.vectorLayers) {
+        console.log('MSA source layers:', msaSource.vectorLayers.map(layer => layer.id));
+      } else {
+        console.error('MSA source or vectorLayers not found.');
+      }
+
+      const countySource = map.getSource('florida_counties-dtteh4');
+      if (countySource && countySource.vectorLayers) {
+        console.log('County source layers:', countySource.vectorLayers.map(layer => layer.id));
+      } else {
+        console.error('County source or vectorLayers not found.');
+      }
 
       // Set default visibility: Only show MSAs
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
-          if (window.map.getLayer(layerId)) {
+          if (map.getLayer(layerId)) {
             const visibility = layerGroup === 'msa' ? 'visible' : 'none';
-            window.map.setLayoutProperty(layerId, 'visibility', visibility);
+            map.setLayoutProperty(layerId, 'visibility', visibility);
             console.log(`Setting visibility for ${layerId}: ${visibility}`);
           }
         });
@@ -125,10 +117,12 @@
       });
 
       // Debugging: Log properties on click
-      window.map.on('click', (e) => {
-        const features = window.map.queryRenderedFeatures(e.point);
+      map.on('click', (e) => {
+        const features = map.queryRenderedFeatures(e.point);
         if (features.length) {
           console.log('Feature properties:', features[0].properties);
+        } else {
+          console.log('No features found at this point.');
         }
       });
     });
@@ -137,9 +131,9 @@
     function toggleLayerVisibility(selectedLayer) {
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
-          if (window.map.getLayer(layerId)) {
+          if (map.getLayer(layerId)) {
             const visibility = layerGroup === selectedLayer ? 'visible' : 'none';
-            window.map.setLayoutProperty(layerId, 'visibility', visibility);
+            map.setLayoutProperty(layerId, 'visibility', visibility);
             console.log(`Setting visibility for ${layerId}: ${visibility}`);
           }
         });
@@ -148,12 +142,27 @@
 
     // Apply filters to the selected layer
     function applyFilters(selectedLayer) {
-      const fillLayer = layerMap[selectedLayer][0]; // Only apply to fill layers
-      const source = sources[selectedLayer]; // Get the correct source
-      if (filters[selectedLayer] && window.map.getLayer(fillLayer)) {
-        window.map.setLayoutProperty(fillLayer, 'visibility', 'visible'); // Ensure visibility
-        window.map.setFilter(fillLayer, filters[selectedLayer]);
-        console.log(`Applying filter to ${fillLayer} (source: ${source}):`, filters[selectedLayer]);
+      try {
+        // Get the previously active layer
+        const previousLayer = document.querySelector('input[name="layer"]:checked')?.value || 'msa';
+
+        // Clear filters for the previously active layer
+        layerMap[previousLayer].forEach(layerId => {
+          if (map.getLayer(layerId)) {
+            map.setFilter(layerId, null); // Clear the filter
+          }
+        });
+
+        // Apply filters to both fill and label layers for the selected layer
+        layerMap[selectedLayer].forEach((layerId, index) => {
+          const layerType = index === 0 ? 'fill' : 'label'; // Determine if it's a fill or label layer
+          if (filters[selectedLayer] && map.getLayer(layerId)) {
+            map.setFilter(layerId, filters[selectedLayer][layerType]);
+            console.log(`Filter applied to ${layerId} (${layerType}):`, filters[selectedLayer][layerType]);
+          }
+        });
+      } catch (error) {
+        console.error('Filter error:', error);
       }
     }
   });
