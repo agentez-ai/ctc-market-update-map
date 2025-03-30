@@ -72,14 +72,22 @@
       msa: [
         'in',
         'NAME', // Corrected syntax: no ['get', 'NAME']
-        'Miami-Fort Lauderdale-West Palm Beach, FL', 'Naples-Marco Island, FL',
-        'Cape Coral-Fort Myers, FL', 'Punta Gorda, FL', 'Clewiston, FL'
+        'Miami-Fort Lauderdale-West Palm Beach, FL', 
+        'Naples-Marco Island, FL',
+        'Cape Coral-Fort Myers, FL', 
+        'Punta Gorda, FL', 
+        'Clewiston, FL'
       ],
       county: [
         'in',
         'NAMELSAD', // Corrected syntax: no ['get', 'NAMELSAD']
-        'Miami-Dade County', 'Broward County', 'Palm Beach County',
-        'Collier County', 'Lee County', 'Charlotte County', 'Hendry County'
+        'Miami-Dade County', 
+        'Broward County', 
+        'Palm Beach County',
+        'Collier County', 
+        'Lee County', 
+        'Charlotte County', 
+        'Hendry County'
       ],
       city: null, // Add city-specific filters here if needed
       zip: null // Add ZIP Code-specific filters here if needed
@@ -136,20 +144,11 @@
     // Apply filters to the selected layer
     function applyFilters(selectedLayer) {
       try {
-        // Clear filters for all layers
-        Object.keys(layerMap).forEach(layerGroup => {
-          const fillLayer = layerMap[layerGroup][0]; // Only apply to fill layers
-          if (window.map.getLayer(fillLayer)) {
-            window.map.setFilter(fillLayer, null);
-            console.log(`Clearing filter for ${fillLayer}`);
-          }
-        });
-
-        // Apply filters for the selected layer
         const fillLayer = layerMap[selectedLayer][0]; // Only apply to fill layers
         if (filters[selectedLayer] && window.map.getLayer(fillLayer)) {
-          console.log(`Applying filter to ${fillLayer}:`, filters[selectedLayer]);
+          window.map.setLayoutProperty(fillLayer, 'visibility', 'visible'); // Ensure visibility
           window.map.setFilter(fillLayer, filters[selectedLayer]);
+          console.log(`Applying filter to ${fillLayer}:`, filters[selectedLayer]);
         }
       } catch (error) {
         console.error('Filter error:', error);
