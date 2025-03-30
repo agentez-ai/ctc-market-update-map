@@ -40,22 +40,27 @@
 </div>
 
 <script>
+  // Declare the map globally so it works everywhere
+  window.map = null;
+
   document.addEventListener('DOMContentLoaded', () => {
     if (!mapboxgl.supported()) {
       alert('Your browser does not support Mapbox GL JS.');
       return;
     }
 
+    // Initialize Mapbox
     const accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
     mapboxgl.accessToken = accessToken;
 
-    const map = new mapboxgl.Map({
+    window.map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
       center: [-81.8, 26.2],
       zoom: 7
     });
 
+    // Define layers and filters
     const layerMap = {
       msa: ['ctc-msas-florida-6reteb-fill', 'ctc-msas-florida-6reteb-label'],
       county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label'],
@@ -80,14 +85,15 @@
       zip: null // Add ZIP Code-specific filters here if needed
     };
 
-    map.on('load', () => {
+    // Wait for the map to load
+    window.map.on('load', () => {
       console.log('Map loaded.');
 
       // Show all layers initially
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
-          if (map.getLayer(layerId)) {
-            map.setLayoutProperty(layerId, 'visibility', 'visible');
+          if (window.map.getLayer(layerId)) {
+            window.map.setLayoutProperty(layerId, 'visibility', 'visible');
             console.log(`Showing layer: ${layerId}`);
           }
         });
@@ -102,24 +108,26 @@
       });
     });
 
+    // Toggle layer visibility
     function toggleLayerVisibility(selectedLayer) {
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
-          if (map.getLayer(layerId)) {
+          if (window.map.getLayer(layerId)) {
             const visibility = layerGroup === selectedLayer ? 'visible' : 'none';
             console.log(`Setting visibility for ${layerId}: ${visibility}`);
-            map.setLayoutProperty(layerId, 'visibility', visibility);
+            window.map.setLayoutProperty(layerId, 'visibility', visibility);
           }
         });
       });
     }
 
+    // Apply filters to the selected layer
     function applyFilters(selectedLayer) {
       // Clear filters for all layers
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
-          if (map.getLayer(layerId)) {
-            map.setFilter(layerId, null);
+          if (window.map.getLayer(layerId)) {
+            window.map.setFilter(layerId, null);
             console.log(`Clearing filter for ${layerId}`);
           }
         });
@@ -128,9 +136,9 @@
       // Apply filters for the selected layer
       if (filters[selectedLayer]) {
         layerMap[selectedLayer].forEach(layerId => {
-          if (map.getLayer(layerId)) {
+          if (window.map.getLayer(layerId)) {
             console.log(`Applying filter to ${layerId}:`, filters[selectedLayer]);
-            map.setFilter(layerId, filters[selectedLayer]);
+            window.map.setFilter(layerId, filters[selectedLayer]);
           }
         });
       }
