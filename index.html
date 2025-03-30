@@ -137,16 +137,11 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Debugging: Log all features in the county layer
-      const countyLayer = 'ctc-counties-florida-dtteh4-fill';
-      const features = map.querySourceFeatures('composite', { sourceLayer: countyLayer });
-      console.log('County Layer Features:', features);
-
       // Move all label layers above their corresponding fill layers
       Object.keys(layerMap).forEach(layerGroup => {
         const [fillLayer, labelLayer] = layerMap[layerGroup];
         if (map.getLayer(labelLayer) && map.getLayer(fillLayer)) {
-          map.moveLayer(labelLayer, fillLayer); // Move label above fill
+          map.moveLayer(labelLayer); // Move label above all layers
         }
       });
 
@@ -170,16 +165,6 @@
         console.log(`Toggling to layer: ${selectedLayer}`);
         toggleLayerVisibility(selectedLayer);
         applyFilters(selectedLayer);
-      });
-
-      // Debugging: Log properties on click
-      map.on('click', (e) => {
-        const features = map.queryRenderedFeatures(e.point);
-        if (features.length) {
-          console.log('Feature properties:', features[0].properties);
-        } else {
-          console.log('No features found at this point.');
-        }
       });
     });
 
