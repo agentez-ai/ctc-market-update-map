@@ -34,6 +34,8 @@
   <form id="layer-toggle">
     <label><input type="radio" name="layer" value="msa" checked> MSAs</label><br>
     <label><input type="radio" name="layer" value="county"> Counties</label><br>
+    <label><input type="radio" name="layer" value="city"> Cities</label><br>
+    <label><input type="radio" name="layer" value="zip"> ZIP Codes</label><br>
   </form>
 </div>
 
@@ -55,8 +57,10 @@
     });
 
     const layerMap = {
-      msa: ['ctc-msas-florida-6reteb-label'],
-      county: ['ctc-counties-florida-dtteh4-label']
+      msa: ['ctc-msas-florida-6reteb-fill', 'ctc-msas-florida-6reteb-label'],
+      county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label'],
+      city: ['ctc-cities-core7-63tvk2-fill', 'ctc-cities-core7-63tvk2-label'],
+      zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
     };
 
     const filters = {
@@ -71,7 +75,9 @@
         ['get', 'NAMELSAD'],
         'Miami-Dade County', 'Broward County', 'Palm Beach County',
         'Collier County', 'Lee County', 'Charlotte County', 'Hendry County'
-      ]
+      ],
+      city: null, // Add city-specific filters here if needed
+      zip: null // Add ZIP Code-specific filters here if needed
     };
 
     map.on('load', () => {
@@ -82,6 +88,7 @@
         layerMap[layerGroup].forEach(layerId => {
           if (map.getLayer(layerId)) {
             map.setLayoutProperty(layerId, 'visibility', 'none');
+            console.log(`Hiding layer: ${layerId}`);
           }
         });
       });
@@ -117,6 +124,7 @@
         layerMap[layerGroup].forEach(layerId => {
           if (map.getLayer(layerId)) {
             map.setFilter(layerId, null);
+            console.log(`Clearing filter for ${layerId}`);
           }
         });
       });
