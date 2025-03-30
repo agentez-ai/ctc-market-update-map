@@ -109,7 +109,7 @@
         fill: ['in', 'NAMELSAD', 
           'Miami-Dade County', 
           'Broward County',
-          'Palm Beach County',
+          'Palm Beach County', // Added Palm Beach County
           'Collier County', 
           'Lee County',
           'Charlotte County',
@@ -118,7 +118,7 @@
         label: ['in', 'NAMELSAD', 
           'Miami-Dade County',
           'Broward County',
-          'Palm Beach County',
+          'Palm Beach County', // Added Palm Beach County
           'Collier County',
           'Lee County',
           'Charlotte County',
@@ -137,10 +137,13 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Fix layer ordering: Move county labels above all other layers
-      if (map.getLayer('ctc-counties-florida-dtteh4-label')) {
-        map.moveLayer('ctc-counties-florida-dtteh4-label');
-      }
+      // Move all label layers above their corresponding fill layers
+      Object.keys(layerMap).forEach(layerGroup => {
+        const [fillLayer, labelLayer] = layerMap[layerGroup];
+        if (map.getLayer(labelLayer) && map.getLayer(fillLayer)) {
+          map.moveLayer(labelLayer, fillLayer); // Move label above fill
+        }
+      });
 
       // Set default visibility: Only show MSAs
       Object.keys(layerMap).forEach(layerGroup => {
