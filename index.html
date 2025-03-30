@@ -68,10 +68,17 @@
       zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
     };
 
+    const sources = {
+      msa: 'tcc_florida_msas-6reteb',
+      county: 'florida_counties-dtteh4',
+      city: 'core7_cities-63tvk2',
+      zip: 'core7_zipcodes-5l5cvy'
+    };
+
     const filters = {
       msa: [
         'in',
-        'NAME', // Corrected syntax: no ['get', 'NAME']
+        'NAME', // Property name
         'Miami-Fort Lauderdale-West Palm Beach, FL', 
         'Naples-Marco Island, FL',
         'Cape Coral-Fort Myers, FL', 
@@ -80,7 +87,7 @@
       ],
       county: [
         'in',
-        'NAMELSAD', // Corrected syntax: no ['get', 'NAMELSAD']
+        'NAMELSAD', // Property name
         'Miami-Dade County', 
         'Broward County', 
         'Palm Beach County',
@@ -88,9 +95,7 @@
         'Lee County', 
         'Charlotte County', 
         'Hendry County'
-      ],
-      city: null, // Add city-specific filters here if needed
-      zip: null // Add ZIP Code-specific filters here if needed
+      ]
     };
 
     // Wait for the map to load
@@ -143,15 +148,12 @@
 
     // Apply filters to the selected layer
     function applyFilters(selectedLayer) {
-      try {
-        const fillLayer = layerMap[selectedLayer][0]; // Only apply to fill layers
-        if (filters[selectedLayer] && window.map.getLayer(fillLayer)) {
-          window.map.setLayoutProperty(fillLayer, 'visibility', 'visible'); // Ensure visibility
-          window.map.setFilter(fillLayer, filters[selectedLayer]);
-          console.log(`Applying filter to ${fillLayer}:`, filters[selectedLayer]);
-        }
-      } catch (error) {
-        console.error('Filter error:', error);
+      const fillLayer = layerMap[selectedLayer][0]; // Only apply to fill layers
+      const source = sources[selectedLayer]; // Get the correct source
+      if (filters[selectedLayer] && window.map.getLayer(fillLayer)) {
+        window.map.setLayoutProperty(fillLayer, 'visibility', 'visible'); // Ensure visibility
+        window.map.setFilter(fillLayer, filters[selectedLayer]);
+        console.log(`Applying filter to ${fillLayer} (source: ${source}):`, filters[selectedLayer]);
       }
     }
   });
