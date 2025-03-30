@@ -79,11 +79,11 @@
     map.on('load', () => {
       console.log('Map loaded.');
 
-      // Fix layer ordering: Move county labels above MSA fill layer
-      map.moveLayer('ctc-counties-florida-dtteh4-label', 'ctc-msas-florida-6reteb-fill');
+      // Fix layer ordering: Move county fill above water layers but below labels
+      map.moveLayer('ctc-counties-florida-dtteh4-fill', 'waterway-label');
 
-      // Set zoom range for county labels
-      map.setLayerZoomRange('ctc-counties-florida-dtteh4-label', 7, 22);
+      // Set zoom range for county fill
+      map.setLayerZoomRange('ctc-counties-florida-dtteh4-fill', 7, 22);
 
       // Set default visibility: Only show MSAs
       Object.keys(layerMap).forEach(layerGroup => {
@@ -134,7 +134,6 @@
     // Apply filters to the selected layer
     function applyFilters(selectedLayer) {
       try {
-        // Get the previously active layer
         const previousLayer = document.querySelector('input[name="layer"]:checked')?.value || 'msa';
 
         // Clear filters for the previously active layer
@@ -151,10 +150,10 @@
             map.setFilter(layerId, filters[selectedLayer][layerType]);
             console.log(`Filter applied to ${layerId} (${layerType}):`, filters[selectedLayer][layerType]);
 
-            // Update label layer paint properties
-            if (layerType === 'label') {
-              map.setPaintProperty(layerId, 'text-opacity', 1);
-              map.setLayoutProperty(layerId, 'text-field', ['get', 'NAME']);
+            // Update paint properties for fill layers
+            if (layerType === 'fill') {
+              map.setPaintProperty(layerId, 'fill-color', '#4a3acb'); // Set visible color
+              map.setPaintProperty(layerId, 'fill-opacity', 0.5); // Set opacity
             }
           }
         });
