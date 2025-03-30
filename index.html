@@ -24,57 +24,23 @@
       background-color: #f3f3f3;
       border-radius: 4px;
     }
-    footer {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: #fff;
-      text-align: center;
-      font-size: 12px;
-      padding: 8px;
-      border-top: 1px solid #ddd;
-      z-index: 1;
-    }
-    #unsupported {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
-      text-align: center;
-    }
-    .mapboxgl-ctrl-scale {
-      display: block !important;
-    }
   </style>
 </head>
 <body>
 
 <div id="map"></div>
-<div id="unsupported">Your browser does not support Mapbox GL JS. Please update your browser.</div>
-
 <div id="sidebar">
   <strong>Toggle Layers:</strong>
   <form id="layer-toggle">
-    <label><input type="radio" name="layer" value="msa" checked aria-label="Toggle MSAs Layer"> MSAs</label><br>
-    <label><input type="radio" name="layer" value="county" aria-label="Toggle Counties Layer"> Counties</label><br>
+    <label><input type="radio" name="layer" value="msa" checked> MSAs</label><br>
+    <label><input type="radio" name="layer" value="county"> Counties</label><br>
   </form>
 </div>
-
-<footer>
-  Powered by <a href="https://agentez.ai" target="_blank">Agentez.ai</a> |
-  Partnered with <a href="https://getyourpiece.com" target="_blank">GetYourPiece.com</a> |
-  Customized for <a href="https://cleartoclosehometeam.com" target="_blank">ClearToCloseHomeTeam.com</a>
-</footer>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     if (!mapboxgl.supported()) {
-      document.getElementById('unsupported').style.display = 'block';
+      alert('Your browser does not support Mapbox GL JS.');
       return;
     }
 
@@ -87,11 +53,6 @@
       center: [-81.8, 26.2],
       zoom: 7
     });
-
-    map.setPadding({ top: 10, left: 150, right: 10, bottom: 50 });
-    map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-    map.addControl(new mapboxgl.FullscreenControl(), 'top-right');
-    map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }));
 
     const layerMap = {
       msa: ['ctc-msas-florida-6reteb-label'],
@@ -114,6 +75,8 @@
     };
 
     map.on('load', () => {
+      console.log('Map loaded.');
+
       // Hide all layers initially
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
@@ -130,6 +93,7 @@
       // Add event listener for toggling layers
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
         const selectedLayer = e.target.value;
+        console.log(`Toggling to layer: ${selectedLayer}`);
         toggleLayerVisibility(selectedLayer);
         applyFilters(selectedLayer);
       });
@@ -140,6 +104,7 @@
         layerMap[layerGroup].forEach(layerId => {
           if (map.getLayer(layerId)) {
             const visibility = layerGroup === selectedLayer ? 'visible' : 'none';
+            console.log(`Setting visibility for ${layerId}: ${visibility}`);
             map.setLayoutProperty(layerId, 'visibility', visibility);
           }
         });
