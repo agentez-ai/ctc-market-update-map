@@ -137,6 +137,11 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
+      // Debugging: Log all features in the county layer
+      const countyLayer = 'ctc-counties-florida-dtteh4-fill';
+      const features = map.querySourceFeatures('composite', { sourceLayer: countyLayer });
+      console.log('County Layer Features:', features);
+
       // Move all label layers above their corresponding fill layers
       Object.keys(layerMap).forEach(layerGroup => {
         const [fillLayer, labelLayer] = layerMap[layerGroup];
