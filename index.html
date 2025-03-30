@@ -97,7 +97,7 @@
     map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }));
 
     const layerMap = {
-      msa: ['tcc_florida_msas-6reteb-fill', 'tcc_florida_msas-6reteb-label'],
+      msa: ['ctc-msas-florida-6reteb-fill', 'tcc_florida_msas-6reteb-label'],
       county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label'],
       city: ['ctc-cities-core7-63tvk2-fill', 'ctc-cities-core7-63tvk2-label'],
       zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
@@ -107,13 +107,7 @@
       Object.values(layerMap).flat().forEach(layerId => {
         if (map.getLayer(layerId)) {
           map.setLayoutProperty(layerId, 'visibility', 'none');
-          try {
-            if (map.getPaintProperty(layerId, 'fill-opacity') !== undefined) {
-              map.setPaintProperty(layerId, 'fill-opacity', 0);
-            }
-          } catch (e) {
-            console.warn(`No fill-opacity to hide for ${layerId}`);
-          }
+          console.log(`Hiding: ${layerId}`);
         }
       });
 
@@ -121,13 +115,7 @@
         layerMap[selectedLayer].forEach(layerId => {
           if (map.getLayer(layerId)) {
             map.setLayoutProperty(layerId, 'visibility', 'visible');
-            try {
-              if (map.getPaintProperty(layerId, 'fill-opacity') !== undefined) {
-                map.setPaintProperty(layerId, 'fill-opacity', 1);
-              }
-            } catch (e) {
-              console.warn(`No fill-opacity to show for ${layerId}`);
-            }
+            console.log(`Showing: ${layerId}`);
           }
         });
       }
@@ -135,6 +123,7 @@
 
     map.on('load', () => {
       toggleLayerVisibility('msa');
+
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
         toggleLayerVisibility(e.target.value);
       });
