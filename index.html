@@ -104,19 +104,27 @@
     };
 
     map.on('load', () => {
-      map.setFilter('ctc-counties-florida-dtteh4-label', [
-        'in',
-        ['get', 'NAMELSAD'],
-        'Miami-Dade County', 'Broward County', 'Palm Beach County',
-        'Collier County', 'Lee County', 'Charlotte County', 'Hendry County'
-      ]);
+      if (map.getLayer('ctc-counties-florida-dtteh4-label')) {
+        map.setFilter('ctc-counties-florida-dtteh4-label', [
+          'in',
+          ['get', 'NAMELSAD'],
+          'Miami-Dade County', 'Broward County', 'Palm Beach County',
+          'Collier County', 'Lee County', 'Charlotte County', 'Hendry County'
+        ]);
+      } else {
+        console.warn('County labels layer not found.');
+      }
 
-      map.setFilter('ctc-msas-florida-6reteb-label', [
-        'in',
-        ['get', 'NAME'],
-        'Miami-Fort Lauderdale-West Palm Beach, FL', 'Naples-Marco Island, FL',
-        'Cape Coral-Fort Myers, FL', 'Punta Gorda, FL', 'Clewiston, FL'
-      ]);
+      if (map.getLayer('ctc-msas-florida-6reteb-label')) {
+        map.setFilter('ctc-msas-florida-6reteb-label', [
+          'in',
+          ['get', 'NAME'],
+          'Miami-Fort Lauderdale-West Palm Beach, FL', 'Naples-Marco Island, FL',
+          'Cape Coral-Fort Myers, FL', 'Punta Gorda, FL', 'Clewiston, FL'
+        ]);
+      } else {
+        console.warn('MSA labels layer not found.');
+      }
 
       toggleLayerVisibility('msa');
 
