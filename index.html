@@ -96,8 +96,8 @@
     map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }));
 
     const layerMap = {
-      msa: ['ctc-msas-florida-6reteb-label'],
-      county: ['ctc-counties-florida-dtteh4-label']
+      msa: ['ctc-msas-florida-6reteb-fill', 'ctc-msas-florida-6reteb-label'],
+      county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label']
     };
 
     const filters = {
@@ -116,7 +116,17 @@
     };
 
     map.on('load', () => {
-      // Apply initial filters for MSAs
+      // Hide all layers initially
+      Object.keys(layerMap).forEach(layerGroup => {
+        layerMap[layerGroup].forEach(layerId => {
+          if (map.getLayer(layerId)) {
+            map.setLayoutProperty(layerId, 'visibility', 'none');
+          }
+        });
+      });
+
+      // Default to MSAs on load
+      toggleLayerVisibility('msa');
       applyFilters('msa');
 
       // Add event listener for toggling layers
