@@ -208,7 +208,8 @@
 
             // Update paint properties for label layers
             if (layerType === 'label') {
-              map.setLayoutProperty(layerId, 'text-field', ['get', 'NAMELSAD']); // Use NAMELSAD for labels
+              const textFieldProperty = selectedLayer === 'county' ? 'NAMELSAD' : 'NAME';
+              map.setLayoutProperty(layerId, 'text-field', ['get', textFieldProperty]); // Use NAMELSAD for counties, NAME for MSAs
               map.setPaintProperty(layerId, 'text-color', '#000000'); // Ensure text is visible
               map.setPaintProperty(layerId, 'text-opacity', 1); // Ensure text opacity
             }
