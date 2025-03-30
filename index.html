@@ -62,8 +62,6 @@
   <form id="layer-toggle">
     <label><input type="radio" name="layer" value="msa" checked aria-label="Toggle MSAs Layer"> MSAs</label><br>
     <label><input type="radio" name="layer" value="county" aria-label="Toggle Counties Layer"> Counties</label><br>
-    <label><input type="radio" name="layer" value="city" aria-label="Toggle Cities Layer"> Cities</label><br>
-    <label><input type="radio" name="layer" value="zip" aria-label="Toggle ZIP Codes Layer"> ZIP Codes</label><br>
   </form>
 </div>
 
@@ -96,24 +94,22 @@
     map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }));
 
     const layerMap = {
-      msa: ['ctc-msas-florida-6reteb-fill', 'ctc-msas-florida-6reteb-label'],
-      county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label'],
-      city: ['ctc-cities-core7-63tvk2-fill', 'ctc-cities-core7-63tvk2-label'],
-      zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
+      msa: ['ctc-msas-florida-6reteb-label'],
+      county: ['ctc-counties-florida-dtteh4-label']
     };
 
     const filters = {
-      county: [
-        'in',
-        ['get', 'NAMELSAD'],
-        'Miami-Dade County', 'Broward County', 'Palm Beach County',
-        'Collier County', 'Lee County', 'Charlotte County', 'Hendry County'
-      ],
       msa: [
         'in',
         ['get', 'NAME'],
         'Miami-Fort Lauderdale-West Palm Beach, FL', 'Naples-Marco Island, FL',
         'Cape Coral-Fort Myers, FL', 'Punta Gorda, FL', 'Clewiston, FL'
+      ],
+      county: [
+        'in',
+        ['get', 'NAMELSAD'],
+        'Miami-Dade County', 'Broward County', 'Palm Beach County',
+        'Collier County', 'Lee County', 'Charlotte County', 'Hendry County'
       ]
     };
 
