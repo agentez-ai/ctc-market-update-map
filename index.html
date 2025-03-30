@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,14 +106,21 @@
     function toggleLayerVisibility(selectedLayer) {
       Object.values(layerMap).flat().forEach(layerId => {
         if (map.getLayer(layerId)) {
-          map.setLayoutProperty(layerId, 'visibility', 'none');
           try {
-            if (map.getPaintProperty(layerId, 'fill-opacity') !== undefined) {
+            map.setLayoutProperty(layerId, 'visibility', 'none');
+          } catch (err) {
+            console.warn(`Layout error hiding ${layerId}:`, err);
+          }
+
+          try {
+            const hasOpacity = map.getPaintProperty(layerId, 'fill-opacity');
+            if (typeof hasOpacity !== 'undefined') {
               map.setPaintProperty(layerId, 'fill-opacity', 0);
             }
           } catch (err) {
             console.warn(`No fill-opacity to hide for ${layerId}`);
           }
+
           console.log(`Hiding: ${layerId}`);
         }
       });
@@ -120,14 +128,21 @@
       if (layerMap[selectedLayer]) {
         layerMap[selectedLayer].forEach(layerId => {
           if (map.getLayer(layerId)) {
-            map.setLayoutProperty(layerId, 'visibility', 'visible');
             try {
-              if (map.getPaintProperty(layerId, 'fill-opacity') !== undefined) {
+              map.setLayoutProperty(layerId, 'visibility', 'visible');
+            } catch (err) {
+              console.warn(`Layout error showing ${layerId}:`, err);
+            }
+
+            try {
+              const hasOpacity = map.getPaintProperty(layerId, 'fill-opacity');
+              if (typeof hasOpacity !== 'undefined') {
                 map.setPaintProperty(layerId, 'fill-opacity', 1);
               }
             } catch (err) {
               console.warn(`No fill-opacity to show for ${layerId}`);
             }
+
             console.log(`Showing: ${layerId}`);
           }
         });
