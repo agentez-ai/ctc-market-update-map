@@ -137,13 +137,9 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Move all label layers above their corresponding fill layers
-      Object.keys(layerMap).forEach(layerGroup => {
-        const [fillLayer, labelLayer] = layerMap[layerGroup];
-        if (map.getLayer(labelLayer) && map.getLayer(fillLayer)) {
-          map.moveLayer(labelLayer, fillLayer); // Move label above fill
-        }
-      });
+      // Fix layer ordering: Move county labels above their fill layer and MSA fill layer
+      map.moveLayer('ctc-counties-florida-dtteh4-label', 'ctc-counties-florida-dtteh4-fill');
+      map.moveLayer('ctc-counties-florida-dtteh4-label', 'ctc-msas-florida-6reteb-fill');
 
       // Set default visibility: Only show MSAs
       Object.keys(layerMap).forEach(layerGroup => {
@@ -212,8 +208,7 @@
 
             // Update paint properties for label layers
             if (layerType === 'label') {
-              const textFieldProperty = selectedLayer === 'county' ? 'NAMELSAD' : 'NAME';
-              map.setLayoutProperty(layerId, 'text-field', ['get', textFieldProperty]); // Use NAMELSAD for counties, NAME for MSAs
+              map.setLayoutProperty(layerId, 'text-field', ['get', 'NAMELSAD']); // Use NAMELSAD for labels
               map.setPaintProperty(layerId, 'text-color', '#000000'); // Ensure text is visible
               map.setPaintProperty(layerId, 'text-opacity', 1); // Ensure text opacity
             }
