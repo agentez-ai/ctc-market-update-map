@@ -90,14 +90,22 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Adjust county label layer to always show labels
+      // Debugging: Log all features in the county label layer
       const countyLabelLayer = 'ctc-counties-florida-dtteh4-label';
-      if (map.getLayer(countyLabelLayer)) {
-        map.setLayoutProperty(countyLabelLayer, 'text-size', 14); // Increase text size
-        map.setLayoutProperty(countyLabelLayer, 'text-allow-overlap', true); // Prevent collision hiding
-        map.setLayerZoomRange(countyLabelLayer, 0, 22); // Ensure labels appear at all zoom levels
-        console.log('Adjusted county label layer to always show labels.');
+      const features = map.querySourceFeatures('composite', { sourceLayer: 'ctc-counties-florida-dtteh4-label' });
+      console.log('County Label Features:', features);
+
+      // Check if Palm Beach County exists in the label layer
+      const palmBeachFeature = features.find(feature => feature.properties.NAMELSAD === 'Palm Beach County');
+      if (palmBeachFeature) {
+        console.log('Palm Beach County Label Found:', palmBeachFeature);
+      } else {
+        console.error('Palm Beach County Label Missing');
       }
+
+      // Temporarily filter the label layer to show only Palm Beach County
+      map.setFilter(countyLabelLayer, ['==', ['get', 'NAMELSAD'], 'Palm Beach County']);
+      console.log('Applied filter to show only Palm Beach County label.');
 
       // Add event listener for toggling layers
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
