@@ -47,7 +47,7 @@
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
-      center: [-80.5, 27.5], // Shifted east for State view
+      center: [-75.5, 27.5], // Shifted further east for State view
       zoom: 6 // Default zoom level for State view
     });
 
@@ -97,11 +97,11 @@
       };
 
       const defaultCenters = {
-        state: [-80.5, 27.5], // Shifted east for State view
-        metro: [-78.5, 26.2], // Shifted east for Metro view
-        county: [-78.5, 26.2], // Shifted east for County view
-        city: [-78.5, 26.2], // Shifted east for City view
-        zip: [-78.5, 26.2] // Shifted east for ZIP view
+        state: [-75.5, 27.5], // Shifted further east for State view
+        metro: [-74.5, 26.2], // Shifted further east for Metro view
+        county: [-74.5, 26.2], // Shifted further east for County view
+        city: [-74.5, 26.2], // Shifted further east for City view
+        zip: [-74.5, 26.2] // Shifted further east for ZIP view
       };
 
       // Hide all layers first
