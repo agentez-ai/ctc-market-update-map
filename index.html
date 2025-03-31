@@ -14,7 +14,8 @@
 <div id="sidebar">
   <strong>Toggle Layers:</strong>
   <form id="layer-toggle">
-    <label><input type="radio" name="layer" value="msa" checked> MSAs</label><br>
+    <label><input type="radio" name="layer" value="state" checked> State</label><br>
+    <label><input type="radio" name="layer" value="msa"> MSAs</label><br>
     <label><input type="radio" name="layer" value="county"> Counties</label><br>
     <label><input type="radio" name="layer" value="city"> Cities</label><br>
     <label><input type="radio" name="layer" value="zip"> ZIP Codes</label><br>
@@ -52,6 +53,7 @@
     map.addControl(scale, 'bottom-right');
 
     const filters = {
+      state: { fill: null, label: null },
       msa: {
         fill: ['in', 'NAME', 
           'Miami-Fort Lauderdale-West Palm Beach, FL', 
@@ -87,10 +89,13 @@
           'Charlotte County',
           'Hendry County'
         ]
-      }
+      },
+      city: { fill: null, label: null },
+      zip: { fill: null, label: null }
     };
 
     const layerMap = {
+      state: ['ctc-florida-7satj9'], // State layer
       msa: ['ctc-core7-msas-fill', 'ctc-core7-msas-label'],
       county: ['ctc-core7-counties-fill', 'ctc-core7-counties-label'],
       city: ['ctc-core7-cities-fill', 'ctc-core7-cities-label'],
@@ -98,6 +103,7 @@
     };
 
     const defaultZoomLevels = {
+      state: 6.0, // Zoom level for state
       msa: 7.4,
       county: 7.4,
       city: 7.4,
@@ -111,11 +117,14 @@
       console.log("Available layers in map style:");
       map.getStyle().layers.forEach(layer => console.log(layer.id));
 
+      const selectedRadio = document.querySelector('input[name="layer"]:checked');
+      const defaultVisible = selectedRadio ? selectedRadio.value : 'state';
+
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach((layerId, index) => {
           if (map.getLayer(layerId)) {
             console.log(`Layer loaded: ${layerId}`);
-            const visibility = layerGroup === 'msa' ? 'visible' : 'none';
+            const visibility = layerGroup === defaultVisible ? 'visible' : 'none';
             map.setLayoutProperty(layerId, 'visibility', visibility);
 
             const layerType = index === 0 ? 'fill' : 'label';
