@@ -107,13 +107,13 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
       Object.keys(layerMap).forEach(layerGroup => {
-        layerMap[layerGroup].forEach(layerId => {
+        layerMap[layerGroup].forEach((layerId, index) => {
           if (map.getLayer(layerId)) {
             console.log(`Layer loaded: ${layerId}`);
             const visibility = layerGroup === 'msa' ? 'visible' : 'none';
             map.setLayoutProperty(layerId, 'visibility', visibility);
 
-            const layerType = layerId.includes('fill') ? 'fill' : 'label';
+            const layerType = index === 0 ? 'fill' : 'label';
             if (filters[layerGroup] && filters[layerGroup][layerType]) {
               console.log(`Applying filter to layer: ${layerId}`, filters[layerGroup][layerType]);
               map.setFilter(layerId, filters[layerGroup][layerType]);
