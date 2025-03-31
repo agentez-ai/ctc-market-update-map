@@ -119,8 +119,8 @@
     };
 
     const defaultZoomLevels = {
-      msa: 8, // Placeholder for 20mi
-      county: 8, // Placeholder for 20mi
+      msa: 8.3, // Adjusted for 20mi
+      county: 8.3, // Adjusted for 20mi
       city: 7, // 30mi
       zip: 7 // 30mi
     };
@@ -128,13 +128,50 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Dynamically calculate zoom level for 20 miles
-      const bounds = map.getBounds();
-      const center = bounds.getCenter();
-      const distance = 20 * 1609.34; // 20 miles in meters
-      const options = { center, zoom: map.getZoom() };
+      // Apply default visibility and filters
+      Object.keys(layerMap).forEach(layerGroup => {
+        layerMap[layerGroup].forEach((layerId, index) => {
+          if (map.getLayer(layerId)) {
+            const visibility = layerGroup === 'msa' ? 'visible' : 'none';
+            map.setLayoutProperty(layerId, 'visibility', visibility);
 
-      map.fitBounds(bounds, { padding: 20 });
+            // Apply filters
+            const layerType = index === 0 ? 'fill' : 'label';
+            if (filters[layerGroup] && filters[layerGroup][layerType]) {
+              map.setFilter(layerId, filters[layerGroup][layerType]);
+            }
+          }
+        });
+      });
+
+      // Add event listener for toggling layers
+      document.getElementById('layer-toggle').addEventListener('change', (e) => {
+        const selectedLayer = e.target.value;
+        console.log(`Toggling to layer: ${selectedLayer}`);
+        toggleLayerVisibility(selectedLayer);
+      });
     });
+
+    // Toggle layer visibility and adjust zoom level
+    function toggleLayerVisibility(selectedLayer) {
+      Object.keys(layerMap).forEach(layerGroup => {
+        layerMap[layerGroup].forEach(layerId => {
+          if (map.getLayer(layerId)) {
+            const visibility = layerGroup === selectedLayer ? 'visible' : 'none';
+            map.setLayoutProperty(layerId, 'visibility', visibility);
+          }
+        });
+      });
+
+      // Adjust zoom level based on the selected layer
+      const zoomLevel = defaultZoomLevels[selectedLayer];
+      console.log(`Applying zoom level: ${zoomLevel} for layer: ${selectedLayer}`);
+      if (zoomLevel !== undefined) {
+        map.flyTo({ zoom: zoomLevel });
+      }
+    }
   });
 </script>
+
+</body>
+</html>
