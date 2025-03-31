@@ -57,7 +57,7 @@
       container: 'map',
       style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd', // Your custom style
       center: [-81.8, 26.2], // Center the map on Florida
-      zoom: 8.2 // Adjusted zoom level for MSAs and Counties (20mi)
+      zoom: 7 // Set all layers to 30mi for debugging
     });
 
     // Add zoom controls
@@ -119,10 +119,10 @@
     };
 
     const defaultZoomLevels = {
-      msa: 8.2, // Adjusted for 20mi
-      county: 8.2, // Adjusted for 20mi
-      city: 7, // 30mi
-      zip: 7 // 30mi
+      msa: 7, // Set to 30mi for debugging
+      county: 7, // Set to 30mi for debugging
+      city: 7, // Set to 30mi for debugging
+      zip: 7 // Set to 30mi for debugging
     };
 
     map.on('load', () => {
@@ -165,6 +165,7 @@
 
       // Adjust zoom level based on the selected layer
       const zoomLevel = defaultZoomLevels[selectedLayer];
+      console.log(`Applying zoom level: ${zoomLevel} for layer: ${selectedLayer}`);
       if (zoomLevel !== undefined) {
         map.flyTo({ zoom: zoomLevel });
       }
