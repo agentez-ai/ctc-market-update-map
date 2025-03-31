@@ -57,7 +57,7 @@
       container: 'map',
       style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd', // Your custom style
       center: [-81.8, 26.2], // Center the map on Florida
-      zoom: 7.5 // Adjusted zoom level for MSAs and Counties (20mi)
+      zoom: 7 // Default zoom level for debugging
     });
 
     // Add zoom controls
@@ -119,8 +119,8 @@
     };
 
     const defaultZoomLevels = {
-      msa: 7.5, // Adjusted for 20mi
-      county: 7.5, // Adjusted for 20mi
+      msa: 8, // Placeholder for 20mi
+      county: 8, // Placeholder for 20mi
       city: 7, // 30mi
       zip: 7 // 30mi
     };
@@ -128,50 +128,13 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Apply default visibility and filters
-      Object.keys(layerMap).forEach(layerGroup => {
-        layerMap[layerGroup].forEach((layerId, index) => {
-          if (map.getLayer(layerId)) {
-            const visibility = layerGroup === 'msa' ? 'visible' : 'none';
-            map.setLayoutProperty(layerId, 'visibility', visibility);
+      // Dynamically calculate zoom level for 20 miles
+      const bounds = map.getBounds();
+      const center = bounds.getCenter();
+      const distance = 20 * 1609.34; // 20 miles in meters
+      const options = { center, zoom: map.getZoom() };
 
-            // Apply filters
-            const layerType = index === 0 ? 'fill' : 'label';
-            if (filters[layerGroup] && filters[layerGroup][layerType]) {
-              map.setFilter(layerId, filters[layerGroup][layerType]);
-            }
-          }
-        });
-      });
-
-      // Add event listener for toggling layers
-      document.getElementById('layer-toggle').addEventListener('change', (e) => {
-        const selectedLayer = e.target.value;
-        console.log(`Toggling to layer: ${selectedLayer}`);
-        toggleLayerVisibility(selectedLayer);
-      });
+      map.fitBounds(bounds, { padding: 20 });
     });
-
-    // Toggle layer visibility and adjust zoom level
-    function toggleLayerVisibility(selectedLayer) {
-      Object.keys(layerMap).forEach(layerGroup => {
-        layerMap[layerGroup].forEach(layerId => {
-          if (map.getLayer(layerId)) {
-            const visibility = layerGroup === selectedLayer ? 'visible' : 'none';
-            map.setLayoutProperty(layerId, 'visibility', visibility);
-          }
-        });
-      });
-
-      // Adjust zoom level based on the selected layer
-      const zoomLevel = defaultZoomLevels[selectedLayer];
-      console.log(`Applying zoom level: ${zoomLevel} for layer: ${selectedLayer}`);
-      if (zoomLevel !== undefined) {
-        map.flyTo({ zoom: zoomLevel });
-      }
-    }
   });
 </script>
-
-</body>
-</html>
