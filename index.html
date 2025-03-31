@@ -90,12 +90,50 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Remove all filters for the county layer to show all counties
-      map.setFilter('ctc-counties-florida-dtteh4-fill', null); // Remove filter for county fills
+      // Remove filter ONLY for the county label layer
       map.setFilter('ctc-counties-florida-dtteh4-label', null); // Remove filter for county labels
+      console.log('Removed filter for county labels. All county labels should now be visible.');
 
-      console.log('Removed all filters for the county layer. All counties should now be visible.');
+      // Keep the filter for the county fill layer
+      const countyFillFilter = ['in', 'NAMELSAD', 
+        'Miami-Dade County', 
+        'Broward County',
+        'Palm Beach County', 
+        'Collier County', 
+        'Lee County',
+        'Charlotte County',
+        'Hendry County'
+      ];
+      map.setFilter('ctc-counties-florida-dtteh4-fill', countyFillFilter);
+      console.log('Applied filter for county fills:', countyFillFilter);
+
+      // Add event listener for toggling layers
+      document.getElementById('layer-toggle').addEventListener('change', (e) => {
+        const selectedLayer = e.target.value;
+        console.log(`Toggling to layer: ${selectedLayer}`);
+        toggleLayerVisibility(selectedLayer);
+      });
     });
+
+    // Toggle layer visibility
+    function toggleLayerVisibility(selectedLayer) {
+      const layerMap = {
+        msa: ['ctc-msas-florida-6reteb-fill', 'ctc-msas-florida-6reteb-label'],
+        county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label'],
+        city: ['ctc-cities-core7-63tvk2-fill', 'ctc-cities-core7-63tvk2-label'],
+        zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
+      };
+
+      Object.keys(layerMap).forEach(layerGroup => {
+        layerMap[layerGroup].forEach(layerId => {
+          if (map.getLayer(layerId)) {
+            const visibility = layerGroup === selectedLayer ? 'visible' : 'none';
+            map.setLayoutProperty(layerId, 'visibility', visibility);
+            console.log(`Setting visibility for ${layerId}: ${visibility}`);
+          }
+        });
+      });
+    }
   });
 </script>
 
