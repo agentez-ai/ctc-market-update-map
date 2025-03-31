@@ -126,8 +126,9 @@
         const [fillLayer, labelLayer] = layerMap[layerGroup];
         if (map.getLayer(labelLayer)) {
           map.setLayoutProperty(labelLayer, 'symbol-placement', 'point'); // Center labels
-          map.setLayoutProperty(labelLayer, 'text-allow-overlap', false); // Prevent duplicate labels
+          map.setLayoutProperty(labelLayer, 'text-allow-overlap', true); // Force labels to always show
           map.setLayoutProperty(labelLayer, 'text-padding', 10); // Add padding to avoid overlaps
+          map.setLayerZoomRange(labelLayer, 0, 22); // Ensure labels appear at all zoom levels
         }
       });
 
