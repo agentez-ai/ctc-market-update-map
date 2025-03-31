@@ -39,8 +39,8 @@
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
-      center: [-81.5, 25.5], // Adjusted center to focus on South Florida
-      zoom: 6 // Adjusted zoom level to approximately 50 miles and show less ocean
+      center: [-83.0, 27.5], // Center for the entire state of Florida
+      zoom: 6 // Zoom level for the state view
     });
 
     const nav = new mapboxgl.NavigationControl();
@@ -80,6 +80,22 @@
         zip: ['ctc-core7-zipcodes-fill', 'ctc-core7-zipcodes-label']
       };
 
+      const defaultZoomLevels = {
+        state: 6, // Zoom level for the entire state
+        msa: 7.4, // Zoom level for MSAs
+        county: 7.4, // Zoom level for Counties
+        city: 7.4, // Zoom level for Cities
+        zip: 7.4 // Zoom level for ZIP Codes
+      };
+
+      const defaultCenters = {
+        state: [-83.0, 27.5], // Center for the entire state of Florida
+        msa: [-81.8, 26.2], // Center for MSAs (South Florida)
+        county: [-81.8, 26.2], // Center for Counties (South Florida)
+        city: [-81.8, 26.2], // Center for Cities (South Florida)
+        zip: [-81.8, 26.2] // Center for ZIP Codes (South Florida)
+      };
+
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
           if (map.getLayer(layerId)) {
@@ -90,18 +106,11 @@
         });
       });
 
-      const defaultZoomLevels = {
-        state: 6, // Adjusted zoom level for state to approximately 50 miles
-        msa: 7.4,
-        county: 7.4,
-        city: 7.4,
-        zip: 7.4
-      };
-
       const zoomLevel = defaultZoomLevels[selectedLayer];
-      if (zoomLevel !== undefined) {
-        console.log(`Flying to zoom level: ${zoomLevel}`);
-        map.flyTo({ zoom: zoomLevel });
+      const center = defaultCenters[selectedLayer];
+      if (zoomLevel !== undefined && center !== undefined) {
+        console.log(`Flying to center: ${center}, zoom level: ${zoomLevel}`);
+        map.flyTo({ center: center, zoom: zoomLevel });
       }
     }
   });
