@@ -59,6 +59,9 @@
       map.setLayoutProperty('ctc-florida-fill', 'visibility', 'visible');
       map.setLayoutProperty('ctc-florida-label', 'visibility', 'visible');
 
+      // Hide all non-state labels and layers on initial load
+      hideNonStateLabels();
+
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
         const selectedLayer = e.target.value;
         console.log(`Toggling to layer: ${selectedLayer}`);
@@ -116,11 +119,7 @@
 
       // Hide all non-state labels when the state layer is active
       if (selectedLayer === 'state') {
-        labelLayersToHide.forEach(layerId => {
-          if (map.getLayer(layerId)) {
-            map.setLayoutProperty(layerId, 'visibility', 'none');
-          }
-        });
+        hideNonStateLabels();
       }
 
       const zoomLevel = defaultZoomLevels[selectedLayer];
@@ -129,6 +128,21 @@
         console.log(`Flying to center: ${center}, zoom level: ${zoomLevel}`);
         map.flyTo({ center: center, zoom: zoomLevel });
       }
+    }
+
+    function hideNonStateLabels() {
+      const labelLayersToHide = [
+        'ctc-core7-msas-label',
+        'ctc-core7-counties-label',
+        'ctc-core7-cities-label',
+        'ctc-core7-zipcodes-label'
+      ];
+
+      labelLayersToHide.forEach(layerId => {
+        if (map.getLayer(layerId)) {
+          map.setLayoutProperty(layerId, 'visibility', 'none');
+        }
+      });
     }
   });
 </script>
