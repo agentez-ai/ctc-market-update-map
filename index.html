@@ -16,9 +16,9 @@
 <div id="toggle-bar">
   <input type="text" id="search-bar" placeholder="Search..." />
   <div id="layer-options">
-    <label><input type="radio" name="layer" value="state" checked> State</label>
+    <label><input type="radio" name="layer" value="state"> State</label>
     <label><input type="radio" name="layer" value="metro"> Metro</label>
-    <label><input type="radio" name="layer" value="county"> County</label>
+    <label><input type="radio" name="layer" value="county" checked> County</label> <!-- Default to County -->
     <label><input type="radio" name="layer" value="city"> City</label>
     <label><input type="radio" name="layer" value="zip"> ZIP</label>
   </div>
@@ -47,8 +47,8 @@
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
-      center: [-87.7, 27.7], // Shifted slightly east for State view
-      zoom: 6 // Default zoom level for State view
+      center: [-82.7, 26.2], // Default center for County view
+      zoom: 7.4 // Default zoom level for County view
     });
 
     const nav = new mapboxgl.NavigationControl();
@@ -63,12 +63,8 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Ensure the state layers are visible initially
-      map.setLayoutProperty('ctc-florida-fill', 'visibility', 'visible');
-      map.setLayoutProperty('ctc-florida-label', 'visibility', 'visible');
-
-      // Hide all non-state labels and layers on initial load
-      hideNonStateLabels();
+      // Ensure the County layers are visible initially
+      toggleLayerVisibility('county'); // Default to County view
 
       document.querySelectorAll('input[name="layer"]').forEach(radio => {
         radio.addEventListener('change', (e) => {
@@ -83,9 +79,9 @@
       const layerMap = {
         state: ['ctc-florida-fill', 'ctc-florida-label'], // State layers
         metro: ['ctc-core7-msas-fill', 'ctc-core7-msas-label'], // Metro Area layers
-        county: ['ctc-core7-counties-fill', 'ctc-core7-counties-label'],
-        city: ['ctc-core7-cities-fill', 'ctc-core7-cities-label'],
-        zip: ['ctc-core7-zipcodes-fill', 'ctc-core7-zipcodes-label']
+        county: ['ctc-core7-counties-fill', 'ctc-core7-counties-label'], // County layers
+        city: ['ctc-core7-cities-fill', 'ctc-core7-cities-label'], // City layers
+        zip: ['ctc-core7-zipcodes-fill', 'ctc-core7-zipcodes-label'] // ZIP layers
       };
 
       const defaultZoomLevels = {
@@ -97,11 +93,11 @@
       };
 
       const defaultCenters = {
-        state: [-87.7, 27.7], // Shifted slightly east for State view
-        metro: [-82.7, 26.2], // Shifted slightly east for Metro view
-        county: [-82.7, 26.2], // Shifted slightly east for County view
-        city: [-82.7, 26.2], // Shifted slightly east for City view
-        zip: [-82.7, 26.2] // Shifted slightly east for ZIP view
+        state: [-87.7, 27.7], // Center for State view
+        metro: [-82.7, 26.2], // Center for Metro view
+        county: [-82.7, 26.2], // Center for County view
+        city: [-82.7, 26.2], // Center for City view
+        zip: [-82.7, 26.2] // Center for ZIP view
       };
 
       // Hide all layers first
@@ -126,21 +122,6 @@
         console.log(`Flying to center: ${center}, zoom level: ${zoomLevel}`);
         map.flyTo({ center: center, zoom: zoomLevel });
       }
-    }
-
-    function hideNonStateLabels() {
-      const labelLayersToHide = [
-        'ctc-core7-msas-label',
-        'ctc-core7-counties-label',
-        'ctc-core7-cities-label',
-        'ctc-core7-zipcodes-label'
-      ];
-
-      labelLayersToHide.forEach(layerId => {
-        if (map.getLayer(layerId)) {
-          map.setLayoutProperty(layerId, 'visibility', 'none');
-        }
-      });
     }
   });
 </script>
