@@ -90,16 +90,11 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Debugging: Log all features in the county layer
-      const countyLayer = 'ctc-counties-florida-dtteh4-fill';
-      const features = map.querySourceFeatures('composite', { sourceLayer: countyLayer });
-      console.log('County Layer Features:', features);
+      // Remove all filters for the county layer to show all counties
+      map.setFilter('ctc-counties-florida-dtteh4-fill', null); // Remove filter for county fills
+      map.setFilter('ctc-counties-florida-dtteh4-label', null); // Remove filter for county labels
 
-      // Highlight Palm Beach County for debugging
-      map.setFilter('ctc-counties-florida-dtteh4-fill', ['==', ['get', 'NAMELSAD'], 'Palm Beach County']);
-      map.setFilter('ctc-counties-florida-dtteh4-label', ['==', ['get', 'NAMELSAD'], 'Palm Beach County']);
-
-      console.log('Applied filter to highlight Palm Beach County.');
+      console.log('Removed all filters for the county layer. All counties should now be visible.');
     });
   });
 </script>
