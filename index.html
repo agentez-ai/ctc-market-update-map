@@ -87,25 +87,80 @@
     });
     map.addControl(scale, 'bottom-right');
 
+    // Define filters for MSAs and Counties
+    const filters = {
+      msa: {
+        fill: ['in', 'NAME', 
+          'Miami-Fort Lauderdale-West Palm Beach, FL', 
+          'Naples-Marco Island, FL',
+          'Cape Coral-Fort Myers, FL', 
+          'Punta Gorda, FL', 
+          'Clewiston, FL'
+        ],
+        label: ['in', 'NAME', 
+          'Miami-Fort Lauderdale-West Palm Beach, FL',
+          'Naples-Marco Island, FL',
+          'Cape Coral-Fort Myers, FL',
+          'Punta Gorda, FL',
+          'Clewiston, FL'
+        ]
+      },
+      county: {
+        fill: ['in', 'NAMELSAD', 
+          'Miami-Dade County', 
+          'Broward County',
+          'Palm Beach County', 
+          'Collier County', 
+          'Lee County',
+          'Charlotte County',
+          'Hendry County'
+        ],
+        label: ['in', 'NAMELSAD', 
+          'Miami-Dade County',
+          'Broward County',
+          'Palm Beach County',
+          'Collier County',
+          'Lee County',
+          'Charlotte County',
+          'Hendry County'
+        ]
+      }
+    };
+
+    const layerMap = {
+      msa: ['ctc-msas-florida-6reteb-fill', 'ctc-msas-florida-6reteb-label'],
+      county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label'],
+      city: ['ctc-cities-core7-63tvk2-fill', 'ctc-cities-core7-63tvk2-label'],
+      zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
+    };
+
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Debugging: Log all features in the county label layer
-      const countyLabelLayer = 'ctc-counties-florida-dtteh4-label';
-      const features = map.querySourceFeatures('composite', { sourceLayer: 'ctc-counties-florida-dtteh4-label' });
-      console.log('County Label Features:', features);
+      // Center labels in the fill layer
+      Object.keys(layerMap).forEach(layerGroup => {
+        const [fillLayer, labelLayer] = layerMap[layerGroup];
+        if (map.getLayer(labelLayer)) {
+          map.setLayoutProperty(labelLayer, 'symbol-placement', 'point'); // Center labels
+          map.setLayoutProperty(labelLayer, 'text-allow-overlap', false); // Prevent duplicate labels
+        }
+      });
 
-      // Check if Palm Beach County exists in the label layer
-      const palmBeachFeature = features.find(feature => feature.properties.NAMELSAD === 'Palm Beach County');
-      if (palmBeachFeature) {
-        console.log('Palm Beach County Label Found:', palmBeachFeature);
-      } else {
-        console.error('Palm Beach County Label Missing');
-      }
+      // Apply default visibility and filters
+      Object.keys(layerMap).forEach(layerGroup => {
+        layerMap[layerGroup].forEach((layerId, index) => {
+          if (map.getLayer(layerId)) {
+            const visibility = layerGroup === 'msa' ? 'visible' : 'none';
+            map.setLayoutProperty(layerId, 'visibility', visibility);
 
-      // Temporarily filter the label layer to show only Palm Beach County
-      map.setFilter(countyLabelLayer, ['==', ['get', 'NAMELSAD'], 'Palm Beach County']);
-      console.log('Applied filter to show only Palm Beach County label.');
+            // Apply filters
+            const layerType = index === 0 ? 'fill' : 'label';
+            if (filters[layerGroup] && filters[layerGroup][layerType]) {
+              map.setFilter(layerId, filters[layerGroup][layerType]);
+            }
+          }
+        });
+      });
 
       // Add event listener for toggling layers
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
@@ -117,19 +172,11 @@
 
     // Toggle layer visibility
     function toggleLayerVisibility(selectedLayer) {
-      const layerMap = {
-        msa: ['ctc-msas-florida-6reteb-fill', 'ctc-msas-florida-6reteb-label'],
-        county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label'],
-        city: ['ctc-cities-core7-63tvk2-fill', 'ctc-cities-core7-63tvk2-label'],
-        zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
-      };
-
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
           if (map.getLayer(layerId)) {
             const visibility = layerGroup === selectedLayer ? 'visible' : 'none';
             map.setLayoutProperty(layerId, 'visibility', visibility);
-            console.log(`Setting visibility for ${layerId}: ${visibility}`);
           }
         });
       });
