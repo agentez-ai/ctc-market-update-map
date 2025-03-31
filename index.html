@@ -75,6 +75,13 @@
         zip: ['ctc-core7-zipcodes-fill', 'ctc-core7-zipcodes-label']
       };
 
+      const labelLayersToHide = [
+        'ctc-core7-msas-label',
+        'ctc-core7-counties-label',
+        'ctc-core7-cities-label',
+        'ctc-core7-zipcodes-label'
+      ];
+
       const defaultZoomLevels = {
         state: 6, // Zoom level for the entire state
         metro: 7.4, // Zoom level for Metro Area
@@ -106,6 +113,15 @@
           map.setLayoutProperty(layerId, 'visibility', 'visible');
         }
       });
+
+      // Hide all non-state labels when the state layer is active
+      if (selectedLayer === 'state') {
+        labelLayersToHide.forEach(layerId => {
+          if (map.getLayer(layerId)) {
+            map.setLayoutProperty(layerId, 'visibility', 'none');
+          }
+        });
+      }
 
       const zoomLevel = defaultZoomLevels[selectedLayer];
       const center = defaultCenters[selectedLayer];
