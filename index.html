@@ -55,14 +55,12 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Ensure the state layer is visible
-      map.setLayoutProperty('ctc-florida-7satj9', 'visibility', 'visible');
+      // Ensure the state layers are visible
+      map.setLayoutProperty('ctc-florida-fill', 'visibility', 'visible');
+      map.setLayoutProperty('ctc-florida-label', 'visibility', 'visible');
 
-      // Ensure no filters are applied to the state layer
-      map.setFilter('ctc-florida-7satj9', null);
-
-      // Move the state layer to the bottom of the stack
-      map.moveLayer('ctc-florida-7satj9');
+      // Hide background labels when the state is active
+      hideBackgroundLabels();
 
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
         const selectedLayer = e.target.value;
@@ -73,7 +71,7 @@
 
     function toggleLayerVisibility(selectedLayer) {
       const layerMap = {
-        state: ['ctc-florida-7satj9'], // State layer
+        state: ['ctc-florida-fill', 'ctc-florida-label'], // State layers
         msa: ['ctc-core7-msas-fill', 'ctc-core7-msas-label'],
         county: ['ctc-core7-counties-fill', 'ctc-core7-counties-label'],
         city: ['ctc-core7-cities-fill', 'ctc-core7-cities-label'],
@@ -106,12 +104,46 @@
         });
       });
 
+      if (selectedLayer === 'state') {
+        hideBackgroundLabels(); // Hide background labels for the state view
+      } else {
+        showBackgroundLabels(); // Show background labels for other views
+      }
+
       const zoomLevel = defaultZoomLevels[selectedLayer];
       const center = defaultCenters[selectedLayer];
       if (zoomLevel !== undefined && center !== undefined) {
         console.log(`Flying to center: ${center}, zoom level: ${zoomLevel}`);
         map.flyTo({ center: center, zoom: zoomLevel });
       }
+    }
+
+    function hideBackgroundLabels() {
+      const backgroundLabelLayers = [
+        'place-labels', // Example: Place labels
+        'road-label', // Example: Road labels
+        'transit-labels' // Example: Transit labels
+      ];
+
+      backgroundLabelLayers.forEach(layerId => {
+        if (map.getLayer(layerId)) {
+          map.setLayoutProperty(layerId, 'visibility', 'none');
+        }
+      });
+    }
+
+    function showBackgroundLabels() {
+      const backgroundLabelLayers = [
+        'place-labels', // Example: Place labels
+        'road-label', // Example: Road labels
+        'transit-labels' // Example: Transit labels
+      ];
+
+      backgroundLabelLayers.forEach(layerId => {
+        if (map.getLayer(layerId)) {
+          map.setLayoutProperty(layerId, 'visibility', 'visible');
+        }
+      });
     }
   });
 </script>
