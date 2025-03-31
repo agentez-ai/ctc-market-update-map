@@ -105,21 +105,28 @@
     };
 
     map.on('load', () => {
+      console.log('Map loaded successfully.');
       Object.keys(layerMap).forEach(layerGroup => {
-        layerMap[layerGroup].forEach((layerId, index) => {
+        layerMap[layerGroup].forEach(layerId => {
           if (map.getLayer(layerId)) {
+            console.log(`Layer loaded: ${layerId}`);
             const visibility = layerGroup === 'msa' ? 'visible' : 'none';
             map.setLayoutProperty(layerId, 'visibility', visibility);
-            const layerType = index === 0 ? 'fill' : 'label';
+
+            const layerType = layerId.includes('fill') ? 'fill' : 'label';
             if (filters[layerGroup] && filters[layerGroup][layerType]) {
+              console.log(`Applying filter to layer: ${layerId}`, filters[layerGroup][layerType]);
               map.setFilter(layerId, filters[layerGroup][layerType]);
             }
+          } else {
+            console.error(`Layer not found: ${layerId}`);
           }
         });
       });
 
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
         const selectedLayer = e.target.value;
+        console.log(`Toggling to layer: ${selectedLayer}`);
         toggleLayerVisibility(selectedLayer);
       });
     });
@@ -129,6 +136,7 @@
         layerMap[layerGroup].forEach(layerId => {
           if (map.getLayer(layerId)) {
             const visibility = layerGroup === selectedLayer ? 'visible' : 'none';
+            console.log(`Setting visibility for ${layerId}: ${visibility}`);
             map.setLayoutProperty(layerId, 'visibility', visibility);
           }
         });
@@ -136,6 +144,7 @@
 
       const zoomLevel = defaultZoomLevels[selectedLayer];
       if (zoomLevel !== undefined) {
+        console.log(`Flying to zoom level: ${zoomLevel}`);
         map.flyTo({ zoom: zoomLevel });
       }
     }
