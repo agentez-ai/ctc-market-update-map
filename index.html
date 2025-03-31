@@ -109,7 +109,7 @@
         fill: ['in', 'NAMELSAD', 
           'Miami-Dade County', 
           'Broward County',
-          'Palm Beach County',
+          'Palm Beach County', // Added Palm Beach County
           'Collier County', 
           'Lee County',
           'Charlotte County',
@@ -118,7 +118,7 @@
         label: ['in', 'NAMELSAD', 
           'Miami-Dade County',
           'Broward County',
-          'Palm Beach County',
+          'Palm Beach County', // Added Palm Beach County
           'Collier County',
           'Lee County',
           'Charlotte County',
@@ -137,9 +137,13 @@
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Fix layer ordering: Move county labels above their fill layer and MSA fill layer
-      map.moveLayer('ctc-counties-florida-dtteh4-label', 'ctc-counties-florida-dtteh4-fill');
-      map.moveLayer('ctc-counties-florida-dtteh4-label', 'ctc-msas-florida-6reteb-fill');
+      // Move all label layers above their corresponding fill layers
+      Object.keys(layerMap).forEach(layerGroup => {
+        const [fillLayer, labelLayer] = layerMap[layerGroup];
+        if (map.getLayer(labelLayer) && map.getLayer(fillLayer)) {
+          map.moveLayer(labelLayer); // Move label above all layers
+        }
+      });
 
       // Set default visibility: Only show MSAs
       Object.keys(layerMap).forEach(layerGroup => {
@@ -161,16 +165,6 @@
         console.log(`Toggling to layer: ${selectedLayer}`);
         toggleLayerVisibility(selectedLayer);
         applyFilters(selectedLayer);
-      });
-
-      // Debugging: Log properties on click
-      map.on('click', (e) => {
-        const features = map.queryRenderedFeatures(e.point);
-        if (features.length) {
-          console.log('Feature properties:', features[0].properties);
-        } else {
-          console.log('No features found at this point.');
-        }
       });
     });
 
@@ -208,7 +202,8 @@
 
             // Update paint properties for label layers
             if (layerType === 'label') {
-              map.setLayoutProperty(layerId, 'text-field', ['get', 'NAMELSAD']); // Use NAMELSAD for labels
+              const textFieldProperty = selectedLayer === 'county' ? 'NAMELSAD' : 'NAME';
+              map.setLayoutProperty(layerId, 'text-field', ['get', textFieldProperty]); // Use NAMELSAD for counties, NAME for MSAs
               map.setPaintProperty(layerId, 'text-color', '#000000'); // Ensure text is visible
               map.setPaintProperty(layerId, 'text-opacity', 1); // Ensure text opacity
             }
