@@ -87,89 +87,35 @@
     });
     map.addControl(scale, 'bottom-right');
 
-    // Define layers and filters
-    const filters = {
-      msa: {
-        fill: ['in', 'NAME', 
-          'Miami-Fort Lauderdale-West Palm Beach, FL', 
-          'Naples-Marco Island, FL',
-          'Cape Coral-Fort Myers, FL', 
-          'Punta Gorda, FL', 
-          'Clewiston, FL'
-        ],
-        label: ['in', 'NAME', 
-          'Miami-Fort Lauderdale-West Palm Beach, FL',
-          'Naples-Marco Island, FL',
-          'Cape Coral-Fort Myers, FL',
-          'Punta Gorda, FL',
-          'Clewiston, FL'
-        ]
-      },
-      county: {
-        fill: ['in', 'NAMELSAD', 
-          'Miami-Dade County', 
-          'Broward County',
-          'Palm Beach County', // Added Palm Beach County
-          'Collier County', 
-          'Lee County',
-          'Charlotte County',
-          'Hendry County'
-        ],
-        label: ['in', 'NAMELSAD', 
-          'Miami-Dade County',
-          'Broward County',
-          'Palm Beach County', // Added Palm Beach County
-          'Collier County',
-          'Lee County',
-          'Charlotte County',
-          'Hendry County'
-        ]
-      }
-    };
-
-    const layerMap = {
-      msa: ['ctc-msas-florida-6reteb-fill', 'ctc-msas-florida-6reteb-label'],
-      county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label'],
-      city: ['ctc-cities-core7-63tvk2-fill', 'ctc-cities-core7-63tvk2-label'],
-      zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
-    };
-
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Move all label layers above their corresponding fill layers
-      Object.keys(layerMap).forEach(layerGroup => {
-        const [fillLayer, labelLayer] = layerMap[layerGroup];
-        if (map.getLayer(labelLayer) && map.getLayer(fillLayer)) {
-          map.moveLayer(labelLayer); // Move label above all layers
-        }
-      });
-
-      // Set default visibility: Only show MSAs
-      Object.keys(layerMap).forEach(layerGroup => {
-        layerMap[layerGroup].forEach(layerId => {
-          if (map.getLayer(layerId)) {
-            const visibility = layerGroup === 'msa' ? 'visible' : 'none';
-            map.setLayoutProperty(layerId, 'visibility', visibility);
-            console.log(`Setting visibility for ${layerId}: ${visibility}`);
-          }
-        });
-      });
-
-      // Apply default filter to MSAs
-      applyFilters('msa');
+      // Adjust county label layer to always show labels
+      const countyLabelLayer = 'ctc-counties-florida-dtteh4-label';
+      if (map.getLayer(countyLabelLayer)) {
+        map.setLayoutProperty(countyLabelLayer, 'text-size', 14); // Increase text size
+        map.setLayoutProperty(countyLabelLayer, 'text-allow-overlap', true); // Prevent collision hiding
+        map.setLayerZoomRange(countyLabelLayer, 0, 22); // Ensure labels appear at all zoom levels
+        console.log('Adjusted county label layer to always show labels.');
+      }
 
       // Add event listener for toggling layers
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
         const selectedLayer = e.target.value;
         console.log(`Toggling to layer: ${selectedLayer}`);
         toggleLayerVisibility(selectedLayer);
-        applyFilters(selectedLayer);
       });
     });
 
     // Toggle layer visibility
     function toggleLayerVisibility(selectedLayer) {
+      const layerMap = {
+        msa: ['ctc-msas-florida-6reteb-fill', 'ctc-msas-florida-6reteb-label'],
+        county: ['ctc-counties-florida-dtteh4-fill', 'ctc-counties-florida-dtteh4-label'],
+        city: ['ctc-cities-core7-63tvk2-fill', 'ctc-cities-core7-63tvk2-label'],
+        zip: ['ctc-zipcodes-core7-5l5cvy-fill', 'ctc-zipcodes-core7-5l5cvy-label']
+      };
+
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
           if (map.getLayer(layerId)) {
@@ -179,39 +125,6 @@
           }
         });
       });
-    }
-
-    // Apply filters to the selected layer
-    function applyFilters(selectedLayer) {
-      try {
-        const previousLayer = document.querySelector('input[name="layer"]:checked')?.value || 'msa';
-
-        // Clear filters for the previously active layer
-        layerMap[previousLayer].forEach(layerId => {
-          if (map.getLayer(layerId)) {
-            map.setFilter(layerId, null); // Clear the filter
-          }
-        });
-
-        // Apply filters to both fill and label layers for the selected layer
-        layerMap[selectedLayer].forEach((layerId, index) => {
-          const layerType = index === 0 ? 'fill' : 'label'; // Determine if it's a fill or label layer
-          if (filters[selectedLayer] && map.getLayer(layerId)) {
-            map.setFilter(layerId, filters[selectedLayer][layerType]);
-            console.log(`Filter applied to ${layerId} (${layerType}):`, filters[selectedLayer][layerType]);
-
-            // Update paint properties for label layers
-            if (layerType === 'label') {
-              const textFieldProperty = selectedLayer === 'county' ? 'NAMELSAD' : 'NAME';
-              map.setLayoutProperty(layerId, 'text-field', ['get', textFieldProperty]); // Use NAMELSAD for counties, NAME for MSAs
-              map.setPaintProperty(layerId, 'text-color', '#000000'); // Ensure text is visible
-              map.setPaintProperty(layerId, 'text-opacity', 1); // Ensure text opacity
-            }
-          }
-        });
-      } catch (error) {
-        console.error('Filter error:', error);
-      }
     }
   });
 </script>
