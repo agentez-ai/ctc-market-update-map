@@ -39,8 +39,8 @@
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
-      center: [-81.8, 26.2],
-      zoom: 6.5 // Adjusted zoom level to approximately 50 miles
+      center: [-81.5, 25.5], // Adjusted center to focus on South Florida
+      zoom: 6 // Adjusted zoom level to approximately 50 miles and show less ocean
     });
 
     const nav = new mapboxgl.NavigationControl();
@@ -52,91 +52,17 @@
     });
     map.addControl(scale, 'bottom-right');
 
-    const filters = {
-      state: { fill: null, label: null }, // No filters for state
-      msa: {
-        fill: ['in', 'NAME', 
-          'Miami-Fort Lauderdale-West Palm Beach, FL', 
-          'Naples-Marco Island, FL',
-          'Cape Coral-Fort Myers, FL', 
-          'Punta Gorda, FL', 
-          'Clewiston, FL'
-        ],
-        label: ['in', 'NAME', 
-          'Miami-Fort Lauderdale-West Palm Beach, FL',
-          'Naples-Marco Island, FL',
-          'Cape Coral-Fort Myers, FL',
-          'Punta Gorda, FL',
-          'Clewiston, FL'
-        ]
-      },
-      county: {
-        fill: ['in', 'NAMELSAD', 
-          'Miami-Dade County', 
-          'Broward County',
-          'Palm Beach County', 
-          'Collier County', 
-          'Lee County',
-          'Charlotte County',
-          'Hendry County'
-        ],
-        label: ['in', 'NAMELSAD', 
-          'Miami-Dade County',
-          'Broward County',
-          'Palm Beach County',
-          'Collier County',
-          'Lee County',
-          'Charlotte County',
-          'Hendry County'
-        ]
-      },
-      city: { fill: null, label: null },
-      zip: { fill: null, label: null }
-    };
-
-    const layerMap = {
-      state: ['ctc-florida-7satj9'], // State layer
-      msa: ['ctc-core7-msas-fill', 'ctc-core7-msas-label'],
-      county: ['ctc-core7-counties-fill', 'ctc-core7-counties-label'],
-      city: ['ctc-core7-cities-fill', 'ctc-core7-cities-label'],
-      zip: ['ctc-core7-zipcodes-fill', 'ctc-core7-zipcodes-label']
-    };
-
-    const defaultZoomLevels = {
-      state: 6.5, // Adjusted zoom level for state to approximately 50 miles
-      msa: 7.4,
-      county: 7.4,
-      city: 7.4,
-      zip: 7.4
-    };
-
     map.on('load', () => {
       console.log('Map loaded successfully.');
 
-      // Log all available layers in the style
-      console.log("Available layers in map style:");
-      map.getStyle().layers.forEach(layer => console.log(layer.id));
+      // Ensure the state layer is visible
+      map.setLayoutProperty('ctc-florida-7satj9', 'visibility', 'visible');
 
-      const selectedRadio = document.querySelector('input[name="layer"]:checked');
-      const defaultVisible = selectedRadio ? selectedRadio.value : 'state';
+      // Ensure no filters are applied to the state layer
+      map.setFilter('ctc-florida-7satj9', null);
 
-      Object.keys(layerMap).forEach(layerGroup => {
-        layerMap[layerGroup].forEach((layerId, index) => {
-          if (map.getLayer(layerId)) {
-            console.log(`Layer loaded: ${layerId}`);
-            const visibility = layerGroup === defaultVisible ? 'visible' : 'none';
-            map.setLayoutProperty(layerId, 'visibility', visibility);
-
-            const layerType = index === 0 ? 'fill' : 'label';
-            if (filters[layerGroup] && filters[layerGroup][layerType]) {
-              console.log(`Applying filter to layer: ${layerId}`, filters[layerGroup][layerType]);
-              map.setFilter(layerId, filters[layerGroup][layerType]);
-            }
-          } else {
-            console.error(`Layer not found: ${layerId}`);
-          }
-        });
-      });
+      // Move the state layer to the bottom of the stack
+      map.moveLayer('ctc-florida-7satj9');
 
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
         const selectedLayer = e.target.value;
@@ -146,6 +72,14 @@
     });
 
     function toggleLayerVisibility(selectedLayer) {
+      const layerMap = {
+        state: ['ctc-florida-7satj9'], // State layer
+        msa: ['ctc-core7-msas-fill', 'ctc-core7-msas-label'],
+        county: ['ctc-core7-counties-fill', 'ctc-core7-counties-label'],
+        city: ['ctc-core7-cities-fill', 'ctc-core7-cities-label'],
+        zip: ['ctc-core7-zipcodes-fill', 'ctc-core7-zipcodes-label']
+      };
+
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
           if (map.getLayer(layerId)) {
@@ -155,6 +89,14 @@
           }
         });
       });
+
+      const defaultZoomLevels = {
+        state: 6, // Adjusted zoom level for state to approximately 50 miles
+        msa: 7.4,
+        county: 7.4,
+        city: 7.4,
+        zip: 7.4
+      };
 
       const zoomLevel = defaultZoomLevels[selectedLayer];
       if (zoomLevel !== undefined) {
