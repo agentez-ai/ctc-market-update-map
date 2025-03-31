@@ -12,15 +12,66 @@ body {
   z-index: 0;
 }
 
-#sidebar {
-  position: absolute;
-  top: 10px;
-  left: 10px;
+#toggle-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   background: white;
-  padding: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  padding: 10px 20px;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+#search-bar {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 20px;
+}
+
+#layer-options {
+  display: flex;
+  gap: 15px;
+}
+
+#layer-options label {
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#share-btn,
+#filter-btn {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: white;
+  cursor: pointer;
+}
+
+#profile-icon {
+  width: 32px;
+  height: 32px;
+  background: purple;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
 footer {

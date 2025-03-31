@@ -11,16 +11,24 @@
 <body>
 
 <div id="map"></div>
-<div id="sidebar">
-  <strong>Toggle Layers:</strong>
-  <form id="layer-toggle">
-    <label><input type="radio" name="layer" value="state" checked> State</label><br>
-    <label><input type="radio" name="layer" value="metro"> Metro Area</label><br>
-    <label><input type="radio" name="layer" value="county"> Counties</label><br>
-    <label><input type="radio" name="layer" value="city"> Cities</label><br>
-    <label><input type="radio" name="layer" value="zip"> ZIP Codes</label><br>
-  </form>
+
+<!-- Toggle Bar -->
+<div id="toggle-bar">
+  <input type="text" id="search-bar" placeholder="Search..." />
+  <div id="layer-options">
+    <label><input type="radio" name="layer" value="state" checked> State</label>
+    <label><input type="radio" name="layer" value="metro"> Metro</label>
+    <label><input type="radio" name="layer" value="county"> County</label>
+    <label><input type="radio" name="layer" value="city"> City</label>
+    <label><input type="radio" name="layer" value="zip"> ZIP</label>
+  </div>
+  <div id="actions">
+    <button id="share-btn">Share</button>
+    <button id="filter-btn">Filter</button>
+    <div id="profile-icon">R</div>
+  </div>
 </div>
+
 <footer>
   Powered by <a href="https://agentez.ai" target="_blank">AgentEz.ai</a> |
   Partnered with <a href="https://getyourpiece.com" target="_blank">GetYourPiece.com</a>
@@ -39,8 +47,8 @@
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
-      center: [-83.0, 27.5], // Center for the entire state of Florida
-      zoom: 6 // Zoom level for the state view
+      center: [-82.5, 27.5], // Adjusted center to shift map east
+      zoom: 6 // Default zoom level
     });
 
     const nav = new mapboxgl.NavigationControl();
@@ -62,10 +70,12 @@
       // Hide all non-state labels and layers on initial load
       hideNonStateLabels();
 
-      document.getElementById('layer-toggle').addEventListener('change', (e) => {
-        const selectedLayer = e.target.value;
-        console.log(`Toggling to layer: ${selectedLayer}`);
-        toggleLayerVisibility(selectedLayer);
+      document.querySelectorAll('input[name="layer"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          const selectedLayer = e.target.value;
+          console.log(`Toggling to layer: ${selectedLayer}`);
+          toggleLayerVisibility(selectedLayer);
+        });
       });
     });
 
@@ -78,27 +88,20 @@
         zip: ['ctc-core7-zipcodes-fill', 'ctc-core7-zipcodes-label']
       };
 
-      const labelLayersToHide = [
-        'ctc-core7-msas-label',
-        'ctc-core7-counties-label',
-        'ctc-core7-cities-label',
-        'ctc-core7-zipcodes-label'
-      ];
-
       const defaultZoomLevels = {
-        state: 6, // Zoom level for the entire state
-        metro: 7.4, // Zoom level for Metro Area
-        county: 7.4, // Zoom level for Counties
-        city: 7.4, // Zoom level for Cities
-        zip: 7.4 // Zoom level for ZIP Codes
+        state: 6,
+        metro: 7.4,
+        county: 7.4,
+        city: 7.4,
+        zip: 7.4
       };
 
       const defaultCenters = {
-        state: [-83.0, 27.5], // Center for the entire state of Florida
-        metro: [-81.8, 26.2], // Center for Metro Area (South Florida)
-        county: [-81.8, 26.2], // Center for Counties (South Florida)
-        city: [-81.8, 26.2], // Center for Cities (South Florida)
-        zip: [-81.8, 26.2] // Center for ZIP Codes (South Florida)
+        state: [-82.5, 27.5],
+        metro: [-81.8, 26.2],
+        county: [-81.8, 26.2],
+        city: [-81.8, 26.2],
+        zip: [-81.8, 26.2]
       };
 
       // Hide all layers first
@@ -116,11 +119,6 @@
           map.setLayoutProperty(layerId, 'visibility', 'visible');
         }
       });
-
-      // Hide all non-state labels when the state layer is active
-      if (selectedLayer === 'state') {
-        hideNonStateLabels();
-      }
 
       const zoomLevel = defaultZoomLevels[selectedLayer];
       const center = defaultCenters[selectedLayer];
