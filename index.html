@@ -5,24 +5,8 @@
   <title>CTC Market Update Map</title>
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <style>
-    body { margin: 0; padding: 0; font-family: sans-serif; }
-    #map { position: absolute; top: 0; bottom: 0; width: 100%; z-index: 0; }
-    #sidebar {
-      position: absolute; top: 10px; left: 10px;
-      background: white; padding: 10px; border-radius: 8px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2); z-index: 1;
-    }
-    footer {
-      position: absolute; bottom: 10px; left: 50%;
-      transform: translateX(-50%);
-      background: white; padding: 5px 10px; border-radius: 8px;
-      font-size: 12px; box-shadow: 0 0 15px rgba(0,0,0,0.2); z-index: 1;
-    }
-    footer a { text-decoration: none; color: #007bff; }
-    footer a:hover { text-decoration: underline; }
-  </style>
 </head>
 <body>
 
@@ -48,29 +32,25 @@
       return;
     }
 
-    // Initialize Mapbox
     const accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
     mapboxgl.accessToken = accessToken;
 
     const map = new mapboxgl.Map({
       container: 'map',
-      style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd', // Your custom style
-      center: [-81.8, 26.2], // Center the map on Florida
-      zoom: 7.4 // Set all layers to 28mi for debugging
+      style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
+      center: [-81.8, 26.2],
+      zoom: 7.4
     });
 
-    // Add zoom controls
     const nav = new mapboxgl.NavigationControl();
     map.addControl(nav, 'top-right');
 
-    // Add scale bar
     const scale = new mapboxgl.ScaleControl({
       maxWidth: 100,
-      unit: 'imperial' // Displays miles
+      unit: 'imperial'
     });
     map.addControl(scale, 'bottom-right');
 
-    // Define filters for MSAs and Counties
     const filters = {
       msa: {
         fill: ['in', 'NAME', 
@@ -125,16 +105,11 @@
     };
 
     map.on('load', () => {
-      console.log('Map loaded successfully.');
-
-      // Apply default visibility and filters
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach((layerId, index) => {
           if (map.getLayer(layerId)) {
             const visibility = layerGroup === 'msa' ? 'visible' : 'none';
             map.setLayoutProperty(layerId, 'visibility', visibility);
-
-            // Apply filters
             const layerType = index === 0 ? 'fill' : 'label';
             if (filters[layerGroup] && filters[layerGroup][layerType]) {
               map.setFilter(layerId, filters[layerGroup][layerType]);
@@ -143,15 +118,12 @@
         });
       });
 
-      // Add event listener for toggling layers
       document.getElementById('layer-toggle').addEventListener('change', (e) => {
         const selectedLayer = e.target.value;
-        console.log(`Toggling to layer: ${selectedLayer}`);
         toggleLayerVisibility(selectedLayer);
       });
     });
 
-    // Toggle layer visibility and adjust zoom level
     function toggleLayerVisibility(selectedLayer) {
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
@@ -162,9 +134,7 @@
         });
       });
 
-      // Adjust zoom level based on the selected layer
       const zoomLevel = defaultZoomLevels[selectedLayer];
-      console.log(`Applying zoom level: ${zoomLevel} for layer: ${selectedLayer}`);
       if (zoomLevel !== undefined) {
         map.flyTo({ zoom: zoomLevel });
       }

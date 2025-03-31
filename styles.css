@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  z-index: 0;
+}
+
+#sidebar {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+footer {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+footer a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
