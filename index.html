@@ -106,23 +106,15 @@
         ]
       },
       county: {
-        fill: ['in', 'NAMELSAD', 
-          'Miami-Dade County', 
-          'Broward County',
-          'Palm Beach County', // Added Palm Beach County
-          'Collier County', 
-          'Lee County',
-          'Charlotte County',
-          'Hendry County'
+        fill: ['match', ['get', 'NAMELSAD'], 
+          ['Miami-Dade County', 'Broward County', 'Palm Beach County', 'Collier County', 'Lee County', 'Charlotte County', 'Hendry County'], 
+          true, 
+          false
         ],
-        label: ['in', 'NAMELSAD', 
-          'Miami-Dade County',
-          'Broward County',
-          'Palm Beach County', // Added Palm Beach County
-          'Collier County',
-          'Lee County',
-          'Charlotte County',
-          'Hendry County'
+        label: ['match', ['get', 'NAMELSAD'], 
+          ['Miami-Dade County', 'Broward County', 'Palm Beach County', 'Collier County', 'Lee County', 'Charlotte County', 'Hendry County'], 
+          true, 
+          false
         ]
       }
     };
@@ -136,11 +128,6 @@
 
     map.on('load', () => {
       console.log('Map loaded successfully.');
-
-      // Debugging: Log all features in the county layer
-      const countyLayer = 'ctc-counties-florida-dtteh4-fill';
-      const features = map.querySourceFeatures('composite', { sourceLayer: countyLayer });
-      console.log('County Layer Features:', features);
 
       // Move all label layers above their corresponding fill layers
       Object.keys(layerMap).forEach(layerGroup => {
