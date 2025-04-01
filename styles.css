@@ -22,8 +22,7 @@ body {
   padding: 10px 20px;
   position: absolute;
   top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 100px; /* Keep the toggle bar aligned to the right */
   z-index: 1000;
   width: 900px; /* Set toggle bar width */
 }
@@ -35,7 +34,7 @@ body {
   border-radius: 4px;
   margin-right: 20px;
   font-size: 14px;
-  max-width: 300px; /* Set search bar width */
+  width: 300px; /* Set search bar width */
 }
 
 #layer-options {
@@ -92,7 +91,7 @@ body {
 
 footer {
   position: absolute;
-  bottom: 10px;
+  bottom: 10px; /* Keep footer at the bottom */
   left: 50%;
   transform: translateX(-50%);
   background: white;
@@ -101,11 +100,13 @@ footer {
   font-size: 12px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   z-index: 1;
+  text-align: center;
 }
 
 footer a {
   text-decoration: none;
   color: #007bff;
+  font-weight: bold;
 }
 
 footer a:hover {
