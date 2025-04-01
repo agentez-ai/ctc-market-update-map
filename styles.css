@@ -56,7 +56,7 @@ body {
 }
 
 #filter-btn,
-#FMN-btn,
+#FDN-btn,
 #share-btn {
   padding: 10px 15px; /* Ensure consistent height and padding */
   border: 1px solid #ccc;
@@ -74,7 +74,7 @@ body {
 }
 
 #filter-btn:hover,
-#FMN-btn:hover,
+#FDN-btn:hover,
 #share-btn:hover {
   background: #e9ecef;
 }
@@ -151,11 +151,15 @@ footer a:hover {
   }
 
   #filter-btn,
-  #FMN-btn,
+  #FDN-btn,
   #share-btn {
     width: 100%; /* Full width for buttons */
-    height: auto; /* Adjust height dynamically */
+    height: 50px; /* Set a consistent height for all buttons */
     text-align: center; /* Center-align text */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1; /* Ensure all buttons take up equal space */
   }
 
   #profile-icon {
