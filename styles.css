@@ -23,7 +23,7 @@ body {
   position: absolute;
   top: 20px;
   left: auto;
-  right: 40px;
+  right: 100px;
   z-index: 1000;
   width: 60%; /* Reduced width */
   max-width: 700px;
