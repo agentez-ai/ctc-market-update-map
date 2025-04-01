@@ -39,8 +39,8 @@ body {
 
 #layer-options {
   display: flex;
-  gap: 15px;
-  margin-right: 20px; /* Add space between radio buttons and buttons */
+  gap: 10px; /* Reduced spacing between radio buttons and buttons */
+  margin-right: 10px; /* Adjust spacing between ZIP and Filter */
 }
 
 #layer-options label {
@@ -52,13 +52,13 @@ body {
 #actions {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 10px; /* Consistent spacing between buttons */
 }
 
 #filter-btn,
 #FMN-btn,
 #share-btn {
-  padding: 8px 12px;
+  padding: 10px 15px; /* Ensure consistent height and padding */
   border: 1px solid #ccc;
   border-radius: 4px;
   background: #f8f9fa;
@@ -67,6 +67,10 @@ body {
   color: #333;
   font-weight: bold;
   text-transform: uppercase;
+  height: 40px; /* Set consistent button height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #filter-btn:hover,
