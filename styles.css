@@ -22,10 +22,10 @@ body {
   padding: 10px 20px;
   position: absolute;
   top: 20px;
-  right: 100px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 1000;
-  width: 60%; /* Reduced width */
-  max-width: 850px;
+  width: 900px; /* Set toggle bar width */
 }
 
 #search-bar {
@@ -35,12 +35,13 @@ body {
   border-radius: 4px;
   margin-right: 20px;
   font-size: 14px;
-  max-width: 250px; /* Reduced width for search bar */
+  max-width: 300px; /* Set search bar width */
 }
 
 #layer-options {
   display: flex;
   gap: 15px;
+  margin-right: 20px; /* Add space between radio buttons and buttons */
 }
 
 #layer-options label {
@@ -63,6 +64,9 @@ body {
   background: #f8f9fa;
   cursor: pointer;
   font-size: 14px;
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
 #share-btn:hover,
@@ -88,20 +92,3 @@ footer {
   position: absolute;
   bottom: 10px;
   left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  padding: 5px 10px;
-  border-radius: 8px;
-  font-size: 12px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-}
-
-footer a {
-  text-decoration: none;
-  color: #007bff;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
