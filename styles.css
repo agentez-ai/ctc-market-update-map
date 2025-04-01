@@ -116,3 +116,46 @@ footer a {
 footer a:hover {
   text-decoration: underline;
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  #toggle-bar {
+    flex-direction: column; /* Stack vertically */
+    align-items: flex-start; /* Align items to the left */
+    width: 95%; /* Full width with some margin */
+    max-width: none; /* Remove max-width restriction */
+    right: auto; /* Reset right alignment */
+    left: 10px; /* Add margin from the left */
+    top: 10px; /* Add margin from the top */
+    padding: 10px;
+    gap: 10px; /* Add spacing between stacked items */
+  }
+
+  #search-bar {
+    width: 100%; /* Full width for the search bar */
+    margin-right: 0; /* Remove right margin */
+  }
+
+  #layer-options {
+    flex-wrap: wrap; /* Allow radio buttons to wrap */
+    gap: 10px; /* Maintain spacing between items */
+    margin-right: 0; /* Remove right margin */
+  }
+
+  #actions {
+    width: 100%; /* Full width for buttons */
+    justify-content: space-between; /* Spread buttons evenly */
+  }
+
+  #filter-btn,
+  #FMN-btn,
+  #share-btn {
+    width: 100%; /* Full width for buttons */
+    height: auto; /* Adjust height dynamically */
+    text-align: center; /* Center-align text */
+  }
+
+  #profile-icon {
+    align-self: flex-end; /* Align profile icon to the right */
+  }
+}
