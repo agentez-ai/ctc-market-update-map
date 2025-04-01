@@ -79,18 +79,9 @@ body {
   background: #e9ecef;
 }
 
+/* Remove the profile icon */
 #profile-icon {
-  width: 32px;
-  height: 32px;
-  background: #6c63ff;
-  color: white;
-  font-size: 16px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  cursor: pointer;
+  display: none;
 }
 
 footer {
@@ -137,6 +128,7 @@ footer a:hover {
   #search-bar {
     width: 100%; /* Full width for the search bar */
     margin-right: 0; /* Remove right margin */
+    box-sizing: border-box; /* Ensure it fits within the container */
   }
 
   #layer-options {
@@ -160,9 +152,6 @@ footer a:hover {
     align-items: center;
     justify-content: center;
     flex: 1; /* Ensure all buttons take up equal space */
-  }
-
-  #profile-icon {
-    align-self: flex-end; /* Align profile icon to the right */
+    max-width: 100%; /* Prevent buttons from overflowing */
   }
 }
