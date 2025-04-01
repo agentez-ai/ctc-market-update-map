@@ -140,8 +140,33 @@
     });
     map.addControl(scale, 'bottom-right');
 
-    // Function to update the map based on the selected layer
+    // Function to toggle layer visibility and update map settings
     function toggleLayerVisibility(selectedLayer) {
+      const layerMap = {
+        state: ['ctc-florida-fill', 'ctc-florida-label'],
+        metro: ['ctc-core7-msas-fill', 'ctc-core7-msas-label'],
+        county: ['ctc-core7-counties-fill', 'ctc-core7-counties-label'],
+        city: ['ctc-core7-cities-fill', 'ctc-core7-cities-label'],
+        zip: ['ctc-core7-zipcodes-fill', 'ctc-core7-zipcodes-label']
+      };
+
+      // Hide all layers
+      Object.keys(layerMap).forEach(layerGroup => {
+        layerMap[layerGroup].forEach(layerId => {
+          if (map.getLayer(layerId)) {
+            map.setLayoutProperty(layerId, 'visibility', 'none');
+          }
+        });
+      });
+
+      // Show the selected layer
+      layerMap[selectedLayer].forEach(layerId => {
+        if (map.getLayer(layerId)) {
+          map.setLayoutProperty(layerId, 'visibility', 'visible');
+        }
+      });
+
+      // Update map center and zoom for the selected layer
       const layerSettings = deviceSettings.layers[selectedLayer];
       if (layerSettings) {
         map.flyTo({
