@@ -5,7 +5,6 @@
   <title>CTC Market Update Map</title>
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <style>
     /* Map container */
@@ -16,23 +15,120 @@
       width: 100%;
     }
 
-    /* Toggle bar */
+    /* Toggle bar for desktop */
     #toggle-bar {
-      position: absolute;
-      top: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: white;
-      padding: 10px;
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      z-index: 1000;
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffffff;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 10px 20px;
+      position: absolute;
+      top: 20px;
+      right: 100px; /* Desktop: aligned to the right */
+      z-index: 1000;
+      width: 900px; /* Set toggle bar width for desktop */
+    }
+
+    #search-bar {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-right: 20px;
+      font-size: 14px;
+      width: 300px; /* Explicitly set search bar width */
+    }
+
+    #layer-options {
+      display: flex;
+      gap: 10px;
+      margin-right: 10px;
+    }
+
+    #actions {
+      display: flex;
+      align-items: center;
       gap: 10px;
     }
 
-    #toggle-bar input[type="radio"] {
-      margin-right: 5px;
+    #filter-btn,
+    #FMN-btn,
+    #share-btn {
+      padding: 10px 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #f8f9fa;
+      cursor: pointer;
+      font-size: 14px;
+      color: #333;
+      font-weight: bold;
+      text-transform: uppercase;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #profile-icon {
+      width: 32px;
+      height: 32px;
+      background: #6c63ff;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    /* Mobile and tablet responsiveness */
+    @media (max-width: 1024px) {
+      #toggle-bar {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        width: 95%;
+        max-width: 500px;
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
+        padding: 10px;
+        gap: 10px;
+      }
+
+      #search-bar {
+        width: 100%;
+        margin-right: 0;
+      }
+
+      #layer-options {
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-right: 0;
+      }
+
+      #actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+
+      #filter-btn,
+      #FMN-btn,
+      #share-btn {
+        width: 100%;
+        height: auto;
+        text-align: center;
+      }
+
+      #profile-icon {
+        align-self: flex-end;
+      }
     }
   </style>
 </head>
@@ -42,11 +138,20 @@
 
 <!-- Toggle Bar -->
 <div id="toggle-bar">
-  <label><input type="radio" name="layer" value="state"> State</label>
-  <label><input type="radio" name="layer" value="metro"> Metro</label>
-  <label><input type="radio" name="layer" value="county" checked> County</label>
-  <label><input type="radio" name="layer" value="city"> City</label>
-  <label><input type="radio" name="layer" value="zip"> ZIP</label>
+  <input type="text" id="search-bar" placeholder="Search..." />
+  <div id="layer-options">
+    <label><input type="radio" name="layer" value="state"> State</label>
+    <label><input type="radio" name="layer" value="metro"> Metro</label>
+    <label><input type="radio" name="layer" value="county" checked> County</label>
+    <label><input type="radio" name="layer" value="city"> City</label>
+    <label><input type="radio" name="layer" value="zip"> ZIP</label>
+  </div>
+  <div id="actions">
+    <button id="filter-btn">Filter</button>
+    <button id="FMN-btn">Find My Neighborhood</button>
+    <button id="share-btn">Share</button>
+    <div id="profile-icon">R</div>
+  </div>
 </div>
 
 <script>
@@ -59,13 +164,9 @@
     const accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
     mapboxgl.accessToken = accessToken;
 
-    // Default settings for desktop, tablet, and mobile
     const settings = {
       desktop: {
-        default: {
-          center: [-82.1, 26.3], // Default center for desktop
-          zoom: 7.4 // Default zoom for desktop
-        },
+        default: { center: [-82.1, 26.3], zoom: 7.4 },
         layers: {
           state: { center: [-86.3, 28.2], zoom: 5.8 },
           metro: { center: [-82.1, 26.3], zoom: 7.4 },
@@ -75,10 +176,7 @@
         }
       },
       tablet: {
-        default: {
-          center: [-82.1, 26.3], // Default center for tablet
-          zoom: 6.8 // Default zoom for tablet
-        },
+        default: { center: [-82.1, 26.3], zoom: 6.8 },
         layers: {
           state: { center: [-86.3, 28.2], zoom: 5.5 },
           metro: { center: [-82.1, 26.3], zoom: 6.8 },
@@ -88,10 +186,7 @@
         }
       },
       mobile: {
-        default: {
-          center: [-82.1, 26.3], // Default center for mobile
-          zoom: 6.2 // Default zoom for mobile
-        },
+        default: { center: [-82.1, 26.3], zoom: 6.2 },
         layers: {
           state: { center: [-86.3, 28.2], zoom: 5.2 },
           metro: { center: [-82.1, 26.3], zoom: 6.2 },
@@ -102,26 +197,15 @@
       }
     };
 
-    // Detect screen size and apply appropriate settings
     function getDeviceSettings() {
       const screenWidth = window.innerWidth;
-
-      if (screenWidth > 1024) {
-        // Desktop
-        return settings.desktop;
-      } else if (screenWidth > 768) {
-        // Tablet
-        return settings.tablet;
-      } else {
-        // Mobile
-        return settings.mobile;
-      }
+      if (screenWidth > 1024) return settings.desktop;
+      if (screenWidth > 768) return settings.tablet;
+      return settings.mobile;
     }
 
-    // Get the appropriate settings based on the device
     const deviceSettings = getDeviceSettings();
 
-    // Initialize the map with the default settings for the device
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
@@ -129,28 +213,21 @@
       zoom: deviceSettings.default.zoom
     });
 
-    // Add zoom controls
     const nav = new mapboxgl.NavigationControl();
     map.addControl(nav, 'top-right');
 
-    // Add scale control
-    const scale = new mapboxgl.ScaleControl({
-      maxWidth: 100,
-      unit: 'imperial'
-    });
+    const scale = new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' });
     map.addControl(scale, 'bottom-right');
 
-    // Function to toggle layer visibility and update map settings
-    function toggleLayerVisibility(selectedLayer) {
-      const layerMap = {
-        state: ['ctc-florida-fill', 'ctc-florida-label'],
-        metro: ['ctc-core7-msas-fill', 'ctc-core7-msas-label'],
-        county: ['ctc-core7-counties-fill', 'ctc-core7-counties-label'],
-        city: ['ctc-core7-cities-fill', 'ctc-core7-cities-label'],
-        zip: ['ctc-core7-zipcodes-fill', 'ctc-core7-zipcodes-label']
-      };
+    const layerMap = {
+      state: ['ctc-florida-fill', 'ctc-florida-label'],
+      metro: ['ctc-core7-msas-fill', 'ctc-core7-msas-label'],
+      county: ['ctc-core7-counties-fill', 'ctc-core7-counties-label'],
+      city: ['ctc-core7-cities-fill', 'ctc-core7-cities-label'],
+      zip: ['ctc-core7-zipcodes-fill', 'ctc-core7-zipcodes-label']
+    };
 
-      // Hide all layers
+    function toggleLayerVisibility(selectedLayer) {
       Object.keys(layerMap).forEach(layerGroup => {
         layerMap[layerGroup].forEach(layerId => {
           if (map.getLayer(layerId)) {
@@ -159,39 +236,31 @@
         });
       });
 
-      // Show the selected layer
       layerMap[selectedLayer].forEach(layerId => {
         if (map.getLayer(layerId)) {
           map.setLayoutProperty(layerId, 'visibility', 'visible');
         }
       });
 
-      // Update map center and zoom for the selected layer
       const layerSettings = deviceSettings.layers[selectedLayer];
       if (layerSettings) {
-        map.flyTo({
-          center: layerSettings.center,
-          zoom: layerSettings.zoom
-        });
+        map.flyTo({ center: layerSettings.center, zoom: layerSettings.zoom });
       }
     }
 
-    // Event listener for layer toggles
-    document.querySelectorAll('input[name="layer"]').forEach(radio => {
-      radio.addEventListener('change', (e) => {
-        const selectedLayer = e.target.value;
-        console.log(`Toggling to layer: ${selectedLayer}`);
-        toggleLayerVisibility(selectedLayer);
+    map.on('load', () => {
+      toggleLayerVisibility('county');
+
+      document.querySelectorAll('input[name="layer"]').forEach(radio => {
+        radio.addEventListener('change', (e) => {
+          toggleLayerVisibility(e.target.value);
+        });
       });
     });
 
-    // Update map settings dynamically when the screen is resized
     window.addEventListener('resize', () => {
       const newDeviceSettings = getDeviceSettings();
-      map.flyTo({
-        center: newDeviceSettings.default.center,
-        zoom: newDeviceSettings.default.zoom
-      });
+      map.flyTo({ center: newDeviceSettings.default.center, zoom: newDeviceSettings.default.zoom });
     });
   });
 </script>
