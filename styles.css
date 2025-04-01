@@ -25,7 +25,7 @@ body {
   right: 100px;
   z-index: 1000;
   width: 60%; /* Reduced width */
-  max-width: 900px;
+  max-width: 885px;
 }
 
 #search-bar {
@@ -35,7 +35,7 @@ body {
   border-radius: 4px;
   margin-right: 20px;
   font-size: 14px;
-  max-width: 275px; /* Reduced width for search bar */
+  max-width: 255px; /* Reduced width for search bar */
 }
 
 #layer-options {
