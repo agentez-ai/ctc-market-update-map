@@ -22,7 +22,7 @@ body {
   padding: 10px 20px;
   position: absolute;
   top: 20px;
-  right: 100px; /* Keep the toggle bar aligned to the right on desktop */
+  right: 100px; /* Desktop: aligned to the right */
   z-index: 1000;
   width: 900px; /* Set toggle bar width for desktop */
 }
@@ -34,7 +34,7 @@ body {
   border-radius: 4px;
   margin-right: 20px;
   font-size: 14px;
-  width: 300px; /* Explicitly set search bar width */
+  width: 400px; /* Make the search bar bigger on desktop */
 }
 
 #layer-options {
@@ -108,18 +108,18 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
+/* Mobile and tablet responsiveness */
+@media (max-width: 1024px) {
   #toggle-bar {
     flex-direction: column; /* Stack vertically */
-    align-items: stretch; /* Stretch items to fill width */
+    align-items: center; /* Center all items */
     justify-content: center; /* Center items */
     width: 95%; /* Full width with some margin */
     max-width: 500px; /* Limit max width */
     position: absolute;
     top: 10px;
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Adjust for true centering */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
     right: auto; /* Remove right alignment */
     padding: 10px;
     gap: 10px; /* Add spacing between stacked items */
@@ -134,12 +134,14 @@ footer a:hover {
   #layer-options {
     flex-wrap: wrap; /* Allow radio buttons to wrap */
     gap: 10px; /* Maintain spacing between items */
+    justify-content: center; /* Center radio buttons */
     margin-right: 0; /* Remove right margin */
   }
 
   #actions {
     width: 100%; /* Full width for buttons */
-    justify-content: space-between; /* Spread buttons evenly */
+    justify-content: center; /* Center buttons */
+    gap: 10px; /* Add spacing between buttons */
   }
 
   #filter-btn,
@@ -151,7 +153,6 @@ footer a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 1; /* Ensure all buttons take up equal space */
-    max-width: 100%; /* Prevent buttons from overflowing */
+    flex: none; /* Prevent buttons from stretching unevenly */
   }
 }
