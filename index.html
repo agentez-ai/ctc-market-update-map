@@ -15,11 +15,39 @@
       bottom: 0;
       width: 100%;
     }
+
+    /* Toggle bar */
+    #toggle-bar {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      display: flex;
+      gap: 10px;
+    }
+
+    #toggle-bar input[type="radio"] {
+      margin-right: 5px;
+    }
   </style>
 </head>
 <body>
 
 <div id="map"></div>
+
+<!-- Toggle Bar -->
+<div id="toggle-bar">
+  <label><input type="radio" name="layer" value="state"> State</label>
+  <label><input type="radio" name="layer" value="metro"> Metro</label>
+  <label><input type="radio" name="layer" value="county" checked> County</label>
+  <label><input type="radio" name="layer" value="city"> City</label>
+  <label><input type="radio" name="layer" value="zip"> ZIP</label>
+</div>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -48,28 +76,28 @@
       },
       tablet: {
         default: {
-          center: [-82.5, 26.0], // Default center for tablet
+          center: [-82.1, 26.3], // Default center for tablet
           zoom: 6.8 // Default zoom for tablet
         },
         layers: {
-          state: { center: [-87.5, 27.5], zoom: 5.8 },
-          metro: { center: [-82, 26.0], zoom: 6.8 },
-          county: { center: [-82, 26.0], zoom: 6.8 },
-          city: { center: [-82, 26.0], zoom: 6.8 },
-          zip: { center: [-82.5, 26.0], zoom: 6.8 }
+          state: { center: [-86.3, 28.2], zoom: 5.5 },
+          metro: { center: [-82.1, 26.3], zoom: 6.8 },
+          county: { center: [-82.1, 26.3], zoom: 6.8 },
+          city: { center: [-82.1, 26.3], zoom: 6.8 },
+          zip: { center: [-82.1, 26.3], zoom: 6.8 }
         }
       },
       mobile: {
         default: {
-          center: [-82.3, 25.8], // Default center for mobile
+          center: [-82.1, 26.3], // Default center for mobile
           zoom: 6.2 // Default zoom for mobile
         },
         layers: {
-          state: { center: [-87.3, 27.3], zoom: 5.5 },
-          metro: { center: [-82, 25.8], zoom: 6.2 },
-          county: { center: [-82, 25.8], zoom: 6.2 },
-          city: { center: [-82, 25.8], zoom: 6.2 },
-          zip: { center: [-82.3, 25.8], zoom: 6.2 }
+          state: { center: [-86.3, 28.2], zoom: 5.2 },
+          metro: { center: [-82.1, 26.3], zoom: 6.2 },
+          county: { center: [-82.1, 26.3], zoom: 6.2 },
+          city: { center: [-82.1, 26.3], zoom: 6.2 },
+          zip: { center: [-82.1, 26.3], zoom: 6.2 }
         }
       }
     };
@@ -101,7 +129,7 @@
       zoom: deviceSettings.default.zoom
     });
 
-    // Add zoom controls (Desktop Only)
+    // Add zoom controls
     const nav = new mapboxgl.NavigationControl();
     map.addControl(nav, 'top-right');
 
@@ -113,8 +141,8 @@
     map.addControl(scale, 'bottom-right');
 
     // Function to update the map based on the selected layer
-    function updateMapForLayer(layer) {
-      const layerSettings = deviceSettings.layers[layer];
+    function toggleLayerVisibility(selectedLayer) {
+      const layerSettings = deviceSettings.layers[selectedLayer];
       if (layerSettings) {
         map.flyTo({
           center: layerSettings.center,
@@ -123,14 +151,13 @@
       }
     }
 
-    // Example: Update the map when a layer is selected
-    // Replace this with your actual layer toggle logic
-    document.addEventListener('keydown', (e) => {
-      if (e.key === '1') updateMapForLayer('state');
-      if (e.key === '2') updateMapForLayer('metro');
-      if (e.key === '3') updateMapForLayer('county');
-      if (e.key === '4') updateMapForLayer('city');
-      if (e.key === '5') updateMapForLayer('zip');
+    // Event listener for layer toggles
+    document.querySelectorAll('input[name="layer"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        const selectedLayer = e.target.value;
+        console.log(`Toggling to layer: ${selectedLayer}`);
+        toggleLayerVisibility(selectedLayer);
+      });
     });
 
     // Update map settings dynamically when the screen is resized
