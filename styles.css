@@ -22,7 +22,6 @@ body {
   padding: 10px 20px;
   position: absolute;
   top: 20px;
-  left: auto;
   right: 100px;
   z-index: 1000;
   width: 60%; /* Reduced width */
