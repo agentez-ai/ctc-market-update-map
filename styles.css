@@ -56,8 +56,9 @@ body {
   gap: 10px;
 }
 
-#share-btn,
-#filter-btn {
+#filter-btn,
+#FMN-btn,
+#share-btn {
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -69,8 +70,9 @@ body {
   text-transform: uppercase;
 }
 
-#share-btn:hover,
-#filter-btn:hover {
+#filter-btn:hover,
+#FMN-btn:hover,
+#share-btn:hover {
   background: #e9ecef;
 }
 
@@ -92,3 +94,20 @@ footer {
   position: absolute;
   bottom: 10px;
   left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+footer a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
