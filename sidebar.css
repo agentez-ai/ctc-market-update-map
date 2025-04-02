@@ -9,7 +9,7 @@ body {
   top: 0;
   bottom: 0;
   width: 287.8px; /* Reduced width to ensure Mapbox logo is visible */
-  height: 100vh; /* ✅ REQUIRED for flexbox to push footer to the bottom */
+  height: 100vh; /* Ensure sidebar takes up the full viewport height */
   background: #ffffff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
@@ -73,14 +73,14 @@ body {
 /* Sidebar Footer */
 #sidebar-footer {
   margin-top: auto; /* Push footer to the bottom */
-  padding: 10px 0;
+  padding: 2% 0; /* Use percentage for dynamic vertical padding */
   font-size: 12px;
   text-align: center;
   border-top: 1px solid #e0e0e0; /* Optional: Add a subtle divider */
   color: #666;
   line-height: 1.5; /* Allow text to wrap into two lines */
   word-wrap: break-word; /* Ensure text wraps properly */
-  margin-bottom: 0; /* Ensure no extra space below the footer */
+  margin-bottom: 2%; /* Add a percentage-based bottom margin */
 }
 
 #sidebar-footer a {
