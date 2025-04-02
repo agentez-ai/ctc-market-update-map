@@ -109,11 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add toggle bar position control
   const toggleBar = document.getElementById('toggle-bar');
-  function setToggleBarPosition(top, right) {
-    toggleBar.style.top = `${top}px`;
-    toggleBar.style.right = `${right}px`;
+  function setToggleBarPosition(topPercent, rightPercent) {
+    toggleBar.style.top = `${topPercent}%`;
+    toggleBar.style.right = `${rightPercent}%`;
   }
 
   // Example: Adjust toggle bar position dynamically
-  setToggleBarPosition(20, 100); // Default position: 20px from top, 20px from right
+  setToggleBarPosition(5, 10); // Default position: 5% from top, 10% from right
 });
