@@ -36,9 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const footerPositions = {
-    state: { bottom: 20, left: '50%' },
+    state: { bottom: 15, left: '52%' },
     metro: { bottom: 30, left: '45%' },
-    county: { bottom: 40, left: '40%' },
+    county: { bottom: 15, left: '60%' },
     city: { bottom: 50, left: '35%' },
     zip: { bottom: 60, left: '30%' }
   };
