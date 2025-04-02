@@ -116,7 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const footer = document.querySelector('footer');
   function setFooterPosition(bottom, left) {
     footer.style.bottom = `${bottom}px`;
-    footer.style.left = `${left}px`;
+    footer.style.left = `${left}`;
     footer.style.transform = 'translateX(-50%)'; // Keep it centered horizontally
   }
 
