@@ -18,6 +18,12 @@ body {
   z-index: 1000; /* Ensure it stays above the map */
 }
 
+#logo img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
 /* MAP */
 #map {
   position: absolute;
@@ -26,6 +32,7 @@ body {
   left: 300px; /* Offset for the sidebar */
   right: 0;
   z-index: 0; /* Ensure it stays below the sidebar */
+  background: #e0e0e0; /* Temporary background to debug visibility */
 }
 
 /* TOGGLE BAR */
