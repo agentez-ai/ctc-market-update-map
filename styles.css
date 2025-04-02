@@ -42,7 +42,17 @@ body {
   left: 300px; /* Offset for the sidebar */
   right: 0;
   z-index: 0;
-  padding-bottom: 50px; /* Ensure Mapbox logo is visible */
+}
+
+/* Ensure the Mapbox logo is fully visible */
+.mapboxgl-ctrl-attrib {
+  position: absolute !important; /* Explicitly position the logo */
+  bottom: 20px !important; /* Adjust the distance from the bottom */
+  left: 320px !important; /* Adjust the distance from the left to avoid the sidebar */
+  z-index: 1000; /* Ensure it appears above other elements */
+  background: rgba(255, 255, 255, 0.8); /* Optional: Add a background for better visibility */
+  padding: 5px; /* Optional: Add padding for better spacing */
+  border-radius: 4px; /* Optional: Add rounded corners */
 }
 
 /* TOGGLE BAR */
