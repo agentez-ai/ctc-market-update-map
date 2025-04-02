@@ -110,9 +110,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Add toggle bar position control
   const toggleBar = document.getElementById('toggle-bar');
-  function setToggleBarPosition(topPercent, leftPx) {
+  function setToggleBarPosition(topPercent, leftPercent) {
     toggleBar.style.top = `${topPercent}%`;
-    toggleBar.style.left = `${leftPx}px`;
+    toggleBar.style.left = `${leftPercent}%`;
   }
 
   function updateToggleBarPosition() {
@@ -121,8 +121,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const zoomControlWidth = 50; // Approximate width of the zoom controls
     const usableWidth = mapWidth - sidebarWidth - zoomControlWidth;
 
-    const centerLeft = sidebarWidth + usableWidth / 2; // Center of the usable space
-    setToggleBarPosition(5, centerLeft); // Keep it 5% from the top
+    const centerLeftPercent = ((sidebarWidth + usableWidth / 2) / mapWidth) * 100; // Center of the usable space in percentage
+    setToggleBarPosition(10, centerLeftPercent); // Adjust top and left percentages as needed
   }
 
   // Example: Adjust toggle bar position dynamically
