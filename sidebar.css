@@ -80,7 +80,7 @@ body {
   color: #666;
   line-height: 1.5; /* Allow text to wrap into two lines */
   word-wrap: break-word; /* Ensure text wraps properly */
-  margin-bottom: 10%; /* Adjust bottom margin to bring footer higher */
+  margin-bottom: 12%; /* Adjust bottom margin to bring footer higher */
 }
 
 #sidebar-footer a {
