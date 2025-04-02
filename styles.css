@@ -22,9 +22,9 @@ body {
   padding: 10px 20px;
   position: absolute;
   top: 20px;
-  right: 100px; /* Desktop: aligned to the right */
+  right: 50px; /* Move everything further to the right */
   z-index: 1000;
-  width: 900px; /* Set toggle bar width for desktop */
+  width: 1000px; /* Increase the width of the toggle bar */
 }
 
 #search-bar {
@@ -34,7 +34,7 @@ body {
   border-radius: 4px;
   margin-right: 20px;
   font-size: 14px;
-  width: 400px; /* Make the search bar bigger on desktop */
+  width: 500px; /* Make the search bar bigger on desktop */
 }
 
 #layer-options {
@@ -71,6 +71,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#FDN-btn {
+  width: 200px; /* Reduce the size of the "Find Dream Neighborhood" button */
 }
 
 #filter-btn:hover,
