@@ -100,4 +100,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const newDeviceSettings = getDeviceSettings();
     map.flyTo({ center: newDeviceSettings.default.center, zoom: newDeviceSettings.default.zoom });
   });
+
+  // Add toggle bar position control
+  const toggleBar = document.getElementById('toggle-bar');
+  function setToggleBarPosition(top, right) {
+    toggleBar.style.top = `${top}px`;
+    toggleBar.style.right = `${right}px`;
+  }
+
+  // Example: Adjust toggle bar position dynamically
+  setToggleBarPosition(20, 20); // Default position: 20px from top, 20px from right
 });

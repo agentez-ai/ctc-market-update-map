@@ -42,6 +42,7 @@ body {
   left: 300px; /* Offset for the sidebar */
   right: 0;
   z-index: 0;
+  padding-bottom: 50px; /* Ensure Mapbox logo is visible */
 }
 
 /* TOGGLE BAR */
@@ -54,8 +55,6 @@ body {
   border-radius: 8px;
   padding: 10px 20px;
   position: absolute;
-  top: 20px;
-  right: 20px; /* Move to the right */
   z-index: 1001;
   width: 900px;
 }
