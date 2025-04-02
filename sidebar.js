@@ -35,14 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  const footerPositions = {
-    state: { bottom: 15, left: '52%' },
-    metro: { bottom: 30, left: '45%' },
-    county: { bottom: 15, left: '60%' },
-    city: { bottom: 50, left: '35%' },
-    zip: { bottom: 60, left: '30%' }
-  };
-
   function getDeviceSettings() {
     const screenWidth = window.innerWidth;
     if (screenWidth > 1024) return settings.desktop;
@@ -95,12 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (layerSettings) {
       map.flyTo({ center: layerSettings.center, zoom: layerSettings.zoom });
     }
-
-    // Update footer position based on the selected layer
-    const footerPosition = footerPositions[selectedLayer];
-    if (footerPosition) {
-      setFooterPosition(footerPosition.bottom, footerPosition.left);
-    }
   }
 
   map.on('load', () => {
@@ -126,14 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function setToggleBarPosition(top, right) {
     toggleBar.style.top = `${top}px`;
     toggleBar.style.right = `${right}px`;
-  }
-
-  // Add footer position control
-  const footer = document.querySelector('footer');
-  function setFooterPosition(bottom, left) {
-    footer.style.bottom = `${bottom}px`;
-    footer.style.left = `${left}`;
-    footer.style.transform = 'translateX(-50%)'; // Keep it centered horizontally
   }
 
   // Example: Adjust toggle bar position dynamically
