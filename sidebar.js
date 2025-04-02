@@ -105,15 +105,26 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('resize', () => {
     const newDeviceSettings = getDeviceSettings();
     map.flyTo({ center: newDeviceSettings.default.center, zoom: newDeviceSettings.default.zoom });
+    updateToggleBarPosition(); // Recalculate toggle bar position on resize
   });
 
   // Add toggle bar position control
   const toggleBar = document.getElementById('toggle-bar');
-  function setToggleBarPosition(topPercent, rightPercent) {
+  function setToggleBarPosition(topPercent, leftPx) {
     toggleBar.style.top = `${topPercent}%`;
-    toggleBar.style.right = `${rightPercent}%`;
+    toggleBar.style.left = `${leftPx}px`;
+  }
+
+  function updateToggleBarPosition() {
+    const sidebarWidth = document.getElementById('sidebar').offsetWidth;
+    const mapWidth = document.getElementById('map').offsetWidth;
+    const zoomControlWidth = 50; // Approximate width of the zoom controls
+    const usableWidth = mapWidth - sidebarWidth - zoomControlWidth;
+
+    const centerLeft = sidebarWidth + usableWidth / 2; // Center of the usable space
+    setToggleBarPosition(5, centerLeft); // Keep it 5% from the top
   }
 
   // Example: Adjust toggle bar position dynamically
-  setToggleBarPosition(5, 10); // Default position: 5% from top, 10% from right
+  updateToggleBarPosition(); // Initial position
 });
