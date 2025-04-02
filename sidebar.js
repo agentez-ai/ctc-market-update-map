@@ -112,24 +112,33 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateToggleBarPosition() {
     const sidebar = document.getElementById('sidebar');
     const toggleBar = document.getElementById('toggle-bar');
-    const zoomControl = document.getElementById('zoom-control');
+    const zoomWrapper = document.querySelector('.mapboxgl-ctrl-top-right'); // Parent of zoom control
 
     const sidebarWidth = sidebar.offsetWidth;
     const toggleBarWidth = toggleBar.offsetWidth || 200; // Fallback width if not rendered yet
 
     const map = document.getElementById('map');
     const mapRect = map.getBoundingClientRect();
-    const zoomRect = zoomControl.getBoundingClientRect();
+    const zoomRect = zoomWrapper.getBoundingClientRect(); // Measure the parent container of zoom controls
 
-    // Measure the left edge of the zoom control relative to the map container
-    const zoomLeftEdge = zoomRect.left - mapRect.left - 10; // 10px padding adjustment
+    // Calculate the right edge of the zoom control relative to the map container
+    const zoomRightEdge = mapRect.right - zoomRect.right;
 
-    // Calculate usable space and center the toggle bar
-    const usableSpace = zoomLeftEdge - sidebarWidth;
-    const left = sidebarWidth + (usableSpace / 2) - (toggleBarWidth / 2);
+    // Calculate usable map width and center the toggle bar
+    const usableMapWidth = mapRect.width - sidebarWidth - zoomRightEdge;
+    const left = sidebarWidth + (usableMapWidth / 2) - (toggleBarWidth / 2);
 
     toggleBar.style.position = 'absolute';
     toggleBar.style.top = '10px'; // Adjust as needed
     toggleBar.style.left = `${left}px`;
+
+    // Debugging logs
+    console.log('Sidebar Width:', sidebarWidth);
+    console.log('ToggleBar Width:', toggleBarWidth);
+    console.log('Zoom Rect Right:', zoomRect.right);
+    console.log('Map Rect Right:', mapRect.right);
+    console.log('Zoom Right Edge:', zoomRightEdge);
+    console.log('Usable Map Width:', usableMapWidth);
+    console.log('Calculated Left:', left);
   }
 });
