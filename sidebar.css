@@ -8,7 +8,7 @@ body {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 287.5px; /* Reduced width to ensure Mapbox logo is visible */
+  width: 287.6px; /* Reduced width to ensure Mapbox logo is visible */
   background: #ffffff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
