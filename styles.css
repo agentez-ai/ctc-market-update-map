@@ -22,11 +22,7 @@ body {
   max-width: 100%;
   height: auto;
   margin-bottom: 20px;
-}
-
-/* Swap logo placeholder with real logo */
-#logo img[src*="logo-placeholder.png"] {
-  content: url("data/Logo - Orange brokered by EXP.png");
+  content: url("data/Logo - Orange brokered by EXP.png"); /* ✅ Your real logo */
 }
 
 #search input {
@@ -94,7 +90,6 @@ body {
   position: absolute;
   top: 20px;
   left: 320px;
-  right: auto;
   z-index: 1001;
   width: calc(100% - 360px);
   max-width: 1000px;
@@ -181,14 +176,15 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* RESPONSIVE MOBILE + TABLET */
+/* 📱 MOBILE + TABLET FIX */
 @media (max-width: 1024px) {
   #sidebar {
+    position: relative;
     width: 100%;
     height: auto;
-    position: relative;
     box-shadow: none;
     padding: 10px;
+    z-index: 1000;
   }
 
   #map {
@@ -199,10 +195,10 @@ footer a:hover {
 
   #toggle-bar {
     position: relative;
-    width: 95%;
-    max-width: none;
     left: 50%;
     transform: translateX(-50%);
+    width: 95%;
+    max-width: none;
     flex-direction: column;
     gap: 10px;
     padding: 10px;
