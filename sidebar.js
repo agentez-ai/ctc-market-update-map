@@ -94,6 +94,9 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleLayerVisibility(e.target.value);
       });
     });
+
+    // Adjust map padding to ensure Mapbox logo is visible
+    map.setPadding({ left: 310, bottom: 50 });
   });
 
   window.addEventListener('resize', () => {
@@ -109,5 +112,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Example: Adjust toggle bar position dynamically
-  setToggleBarPosition(20, 50); // Default position: 20px from top, 20px from right
+  setToggleBarPosition(20, 75); // Default position: 20px from top, 20px from right
 });
