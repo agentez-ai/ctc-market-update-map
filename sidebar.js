@@ -95,8 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Adjust map padding to ensure Mapbox logo is visible
-    map.setPadding({ left: 310, bottom: 50 });
+    // Remove map padding adjustment to restore Mapbox logo's default position
+    map.setPadding({ left: 0, bottom: 0 });
   });
 
   window.addEventListener('resize', () => {
