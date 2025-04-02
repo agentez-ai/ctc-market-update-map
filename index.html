@@ -5,35 +5,16 @@
   <title>CTC Market Update Map</title>
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="sidebar.css"> <!-- ✅ Sidebar CSS -->
+  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+  <link rel="stylesheet" href="sidebar.css"> <!-- Sidebar CSS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 </head>
 <body>
 
-<div id="map"></div>
-
-<!-- Toggle Bar -->
-<div id="toggle-bar">
-  <input type="text" id="search-bar" placeholder="Search..." />
-  <div id="layer-options">
-    <label><input type="radio" name="layer" value="state"> State</label>
-    <label><input type="radio" name="layer" value="metro"> Metro</label>
-    <label><input type="radio" name="layer" value="county" checked> County</label>
-    <label><input type="radio" name="layer" value="city"> City</label>
-    <label><input type="radio" name="layer" value="zip"> ZIP</label>
-  </div>
-  <div id="actions">
-    <button id="filter-btn">Filter</button>
-    <button id="FDN-btn">Find Dream Neighborhood</button>
-    <button id="share-btn">Share</button>
-  </div>
-</div>
-
-<!-- ✅ Sidebar HTML Start -->
+<!-- Sidebar -->
 <div id="sidebar">
   <div id="logo">
-    <img src="logo-placeholder.png" alt="AgentEz.ai Logo" />
+    <img src="data/Logo - Orange brokered by EXP.png" alt="AgentEz.ai Logo" />
   </div>
   <div id="search">
     <input type="text" placeholder="Search..." />
@@ -83,14 +64,27 @@
     </div>
   </div>
 </div>
-<!-- ✅ Sidebar HTML End -->
 
-<!-- Main Script -->
-<script>
-  // ... your map setup and deviceSettings code ...
-</script>
+<!-- Map -->
+<div id="map"></div>
 
-<!-- ✅ Sidebar JS -->
+<!-- Toggle Bar -->
+<div id="toggle-bar">
+  <input type="text" id="search-bar" placeholder="Search..." />
+  <div id="layer-options">
+    <label><input type="radio" name="layer" value="state"> State</label>
+    <label><input type="radio" name="layer" value="metro"> Metro</label>
+    <label><input type="radio" name="layer" value="county" checked> County</label>
+    <label><input type="radio" name="layer" value="city"> City</label>
+    <label><input type="radio" name="layer" value="zip"> ZIP</label>
+  </div>
+  <div id="actions">
+    <button id="filter-btn">Filter</button>
+    <button id="FDN-btn">Find Dream Neighborhood</button>
+    <button id="share-btn">Share</button>
+  </div>
+</div>
+
 <script src="sidebar.js"></script>
 
 </body>
