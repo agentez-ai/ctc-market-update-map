@@ -16,6 +16,7 @@ body {
   z-index: 1000;
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* Ensure footer is pushed to the bottom */
 }
 
 #logo img {
@@ -71,13 +72,12 @@ body {
 
 /* Sidebar Footer */
 #sidebar-footer {
-  margin-top: auto; /* Push footer to the bottom */
   padding: 10px 0;
   font-size: 12px;
   text-align: center;
   border-top: 1px solid #e0e0e0; /* Optional: Add a subtle divider */
   color: #666;
-  margin-bottom: 20px; /* Add more space below the footer */
+  margin-top: 20px; /* Add space above the footer */
   line-height: 1.5; /* Improve readability for two lines */
   word-wrap: break-word; /* Ensure text wraps properly */
 }
