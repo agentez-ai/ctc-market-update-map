@@ -8,7 +8,7 @@ body {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 300px;
+  width: 320px; /* Increased width for better spacing */
   background: #ffffff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
@@ -77,8 +77,9 @@ body {
   text-align: center;
   border-top: 1px solid #e0e0e0; /* Optional: Add a subtle divider */
   color: #666;
-  line-height: 1.5; /* Improve readability for two lines */
-  word-wrap: break-word; /* Ensure text wraps properly */
+  white-space: nowrap; /* Keep footer in one line */
+  overflow: hidden; /* Prevent overflow if text is too long */
+  text-overflow: ellipsis; /* Add ellipsis if text overflows */
 }
 
 #sidebar-footer a {
