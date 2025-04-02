@@ -49,14 +49,11 @@ document.addEventListener('DOMContentLoaded', () => {
     style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
     center: deviceSettings.default.center,
     zoom: deviceSettings.default.zoom
-    // Attribution control is enabled by default
   });
 
-  // Add navigation control
   const nav = new mapboxgl.NavigationControl();
   map.addControl(nav, 'top-right');
 
-  // Add scale control
   const scale = new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' });
   map.addControl(scale, 'bottom-right');
 

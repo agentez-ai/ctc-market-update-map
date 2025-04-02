@@ -44,17 +44,6 @@ body {
   z-index: 0;
 }
 
-/* Ensure the Mapbox logo and attribution are fully visible */
-.mapboxgl-ctrl-attrib {
-  position: absolute !important; /* Explicitly position the logo */
-  bottom: 20px !important; /* Adjust the distance from the bottom */
-  left: 320px !important; /* Adjust the distance from the left to avoid the sidebar */
-  z-index: 1000; /* Ensure it appears above other elements */
-  background: rgba(255, 255, 255, 0.8); /* Optional: Add a background for better visibility */
-  padding: 5px; /* Optional: Add padding for better spacing */
-  border-radius: 4px; /* Optional: Add rounded corners */
-}
-
 /* TOGGLE BAR */
 #toggle-bar {
   display: flex;
