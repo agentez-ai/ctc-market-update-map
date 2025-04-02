@@ -147,12 +147,11 @@ footer a:hover {
   #filter-btn,
   #FDN-btn,
   #share-btn {
-    width: 100%; /* Full width for buttons */
+    width: auto; /* Allow buttons to size based on text */
     height: 50px; /* Set a consistent height for all buttons */
     text-align: center; /* Center-align text */
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: none; /* Prevent buttons from stretching unevenly */
   }
 }
