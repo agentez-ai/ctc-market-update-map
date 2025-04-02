@@ -5,132 +5,8 @@
   <title>CTC Market Update Map</title>
   <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <style>
-    /* Map container */
-    #map {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      width: 100%;
-    }
-
-    /* Toggle bar for desktop */
-    #toggle-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #ffffff;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      padding: 10px 20px;
-      position: absolute;
-      top: 20px;
-      right: 100px; /* Desktop: aligned to the right */
-      z-index: 1000;
-      width: 900px; /* Set toggle bar width for desktop */
-    }
-
-    #search-bar {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      margin-right: 20px;
-      font-size: 14px;
-      width: 300px; /* Explicitly set search bar width */
-    }
-
-    #layer-options {
-      display: flex;
-      gap: 10px;
-      margin-right: 10px;
-    }
-
-    #actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    #filter-btn,
-    #FDN-btn,
-    #share-btn {
-      padding: 10px 15px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      background: #f8f9fa;
-      cursor: pointer;
-      font-size: 14px;
-      color: #333;
-      font-weight: bold;
-      text-transform: uppercase;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    #profile-icon {
-      width: 32px;
-      height: 32px;
-      background: #6c63ff;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      cursor: pointer;
-    }
-
-    /* Mobile and tablet responsiveness */
-    @media (max-width: 1024px) {
-      #toggle-bar {
-        flex-direction: column;
-        align-items: stretch;
-        justify-content: center;
-        width: 95%;
-        max-width: 500px;
-        position: absolute;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        right: auto;
-        padding: 10px;
-        gap: 10px;
-      }
-
-      #search-bar {
-        width: 100%;
-        margin-right: 0;
-      }
-
-      #layer-options {
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-right: 0;
-      }
-
-      #actions {
-        width: 100%;
-        justify-content: space-between;
-      }
-
-      #filter-btn,
-      #FDN-btn,
-      #share-btn {
-        width: 100%;
-        height: auto;
-        text-align: center;
-      }
-
-      #profile-icon {
-        align-self: flex-end;
-      }
-    }
-  </style>
 </head>
 <body>
 
@@ -150,7 +26,6 @@
     <button id="filter-btn">Filter</button>
     <button id="FDN-btn">Find Dream Neighborhood</button>
     <button id="share-btn">Share</button>
-    <div id="profile-icon">R</div>
   </div>
 </div>
 
