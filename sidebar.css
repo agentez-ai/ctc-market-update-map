@@ -36,7 +36,7 @@ body {
 }
 
 .filter-section {
-  margin-bottom: 13px;
+  margin-bottom: 10px;
 }
 
 .accordion {
@@ -80,7 +80,7 @@ body {
   color: #666;
   line-height: 1.5; /* Allow text to wrap into two lines */
   word-wrap: break-word; /* Ensure text wraps properly */
-  margin-bottom: 15%; /* Adjust bottom margin to bring footer higher */
+  margin-bottom: 12%; /* Adjust bottom margin to bring footer higher */
 }
 
 #sidebar-footer a {

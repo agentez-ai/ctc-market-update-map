@@ -98,6 +98,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    // Label the zoom control for precise measurement
+    document.querySelector('.mapboxgl-ctrl-top-right > .mapboxgl-ctrl').id = 'zoom-control';
+
     // Wait for DOM to render toggle bar, then position it
     setTimeout(updateToggleBarPosition, 100);
   });
@@ -108,17 +111,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const toggleBar = document.getElementById('toggle-bar');
   function updateToggleBarPosition() {
     const sidebar = document.getElementById('sidebar');
-    const map = document.getElementById('map');
+    const toggleBar = document.getElementById('toggle-bar');
+    const zoomControl = document.getElementById('zoom-control');
 
     const sidebarWidth = sidebar.offsetWidth;
-    const mapWidth = map.offsetWidth;
-    const zoomControlWidth = 50; // Approximate width of Mapbox zoom buttons
     const toggleBarWidth = toggleBar.offsetWidth || 200; // Fallback width if not rendered yet
 
-    const usableMapWidth = mapWidth - sidebarWidth - zoomControlWidth;
+    const map = document.getElementById('map');
+    const mapRect = map.getBoundingClientRect();
+    const zoomRect = zoomControl.getBoundingClientRect();
 
-    // Final left position = start of usable space + half of usable width - half of toggle bar width
-    const left = sidebarWidth + (usableMapWidth / 2) - (toggleBarWidth / 2);
+    // Measure the left edge of the zoom control relative to the map container
+    const zoomLeftEdge = zoomRect.left - mapRect.left - 10; // 10px padding adjustment
+
+    // Calculate usable space and center the toggle bar
+    const usableSpace = zoomLeftEdge - sidebarWidth;
+    const left = sidebarWidth + (usableSpace / 2) - (toggleBarWidth / 2);
 
     toggleBar.style.position = 'absolute';
     toggleBar.style.top = '10px'; // Adjust as needed
