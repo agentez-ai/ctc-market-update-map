@@ -98,33 +98,30 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Restore Mapbox logo's default position
-    map.setPadding({ left: 0, bottom: 0 });
+    // Wait for DOM to render toggle bar, then position it
+    setTimeout(updateToggleBarPosition, 100);
   });
 
-  window.addEventListener('resize', () => {
-    const newDeviceSettings = getDeviceSettings();
-    map.flyTo({ center: newDeviceSettings.default.center, zoom: newDeviceSettings.default.zoom });
-    updateToggleBarPosition(); // Recalculate toggle bar position on resize
-  });
+  window.addEventListener('resize', updateToggleBarPosition);
 
   // Add toggle bar position control
   const toggleBar = document.getElementById('toggle-bar');
-  function setToggleBarPosition(topPercent, leftPercent) {
-    toggleBar.style.top = `${topPercent}%`;
-    toggleBar.style.left = `${leftPercent}%`;
-  }
-
   function updateToggleBarPosition() {
-    const sidebarWidth = document.getElementById('sidebar').offsetWidth;
-    const mapWidth = document.getElementById('map').offsetWidth;
-    const zoomControlWidth = 50; // Approximate width of the zoom controls
-    const usableWidth = mapWidth - sidebarWidth - zoomControlWidth;
+    const sidebar = document.getElementById('sidebar');
+    const map = document.getElementById('map');
 
-    const centerLeftPercent = ((sidebarWidth + usableWidth / 2) / mapWidth) * 100; // Center of the usable space in percentage
-    setToggleBarPosition(8, centerLeftPercent - 5); // Adjust top and left percentages as needed
+    const sidebarWidth = sidebar.offsetWidth;
+    const mapWidth = map.offsetWidth;
+    const zoomControlWidth = 50; // Approximate width of Mapbox zoom buttons
+    const toggleBarWidth = toggleBar.offsetWidth || 200; // Fallback width if not rendered yet
+
+    const usableMapWidth = mapWidth - sidebarWidth - zoomControlWidth;
+
+    // Final left position = start of usable space + half of usable width - half of toggle bar width
+    const left = sidebarWidth + (usableMapWidth / 2) - (toggleBarWidth / 2);
+
+    toggleBar.style.position = 'absolute';
+    toggleBar.style.top = '10px'; // Adjust as needed
+    toggleBar.style.left = `${left}px`;
   }
-
-  // Example: Adjust toggle bar position dynamically
-  updateToggleBarPosition(); // Initial position
 });
