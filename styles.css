@@ -10,62 +10,12 @@ body {
   top: 0;
   left: 0;
   bottom: 0;
-  width: 300px;
+  width: 300px; /* Fixed width for the sidebar */
   background: #ffffff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
   padding: 20px;
-  z-index: 1000;
-}
-
-#logo img {
-  max-width: 100%;
-  height: auto;
-  margin-bottom: 20px;
-  content: url("data/Logo - Orange brokered by EXP.png"); /* ✅ Your real logo */
-}
-
-#search input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 20px;
-}
-
-.filter-section {
-  margin-bottom: 15px;
-}
-
-.accordion {
-  background: #f8f9fa;
-  border: none;
-  padding: 10px;
-  width: 100%;
-  text-align: left;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 4px;
-  margin-bottom: 5px;
-}
-
-.accordion:hover {
-  background: #e9ecef;
-}
-
-.panel {
-  display: none;
-  padding-left: 10px;
-}
-
-.panel label {
-  display: block;
-  margin-bottom: 5px;
-  font-size: 14px;
-}
-
-.panel input {
-  margin-right: 5px;
+  z-index: 1000; /* Ensure it stays above the map */
 }
 
 /* MAP */
@@ -73,9 +23,9 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 300px;
+  left: 300px; /* Offset for the sidebar */
   right: 0;
-  z-index: 0;
+  z-index: 0; /* Ensure it stays below the sidebar */
 }
 
 /* TOGGLE BAR */
@@ -89,9 +39,10 @@ body {
   padding: 10px 20px;
   position: absolute;
   top: 20px;
-  left: 320px;
+  left: 320px; /* Adjusted for the sidebar */
+  right: auto;
   z-index: 1001;
-  width: calc(100% - 360px);
+  width: calc(100% - 360px); /* Adjusted for the sidebar width */
   max-width: 1000px;
 }
 
@@ -109,12 +60,6 @@ body {
   display: flex;
   gap: 10px;
   margin-right: 10px;
-}
-
-#layer-options label {
-  font-size: 14px;
-  cursor: pointer;
-  color: #333;
 }
 
 #actions {
@@ -151,80 +96,48 @@ body {
   background: #e9ecef;
 }
 
-/* FOOTER */
-footer {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffffff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  text-align: center;
+/* MAPBOX CONTROLS */
+.mapboxgl-ctrl {
+  z-index: 1002; /* Ensure controls are above the map */
 }
 
-footer a {
-  text-decoration: none;
-  color: #007bff;
-  font-weight: bold;
+.mapboxgl-ctrl-bottom-left {
+  margin-left: 320px; /* Offset for the sidebar */
 }
 
-footer a:hover {
-  text-decoration: underline;
+.mapboxgl-ctrl-bottom-right {
+  margin-right: 20px; /* Add some spacing from the edge */
 }
 
-/* 📱 MOBILE + TABLET FIX */
+/* RESPONSIVE MOBILE + TABLET */
 @media (max-width: 1024px) {
   #sidebar {
-    position: relative;
-    width: 100%;
+    width: 100%; /* Sidebar takes full width */
     height: auto;
+    position: relative;
     box-shadow: none;
     padding: 10px;
-    z-index: 1000;
   }
 
   #map {
     position: relative;
     left: 0;
-    width: 100%;
+    width: 100%; /* Map takes full width */
   }
 
   #toggle-bar {
     position: relative;
-    left: 50%;
-    transform: translateX(-50%);
     width: 95%;
     max-width: none;
+    left: 50%;
+    transform: translateX(-50%);
     flex-direction: column;
     gap: 10px;
     padding: 10px;
     margin-top: 10px;
   }
 
-  #search-bar {
-    width: 100%;
-    margin-right: 0;
-  }
-
-  #layer-options {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  #actions {
-    width: 100%;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  #filter-btn,
-  #FDN-btn,
-  #share-btn {
-    width: auto;
-    height: 50px;
+  .mapboxgl-ctrl-bottom-left {
+    margin-left: 20px; /* Reset margin for smaller screens */
   }
 }
