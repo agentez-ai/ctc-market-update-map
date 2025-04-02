@@ -16,7 +16,6 @@ body {
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Ensure content and footer are spaced properly */
 }
 
 #logo img {
@@ -80,7 +79,7 @@ body {
   color: #666;
   line-height: 1.5; /* Allow text to wrap into two lines */
   word-wrap: break-word; /* Ensure text wraps properly */
-  padding-bottom: 20px; /* Add extra space below the footer */
+  margin-bottom: 20px; /* Add space below the footer */
 }
 
 #sidebar-footer a {
