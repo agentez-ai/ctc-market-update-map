@@ -48,8 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
     container: 'map',
     style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
     center: deviceSettings.default.center,
-    zoom: deviceSettings.default.zoom
+    zoom: deviceSettings.default.zoom,
+    attributionControl: false // Disable default attribution control
   });
+
+  // Add custom attribution control to ensure Mapbox logo is fully visible
+  map.addControl(new mapboxgl.AttributionControl({ compact: true }), 'bottom-left');
 
   const nav = new mapboxgl.NavigationControl();
   map.addControl(nav, 'top-right');
@@ -94,9 +98,6 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleLayerVisibility(e.target.value);
       });
     });
-
-    // Adjust map padding to ensure Mapbox logo is fully visible
-    map.setPadding({ left: 300, bottom: 50 });
   });
 
   window.addEventListener('resize', () => {
