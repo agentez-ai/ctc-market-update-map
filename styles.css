@@ -24,6 +24,16 @@ body {
   margin-bottom: 20px;
 }
 
+#search input {
+  width: calc(100% - 40px); /* Center the search bar */
+  margin: 0 auto;
+  display: block;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
 /* MAP */
 #map {
   position: absolute;
@@ -45,11 +55,9 @@ body {
   padding: 10px 20px;
   position: absolute;
   top: 20px;
-  left: 320px; /* Adjusted for the sidebar */
-  right: auto;
+  right: 20px; /* Move to the right */
   z-index: 1001;
-  width: calc(100% - 360px);
-  max-width: 1000px;
+  width: 900px;
 }
 
 #search-bar {
@@ -59,7 +67,7 @@ body {
   border-radius: 4px;
   margin-right: 20px;
   font-size: 14px;
-  width: 500px;
+  width: 400px;
 }
 
 #layer-options {
@@ -100,6 +108,31 @@ body {
 #FDN-btn:hover,
 #share-btn:hover {
   background: #e9ecef;
+}
+
+/* FOOTER */
+footer {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  text-align: center;
+}
+
+footer a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
 
 /* RESPONSIVE MOBILE + TABLET */
