@@ -95,8 +95,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Remove map padding adjustment to restore Mapbox logo's default position
-    map.setPadding({ left: 0, bottom: 0 });
+    // Adjust map padding to ensure Mapbox logo is fully visible
+    map.setPadding({ left: 300, bottom: 50 });
   });
 
   window.addEventListener('resize', () => {
@@ -111,6 +111,15 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleBar.style.right = `${right}px`;
   }
 
-  // Example: Adjust toggle bar position dynamically
-  setToggleBarPosition(20, 100); // Default position: 20px from top, 20px from right
+  // Add footer position control
+  const footer = document.querySelector('footer');
+  function setFooterPosition(bottom, left) {
+    footer.style.bottom = `${bottom}px`;
+    footer.style.left = `${left}px`;
+    footer.style.transform = 'translateX(-50%)'; // Keep it centered horizontally
+  }
+
+  // Example: Adjust toggle bar and footer positions dynamically
+  setToggleBarPosition(20, 100); // Default position: 20px from top, 100px from right
+  setFooterPosition(10, '50%'); // Default position: 10px from bottom, centered horizontally
 });
