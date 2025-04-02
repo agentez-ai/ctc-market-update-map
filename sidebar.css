@@ -77,8 +77,9 @@ body {
   text-align: center;
   border-top: 1px solid #e0e0e0; /* Optional: Add a subtle divider */
   color: #666;
-  margin-bottom: 10px; /* Add a bit of space below the footer */
-  white-space: nowrap; /* Prevent wrapping to a new line */
+  margin-bottom: 20px; /* Add more space below the footer */
+  line-height: 1.5; /* Improve readability for two lines */
+  word-wrap: break-word; /* Ensure text wraps properly */
 }
 
 #sidebar-footer a {
