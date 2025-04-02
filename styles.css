@@ -16,6 +16,8 @@ body {
   overflow-y: auto;
   padding: 20px;
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
 }
 
 #logo img {
@@ -32,6 +34,26 @@ body {
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 20px;
+}
+
+/* Sidebar Footer */
+#sidebar-footer {
+  margin-top: auto; /* Push footer to the bottom */
+  padding: 10px 0;
+  font-size: 12px;
+  text-align: center;
+  border-top: 1px solid #e0e0e0; /* Optional: Add a subtle divider */
+  color: #666;
+}
+
+#sidebar-footer a {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}
+
+#sidebar-footer a:hover {
+  text-decoration: underline;
 }
 
 /* MAP */
@@ -106,31 +128,6 @@ body {
 #FDN-btn:hover,
 #share-btn:hover {
   background: #e9ecef;
-}
-
-/* FOOTER */
-footer {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #ffffff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  text-align: center;
-}
-
-footer a {
-  text-decoration: none;
-  color: #007bff;
-  font-weight: bold;
-}
-
-footer a:hover {
-  text-decoration: underline;
 }
 
 /* RESPONSIVE MOBILE + TABLET */
