@@ -112,5 +112,5 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Example: Adjust toggle bar position dynamically
-  setToggleBarPosition(20, 75); // Default position: 20px from top, 20px from right
+  setToggleBarPosition(20, 100); // Default position: 20px from top, 20px from right
 });
