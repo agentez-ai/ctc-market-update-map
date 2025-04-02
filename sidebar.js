@@ -6,11 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
     desktop: {
       default: { center: [-81.5, 26.3], zoom: 6.99 },
       layers: {
-        state: { center: [-86.3, 28.2], zoom: 5.8 },
-        metro: { center: [-82.1, 26.3], zoom: 6.99 },
+        state: { center: [-84, 28.2], zoom: 5.8 },
+        metro: { center: [-81.5, 26.3], zoom: 6.99 },
         county: { center: [-81.5, 26.3], zoom: 6.99 },
-        city: { center: [-82.1, 26.3], zoom: 7.4 },
-        zip: { center: [-82.1, 26.3], zoom: 7.4 }
+        city: { center: [-81.5, 26.3], zoom: 7.4 },
+        zip: { center: [-81.5, 26.3], zoom: 7.4 }
       }
     },
     tablet: {
