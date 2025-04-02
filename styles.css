@@ -44,7 +44,7 @@ body {
   z-index: 0;
 }
 
-/* Ensure the Mapbox logo is fully visible */
+/* Ensure the Mapbox logo and attribution are fully visible */
 .mapboxgl-ctrl-attrib {
   position: absolute !important; /* Explicitly position the logo */
   bottom: 20px !important; /* Adjust the distance from the bottom */
