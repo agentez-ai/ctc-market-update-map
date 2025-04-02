@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const settings = {
     desktop: {
-      default: { center: [-82.1, 26.3], zoom: 7.4 },
+      default: { center: [-85, 26.3], zoom: 6.99 },
       layers: {
         state: { center: [-86.3, 28.2], zoom: 5.8 },
         metro: { center: [-82.1, 26.3], zoom: 6.99 },
