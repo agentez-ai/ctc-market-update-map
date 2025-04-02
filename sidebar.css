@@ -79,7 +79,7 @@ body {
   color: #666;
   line-height: 1.5; /* Allow text to wrap into two lines */
   word-wrap: break-word; /* Ensure text wraps properly */
-  margin-bottom: 20px; /* Add space below the footer */
+  margin-bottom: 5px; /* Add space below the footer */
 }
 
 #sidebar-footer a {
