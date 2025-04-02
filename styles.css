@@ -24,7 +24,7 @@ body {
   margin-bottom: 20px;
 }
 
-/* Ensure correct logo path */
+/* Swap logo placeholder with real logo */
 #logo img[src*="logo-placeholder.png"] {
   content: url("data/Logo - Orange brokered by EXP.png");
 }
@@ -77,7 +77,7 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 300px; /* offset for sidebar */
+  left: 300px;
   right: 0;
   z-index: 0;
 }
