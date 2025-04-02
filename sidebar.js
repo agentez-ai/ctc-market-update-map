@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const usableWidth = mapWidth - sidebarWidth - zoomControlWidth;
 
     const centerLeftPercent = ((sidebarWidth + usableWidth / 2) / mapWidth) * 100; // Center of the usable space in percentage
-    setToggleBarPosition(10, centerLeftPercent); // Adjust top and left percentages as needed
+    setToggleBarPosition(8, centerLeftPercent - 5); // Adjust top and left percentages as needed
   }
 
   // Example: Adjust toggle bar position dynamically
