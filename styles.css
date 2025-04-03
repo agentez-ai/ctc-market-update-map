@@ -130,6 +130,23 @@ body {
   background: #e9ecef;
 }
 
+/* Sidebar Overlay */
+#sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999; /* Below the sidebar */
+}
+
+/* Show overlay when sidebar is open */
+#sidebar.show + #sidebar-overlay {
+  display: block;
+}
+
 /* RESPONSIVE MOBILE + TABLET */
 @media (max-width: 768px) {
   #sidebar {
@@ -158,6 +175,29 @@ body {
     border-radius: 6px;
     cursor: pointer;
     display: block; /* Ensure it's visible on mobile */
+  }
+
+  #toggle-bar {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  #layer-options {
+    flex: 1 1 100%; /* Full width on smaller screens */
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #actions {
+    flex: 1 1 100%; /* Stack buttons below radio options */
+    display: flex;
+    justify-content: space-between;
+  }
+
+  #FDN-btn, #share-btn {
+    flex: 1;
+    margin: 5px;
   }
 }
 

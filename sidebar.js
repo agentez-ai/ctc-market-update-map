@@ -147,6 +147,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to toggle the sidebar for mobile
   function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
     sidebar.classList.toggle('show');
+    overlay.style.display = sidebar.classList.contains('show') ? 'block' : 'none';
   }
+
+  // Function to close the sidebar
+  function closeSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    sidebar.classList.remove('show');
+    overlay.style.display = 'none';
+  }
+
+  // Attach functions to global scope for inline HTML calls
+  window.toggleSidebar = toggleSidebar;
+  window.closeSidebar = closeSidebar;
 });
