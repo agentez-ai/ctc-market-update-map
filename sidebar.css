@@ -8,7 +8,7 @@ body {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 280px; /* Sidebar width ensures Mapbox logo is visible */
+  width: 275px; /* Sidebar width ensures Mapbox logo is visible */
   height: 100vh; /* Sidebar takes up the full viewport height */
   background: #ffffff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
