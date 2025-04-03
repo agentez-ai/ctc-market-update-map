@@ -6,55 +6,53 @@
   <title>CTC Market Map</title>
   <link href="styles.css" rel="stylesheet" />
   <link href="sidebar.css" rel="stylesheet" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body>
-  <!-- SIDEBAR OVERLAY -->
+  <!-- SIDEBAR & OVERLAY -->
   <div id="sidebar-overlay"></div>
-
-  <!-- SIDEBAR -->
   <div id="sidebar">
-    <button id="close-sidebar">×</button>
-    <img src="data/Logo - Orange brokered by EXP.png" alt="Logo" style="width: 100%; margin-bottom: 20px;" />
-    <input type="text" class="sidebar-search" placeholder="Search..." />
-
-    <div class="sidebar-section">
-      <button>Popular Data</button>
-      <button>Home Price & Affordability</button>
-      <button>Market Trends</button>
-      <button>Demographic</button>
-      <button>Investor Metrics</button>
-      <button>CTC Home Team Insights</button>
+    <button id="close-sidebar" aria-label="Close sidebar">×</button>
+    <div class="logo-section">
+      <img src="data/Logo - Orange brokered by EXP.png" alt="Clear to Close Logo" class="logo" />
     </div>
-
-    <div class="sidebar-footer">
-      Powered by <a href="https://Agentez.ai" target="_blank">AgentEz.ai</a> | Partnered with <a href="https://GetYourPiece.com" target="_blank">GetYourPiece.com</a>
-    </div>
+    <input type="text" placeholder="Search..." class="sidebar-search" />
+    <ul class="menu">
+      <li><button>Popular Data</button></li>
+      <li><button>Home Price & Affordability</button></li>
+      <li><button>Market Trends</button></li>
+      <li><button>Demographic</button></li>
+      <li><button>Investor Metrics</button></li>
+      <li><button>CTC Home Team Insights</button></li>
+    </ul>
+    <footer class="sidebar-footer">
+      <p>Powered by <a href="https://Agentez.ai" target="_blank">AgentEz.ai</a> | Partnered with <a href="https://GetYourPiece.com" target="_blank">GetYourPiece.com</a></p>
+    </footer>
   </div>
-
-  <!-- MAP CONTAINER -->
-  <div id="map"></div>
 
   <!-- TOGGLE BAR -->
   <div id="toggle-bar">
-    <div class="toggle-bar-top">
-      <button id="menu-toggle">☰</button>
+    <div class="toggle-row top-row">
+      <button id="menu-toggle" aria-label="Menu Toggle">☰</button>
       <input type="text" placeholder="Search..." class="top-search" />
     </div>
-    <div class="toggle-bar-middle">
+    <div class="toggle-row">
       <label><input type="radio" name="toggle" value="state" /> State</label>
       <label><input type="radio" name="toggle" value="metro" /> Metro</label>
       <label><input type="radio" name="toggle" value="county" checked /> County</label>
       <label><input type="radio" name="toggle" value="city" /> City</label>
       <label><input type="radio" name="toggle" value="zip" /> ZIP</label>
     </div>
-    <div class="toggle-bar-bottom">
-      <button>FILTER</button>
-      <button>FIND MY DREAM NEIGHBORHOOD</button>
-      <button>SHARE</button>
+    <div class="toggle-row">
+      <button class="action-button">Filter</button>
+      <button class="action-button">Find My Dream Neighborhood</button>
+      <button class="action-button">Share</button>
     </div>
   </div>
+
+  <!-- MAP -->
+  <div id="map"></div>
 
   <!-- SCRIPT -->
   <script src="sidebar.js"></script>

@@ -1,151 +1,139 @@
-html,
-body {
+body, html {
   margin: 0;
   padding: 0;
+  font-family: "Segoe UI", sans-serif;
   height: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 100%;
+  overflow: hidden;
 }
 
 #map {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 100%;
-  z-index: 1;
+  left: 0;
+  right: 0;
 }
 
+/* TOGGLE BAR */
 #toggle-bar {
   position: absolute;
-  top: 20px;
+  top: 10px;
   left: 300px;
-  right: 100px;
-  max-width: 900px;
-  margin: 0 auto;
-  z-index: 3;
-  background-color: white;
+  right: 20px;
+  z-index: 999;
+  background: white;
+  padding: 15px;
   border-radius: 10px;
-  padding: 10px 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.toggle-row {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
 }
 
-.toggle-buttons-container {
+.top-row {
+  width: 100%;
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   gap: 10px;
 }
 
 .top-search {
-  padding: 8px 12px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  flex: 1;
-  min-width: 200px;
-  max-width: 300px;
-}
-
-.toggle-buttons {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.toggle-buttons label {
+  flex-grow: 1;
+  padding: 8px;
   font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
 
-button {
-  background-color: white;
-  border: 1px solid #ddd;
+#menu-toggle {
+  font-size: 20px;
+  background: #003366;
+  color: white;
+  border: none;
   border-radius: 6px;
-  padding: 8px 12px;
+  width: 40px;
+  height: 36px;
+}
+
+.action-button {
+  padding: 10px 16px;
+  border: none;
+  background: #f1f1f1;
   font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-button:hover {
-  background-color: #f0f0f0;
+.action-button:hover {
+  background: #e6e6e6;
 }
 
+/* SIDEBAR OVERLAY */
 #sidebar-overlay {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 2;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 998;
+  display: none;
 }
 
 #sidebar-overlay.show {
   display: block;
 }
 
+/* MAP CONTROLS */
+.mapboxgl-ctrl-top-right {
+  margin-top: 80px;
+}
+
+/* Responsive Layout */
 @media (max-width: 1024px) {
   #toggle-bar {
-    left: 0;
-    right: 0;
-    top: 90px;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  #toggle-bar {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    border-radius: 12px;
     padding: 10px;
-    flex-direction: column;
-    align-items: center;
+    gap: 12px;
   }
 
-  .toggle-buttons-container {
-    flex-direction: column;
+  .top-row {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .toggle-row {
+    justify-content: center;
     gap: 10px;
-    width: 100%;
   }
 
   .top-search {
-    width: 100%;
-    max-width: 100%;
+    flex-grow: 1;
+    min-width: 0;
   }
 
-  .toggle-buttons {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  #menu-toggle {
-    margin-left: 16px;
-  }
-
-  #sidebar-overlay.show {
-    z-index: 4;
-  }
-}
-
-/* Footer Styles */
-.sidebar-footer {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
-  width: 100%;
-  text-align: center;
-  font-size: 13px;
-  color: #777;
-}
-
-.sidebar-footer a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.sidebar-footer a:hover {
-  text-decoration: underline;
-}
-
-/* Hide close button on desktop */
-@media (min-width: 1025px) {
-  #close-sidebar {
-    display: none;
+  .action-button {
+    font-size: 14px;
+    padding: 8px 12px;
   }
 }
