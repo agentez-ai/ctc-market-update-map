@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.toggleSidebar = toggleSidebar;
   window.closeSidebar = closeSidebar;
 
-  // Accordion logic
   const accordions = document.querySelectorAll('.accordion');
   accordions.forEach(acc => {
     acc.addEventListener('click', () => {
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Device-specific settings
   const settings = {
     desktop: {
       default: { center: [-81.2, 26.3], zoom: 6.99 },
@@ -78,11 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
     zoom: deviceSettings.default.zoom
   });
 
-  // Add controls
   map.addControl(new mapboxgl.NavigationControl(), 'top-right');
   map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }), 'bottom-right');
 
-  // Map layer toggling
   const layerMap = {
     state: ['ctc-florida-fill', 'ctc-florida-label'],
     metro: ['ctc-core7-msas-fill', 'ctc-core7-msas-label'],
@@ -114,25 +110,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   map.on('load', () => {
     toggleLayerVisibility('county');
-
     document.querySelectorAll('input[name="toggle"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         toggleLayerVisibility(e.target.value);
       });
     });
   });
-
-  // Reposition toggle bar based on sidebar + zoom control (desktop only)
-  function updateToggleBarPosition() {
-    const toggleBar = document.getElementById('toggle-bar');
-    const zoomControl = document.querySelector('.mapboxgl-ctrl-top-right');
-
-    if (!toggleBar || !zoomControl) return;
-
-    const sidebarWidth = window.innerWidth > 768 ? 262 : 0;
-    toggleBar.style.left = `${sidebarWidth + 20}px`;
-  }
-
-  map.on('idle', updateToggleBarPosition);
-  window.addEventListener('resize', updateToggleBarPosition);
 });

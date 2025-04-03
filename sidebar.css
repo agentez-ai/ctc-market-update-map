@@ -1,4 +1,3 @@
-/* Sidebar Layout */
 #sidebar {
   position: fixed;
   left: 0;
@@ -16,14 +15,12 @@
   transition: left 0.3s ease;
 }
 
-/* Logo */
 #logo img {
   max-width: 100%;
   height: auto;
   margin-bottom: 20px;
 }
 
-/* Search Bar */
 #search input {
   width: calc(100% - 30px);
   margin: 0 auto 20px auto;
@@ -33,7 +30,6 @@
   border-radius: 4px;
 }
 
-/* Accordion Buttons */
 .accordion {
   background: #f8f9fa;
   border: none;
@@ -52,7 +48,6 @@
   background: #e9ecef;
 }
 
-/* Panel Content Inside Accordion */
 .panel {
   display: none;
   padding-left: 10px;
@@ -68,7 +63,6 @@
   margin-right: 5px;
 }
 
-/* Footer Styles */
 #sidebar-footer {
   margin-top: auto;
   padding: 1% 0;
@@ -91,7 +85,6 @@
   text-decoration: underline;
 }
 
-/* Mobile Responsiveness */
 @media screen and (max-width: 768px) {
   #sidebar {
     left: -100%;
