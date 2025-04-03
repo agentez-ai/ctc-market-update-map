@@ -200,10 +200,3 @@ body {
     margin: 5px;
   }
 }
-
-/* Hide the toggle button on larger screens */
-@media (min-width: 769px) {
-  .mobile-toggle {
-    display: none;
-  }
-}

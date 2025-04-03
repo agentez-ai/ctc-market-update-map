@@ -2,6 +2,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
   mapboxgl.accessToken = accessToken;
 
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+
+  // Function to toggle the sidebar
+  function toggleSidebar() {
+    sidebar.classList.toggle('show');
+    overlay.style.display = sidebar.classList.contains('show') ? 'block' : 'none';
+  }
+
+  // Function to close the sidebar
+  function closeSidebar() {
+    sidebar.classList.remove('show');
+    overlay.style.display = 'none';
+  }
+
+  // Attach functions to global scope for inline HTML calls
+  window.toggleSidebar = toggleSidebar;
+  window.closeSidebar = closeSidebar;
+
   const settings = {
     desktop: {
       default: { center: [-81.2, 26.3], zoom: 6.99 },
@@ -49,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
     center: deviceSettings.default.center,
     zoom: deviceSettings.default.zoom
-    // Attribution control is enabled by default
   });
 
   // Add navigation control
@@ -143,24 +161,4 @@ document.addEventListener('DOMContentLoaded', () => {
       'Final Left': left
     });
   }
-
-  // Function to toggle the sidebar for mobile
-  function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    sidebar.classList.toggle('show');
-    overlay.style.display = sidebar.classList.contains('show') ? 'block' : 'none';
-  }
-
-  // Function to close the sidebar
-  function closeSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    sidebar.classList.remove('show');
-    overlay.style.display = 'none';
-  }
-
-  // Attach functions to global scope for inline HTML calls
-  window.toggleSidebar = toggleSidebar;
-  window.closeSidebar = closeSidebar;
 });
