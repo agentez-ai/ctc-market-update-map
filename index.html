@@ -14,12 +14,10 @@
   <!-- Overlay for mobile sidebar -->
   <div id="sidebar-overlay" onclick="closeSidebar()"></div>
 
-  <!-- Hamburger Toggle (desktop hidden) -->
-  <button class="toggle-button" onclick="toggleSidebar()">☰</button>
-
   <!-- Toggle Bar (always at top) -->
   <div id="toggle-bar">
     <input type="text" placeholder="Search..." class="top-search" />
+
     <div class="toggle-options">
       <label><input type="radio" name="toggle" value="state"> State</label>
       <label><input type="radio" name="toggle" value="metro"> Metro</label>
@@ -27,12 +25,16 @@
       <label><input type="radio" name="toggle" value="city"> City</label>
       <label><input type="radio" name="toggle" value="zip"> ZIP</label>
     </div>
+
     <div class="toggle-buttons">
       <button id="filter-btn">FILTER</button>
       <button id="dream-btn">FIND MY DREAM<br/>NEIGHBORHOOD</button>
       <button id="share-btn">SHARE</button>
     </div>
   </div>
+
+  <!-- Hamburger Toggle (below top bar) -->
+  <button class="toggle-button" onclick="toggleSidebar()">☰</button>
 
   <!-- Sidebar -->
   <div id="sidebar">
