@@ -16,10 +16,13 @@
 
   <!-- Toggle Bar -->
   <div id="toggle-bar">
-    <button class="toggle-button" id="menu-toggle">☰</button>
+    <!-- 👇 MOBILE-ONLY WRAPPER for ☰ + search -->
+    <div class="mobile-top-row">
+      <button class="toggle-button" id="menu-toggle">☰</button>
+      <input type="text" placeholder="Search..." class="top-search" />
+    </div>
 
-    <input type="text" placeholder="Search..." class="top-search" />
-
+    <!-- These stay horizontal on desktop, stacked on mobile -->
     <div class="toggle-options">
       <label><input type="radio" name="toggle" value="state"> State</label>
       <label><input type="radio" name="toggle" value="metro"> Metro</label>
@@ -36,7 +39,7 @@
   </div>
 
   <!-- Sidebar -->
-  <div id="sidebar">
+  <div id="sidebar" class="sidebar-container">
     <div id="logo">
       <img src="data/Logo - Orange brokered by EXP.png" alt="Logo" />
     </div>
@@ -63,7 +66,7 @@
       <div class="panel"><label><input type="checkbox"> Rental Demand</label></div>
     </div>
 
-    <!-- 🔥 FOOTER FIXED TO STAY AT THE BOTTOM -->
+    <!-- ✅ FOOTER ALWAYS PRESENT, sticks to bottom -->
     <div id="sidebar-footer">
       <p>
         Powered by <a href="https://AgentEz.ai" target="_blank">AgentEz.ai</a> |

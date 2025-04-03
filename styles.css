@@ -31,11 +31,13 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 12px 20px;
   display: flex;
-  flex-direction: row; /* changed from column to row */
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
   gap: 12px;
   max-width: calc(100% - 282px);
-  flex-wrap: wrap;
+  margin: 0 auto;
 }
 
 /* Search input */
@@ -61,7 +63,7 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  display: none; /* desktop hidden by default */
+  display: none; /* hidden by default */
 }
 
 /* Show hamburger on mobile only */
@@ -110,7 +112,7 @@ body {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 900;
+  z-index: 3000; /* on top of everything */
 }
 
 #sidebar-overlay.show {
@@ -137,6 +139,13 @@ body {
 
 #sidebar-footer a:hover {
   text-decoration: underline;
+}
+
+/* Ensure footer stays at the bottom of desktop sidebar */
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 /* MOBILE OVERRIDES */
@@ -172,7 +181,7 @@ body {
   #sidebar {
     left: -100%;
     width: 100%;
-    z-index: 2000;
+    z-index: 4000;
   }
 
   #sidebar.show {
@@ -180,7 +189,16 @@ body {
   }
 
   #sidebar-footer {
+    display: block;
     margin-top: auto;
     padding: 20px 10px;
   }
+}
+
+/* ✅ MOBILE TOGGLE BAR FIX */
+.mobile-top-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
 }
