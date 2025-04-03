@@ -4,12 +4,15 @@
   left: 0;
   top: 0;
   bottom: 0;
-  width: 300px;
+  width: 300px; /* Sidebar width */
   background: #ffffff;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
+  overflow-y: auto; /* Allow scrolling only if necessary */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
   padding: 20px;
   z-index: 1000;
+  height: 100vh; /* Ensure the sidebar takes up the full viewport height */
+  box-sizing: border-box; /* Include padding in the width/height calculation */
 }
 
 #logo {
@@ -29,12 +32,14 @@
   height: auto; /* Maintains aspect ratio */
 }
 
+/* Search bar styles */
 #search input {
-  width: 100%;
+  width: calc(100% - 20px); /* Slightly reduce width to prevent overflow */
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 20px;
+  box-sizing: border-box; /* Include padding in the width calculation */
 }
 
 .filter-section {
