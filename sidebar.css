@@ -7,7 +7,7 @@
   height: 100%;
   background-color: #fff;
   z-index: 9999;
-  padding: 20px 10px 100px 10px;
+  padding: 20px 10px 20px 10px;
   overflow-y: auto;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
@@ -29,7 +29,7 @@
   object-fit: contain;
 }
 
-/* ========== CLOSE BUTTON ========== */
+/* ========== CLOSE BUTTON (Mobile Only) ========== */
 #close-sidebar {
   display: none;
   position: absolute;
@@ -43,7 +43,7 @@
   z-index: 10000;
 }
 
-/* ========== SEARCH BOX ========== */
+/* ========== SEARCH ========== */
 .sidebar-search {
   width: 100%;
   padding: 10px;
@@ -52,7 +52,7 @@
   border: 1px solid #ccc;
 }
 
-/* ========== MENU ITEMS ========== */
+/* ========== MENU BUTTONS ========== */
 .menu-section {
   display: flex;
   flex-direction: column;
@@ -94,7 +94,7 @@
   text-decoration: underline;
 }
 
-/* ========== OVERLAY (MOBILE) ========== */
+/* ========== OVERLAY (Mobile Only) ========== */
 #sidebar-overlay {
   display: none;
   position: fixed;

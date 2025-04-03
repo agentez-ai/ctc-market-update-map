@@ -2,22 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <title>CTC Home Team Market Update</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CTC Market Map</title>
   <link href="styles.css" rel="stylesheet" />
   <link href="sidebar.css" rel="stylesheet" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
 </head>
 <body>
-  <!-- Sidebar Overlay (Mobile Only) -->
+
+  <!-- Sidebar Overlay (for mobile) -->
   <div id="sidebar-overlay"></div>
 
   <!-- Sidebar -->
   <div id="sidebar">
     <button id="close-sidebar" aria-label="Close sidebar">&times;</button>
     <div class="logo-container">
-      <img src="https://cdn.jsdelivr.net/gh/rtamayo7/assets@main/ctc-white-logo.png" alt="CTC Logo" />
+      <a href="https://cleartoclosehometeam.com" target="_blank">
+        <img src="https://cdn.jsdelivr.net/gh/rtamayo7/assets@main/ctc-white-logo.png" alt="CTC Logo" />
+      </a>
     </div>
     <input type="text" placeholder="Search..." class="sidebar-search" />
     <div class="menu-section">
@@ -36,10 +39,10 @@
     </div>
   </div>
 
-  <!-- Top Toggle Bar -->
+  <!-- Toggle Bar -->
   <div id="toggle-bar">
     <div class="toggle-row top-row">
-      <button id="menu-toggle" aria-label="Toggle Menu">☰</button>
+      <button id="menu-toggle" aria-label="Open Sidebar">☰</button>
       <input type="text" placeholder="Search..." class="top-search" />
     </div>
     <div class="toggle-row">
@@ -56,10 +59,11 @@
     </div>
   </div>
 
-  <!-- Map -->
+  <!-- Map Container -->
   <div id="map"></div>
 
-  <!-- JS Logic -->
+  <!-- Scripts -->
   <script src="sidebar.js"></script>
+
 </body>
 </html>
