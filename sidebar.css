@@ -77,19 +77,23 @@
   margin-right: 5px;
 }
 
-/* Footer styles */
+/* Sidebar Footer */
 #sidebar-footer {
-  margin-top: 20px;
+  margin-top: auto; /* Push footer to the bottom */
+  padding: 1% 0; /* Use percentage for dynamic vertical padding */
   font-size: 12px;
   text-align: center;
-  border-top: 1px solid #e0e0e0;
-  padding-top: 10px;
+  border-top: 1px solid #e0e0e0; /* Optional: Add a subtle divider */
   color: #666;
+  line-height: 1.5; /* Allow text to wrap into two lines */
+  word-wrap: break-word; /* Ensure text wraps properly */
+  margin-bottom: 10%; /* Adjust bottom margin to bring footer higher */
 }
 
 #sidebar-footer a {
   text-decoration: none;
   color: #007bff;
+  font-weight: bold;
 }
 
 #sidebar-footer a:hover {
