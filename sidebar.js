@@ -143,4 +143,10 @@ document.addEventListener('DOMContentLoaded', () => {
       'Final Left': left
     });
   }
+
+  // Function to toggle the sidebar for mobile
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('show');
+  }
 });

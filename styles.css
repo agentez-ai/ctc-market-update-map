@@ -131,30 +131,39 @@ body {
 }
 
 /* RESPONSIVE MOBILE + TABLET */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   #sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    box-shadow: none;
-    padding: 10px;
+    position: fixed;
+    left: -100%; /* Hide sidebar off-screen */
+    top: 0;
+    height: 100%;
+    width: 280px; /* Adjust width as needed */
+    background: white;
+    z-index: 1000;
+    transition: left 0.3s ease; /* Smooth slide-in animation */
   }
 
-  #map {
-    position: relative;
-    left: 0;
-    width: 100%;
+  #sidebar.show {
+    left: 0; /* Slide in the sidebar */
   }
 
-  #toggle-bar {
-    position: relative;
-    width: 95%;
-    max-width: none;
-    left: 50%;
-    transform: translateX(-50%);
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-    margin-top: 10px;
+  .mobile-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    z-index: 1100;
+    background: #003366;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: block; /* Ensure it's visible on mobile */
+  }
+}
+
+/* Hide the toggle button on larger screens */
+@media (min-width: 769px) {
+  .mobile-toggle {
+    display: none;
   }
 }
