@@ -8,8 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
       layers: {
         state: { center: [-83.5, 28.2], zoom: 5.8 },
         metro: { center: [-81.2, 26.2], zoom: 6.99 },
-        county: { center: [-81.2, 26.3], zoom: 6.99 },
-        city: { center: [-81.2, 26.2], zoom: 7.4 },
+        county: { center: [-81.2, 26.2], zoom: 6.99 },
+        city: { center: [-81.2, 26.3], zoom: 7.4 },
         zip: { center: [-81.2, 26.3], zoom: 7.4 }
       }
     },
