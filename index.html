@@ -1,58 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AgentEz.ai Map</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="sidebar.css">
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" />
-  <script defer src="sidebar.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ClearToClose Map</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="sidebar.css" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 </head>
-
 <body>
-  <div id="sidebar-container" class="sidebar-container">
-    <div class="sidebar">
-      <img src="data/Logo - Orange brokered by EXP.png" alt="Logo" class="sidebar-logo">
-      <input type="text" id="sidebar-search" placeholder="Search...">
-      <ul class="sidebar-menu">
-        <li><button>Popular Data</button></li>
-        <li><button>Home Price & Affordability</button></li>
-        <li><button>Market Trends</button></li>
-        <li><button>Demographic</button></li>
-        <li><button>Investor Metrics</button></li>
-        <li><button>CTC Home Team Insights</button></li>
-      </ul>
-      <div class="sidebar-footer">
-        <p>Powered by <a href="https://agentez.ai" target="_blank">AgentEz.ai</a> | Partnered with <a href="https://getyourpiece.com" target="_blank">GetYourPiece.com</a></p>
-      </div>
-    </div>
-  </div>
 
-  <!-- Hamburger -->
-  <button id="hamburger" class="hamburger">☰</button>
+  <!-- Overlay for mobile sidebar -->
+  <div id="sidebar-overlay" onclick="closeSidebar()"></div>
 
-  <!-- Toggle Bar -->
-  <div class="toggle-bar">
-    <input type="text" id="search" placeholder="Search...">
-    <div class="radio-buttons">
-      <label><input type="radio" name="geoLevel" value="state"> State</label>
-      <label><input type="radio" name="geoLevel" value="metro"> Metro</label>
-      <label><input type="radio" name="geoLevel" value="county" checked> County</label>
-      <label><input type="radio" name="geoLevel" value="city"> City</label>
-      <label><input type="radio" name="geoLevel" value="zip"> ZIP</label>
+  <!-- Hamburger Toggle (desktop hidden) -->
+  <button class="toggle-button" onclick="toggleSidebar()">☰</button>
+
+  <!-- Toggle Bar (always at top) -->
+  <div id="toggle-bar">
+    <input type="text" placeholder="Search..." class="top-search" />
+    <div class="toggle-options">
+      <label><input type="radio" name="toggle" value="state"> State</label>
+      <label><input type="radio" name="toggle" value="metro"> Metro</label>
+      <label><input type="radio" name="toggle" value="county" checked> County</label>
+      <label><input type="radio" name="toggle" value="city"> City</label>
+      <label><input type="radio" name="toggle" value="zip"> ZIP</label>
     </div>
-    <div class="buttons">
+    <div class="toggle-buttons">
       <button id="filter-btn">FILTER</button>
-      <button id="dream-btn">FIND MY DREAM NEIGHBORHOOD</button>
+      <button id="dream-btn">FIND MY DREAM<br/>NEIGHBORHOOD</button>
       <button id="share-btn">SHARE</button>
     </div>
   </div>
 
-  <!-- Map -->
-  <div id="map"></div>
-</body>
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <div id="logo">
+      <img src="data/Logo - Orange brokered by EXP.png" alt="Logo" />
+    </div>
+    <div id="search">
+      <input type="text" placeholder="Search..." />
+    </div>
+    <div class="filter-section">
+      <button class="accordion">Popular Data</button>
+      <div class="panel"><label><input type="checkbox"> Population Growth</label></div>
 
+      <button class="accordion">Home Price & Affordability</button>
+      <div class="panel"><label><input type="checkbox"> Median Sale Price</label></div>
+
+      <button class="accordion">Market Trends</button>
+      <div class="panel"><label><input type="checkbox"> Days on Market</label></div>
+
+      <button class="accordion">Demographic</button>
+      <div class="panel"><label><input type="checkbox"> Owner-Occupancy Rate</label></div>
+
+      <button class="accordion">Investor Metrics</button>
+      <div class="panel"><label><input type="checkbox"> Cash Sales %</label></div>
+
+      <button class="accordion">CTC Home Team Insights</button>
+      <div class="panel"><label><input type="checkbox"> Rental Demand</label></div>
+    </div>
+
+    <div id="sidebar-footer">
+      <p>
+        Powered by <a href="https://AgentEz.ai" target="_blank">AgentEz.ai</a> |
+        Partnered with <a href="https://GetYourPiece.com" target="_blank">GetYourPiece.com</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Map Container -->
+  <div id="map"></div>
+
+  <!-- Scripts -->
+  <script src="sidebar.js"></script>
+
+</body>
 </html>
