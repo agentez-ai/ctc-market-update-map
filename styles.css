@@ -31,26 +31,24 @@ body {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 12px 20px;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  max-width: calc(100% - 282px);
-}
-
-/* Search + Hamburger Row */
-.top-bar-row {
-  display: flex;
+  flex-direction: row; /* changed from column to row */
   align-items: center;
   gap: 12px;
+  max-width: calc(100% - 282px);
+  flex-wrap: wrap;
 }
 
+/* Search input */
 .top-search {
-  flex: 1;
+  flex: 1 1 200px;
+  min-width: 180px;
+  max-width: 280px;
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
 
-/* Hamburger Button */
+/* Hamburger Button (desktop: hidden) */
 .toggle-button {
   background: #003366;
   border: none;
@@ -63,19 +61,27 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  display: none;
+  display: none; /* desktop hidden by default */
 }
 
-/* Layer Toggle Options */
+/* Show hamburger on mobile only */
+@media screen and (max-width: 768px) {
+  .toggle-button {
+    display: flex;
+    position: static;
+  }
+}
+
+/* Radio toggle group */
 .toggle-options {
   display: flex;
-  flex-wrap: wrap;
   gap: 12px;
   font-size: 14px;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
-/* Action Buttons */
+/* Action buttons */
 .toggle-buttons {
   display: flex;
   flex-wrap: wrap;
@@ -133,7 +139,7 @@ body {
   text-decoration: underline;
 }
 
-/* Responsive */
+/* MOBILE OVERRIDES */
 @media screen and (max-width: 768px) {
   #map {
     left: 0;
@@ -143,22 +149,15 @@ body {
     left: 10px;
     right: 10px;
     max-width: none;
-    padding: 12px;
+    flex-direction: column;
     gap: 14px;
-  }
-
-  .top-bar-row {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .toggle-button {
-    display: flex;
-    position: static;
+    align-items: stretch;
   }
 
   .top-search {
     flex: 1;
+    max-width: none;
+    width: 100%;
   }
 
   .toggle-options {
