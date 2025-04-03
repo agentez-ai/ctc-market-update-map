@@ -25,60 +25,31 @@ body {
   top: 10px;
   left: 262px;
   right: 20px;
-  max-width: calc(100% - 282px);
-  z-index: 1000;
+  z-index: 1100;
   background: #fff;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px 20px;
+  padding: 12px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: calc(100% - 282px);
+}
+
+.top-bar-row {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: space-between;
+  gap: 12px;
 }
 
 .top-search {
   flex: 1;
-  min-width: 150px;
-  max-width: 300px;
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
 
-.toggle-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  font-size: 14px;
-}
-
-.toggle-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.toggle-buttons button {
-  padding: 8px 16px;
-  border: none;
-  border-radius: 6px;
-  background-color: #f8f9fa;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.toggle-buttons button:hover {
-  background-color: #e2e6ea;
-}
-
-/* Hamburger Menu */
 .toggle-button {
-  display: none;
-  position: absolute;
-  left: 10px;
   background: #003366;
   border: none;
   border-radius: 6px;
@@ -90,7 +61,37 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  z-index: 1101;
+  display: none;
+}
+
+.toggle-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 14px;
+  justify-content: center;
+}
+
+.toggle-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.toggle-buttons button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f8f9fa;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.toggle-buttons button:hover {
+  background-color: #e2e6ea;
 }
 
 /* Overlay */
@@ -113,46 +114,33 @@ body {
   }
 
   #toggle-bar {
-    top: 10px;
     left: 10px;
     right: 10px;
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
+    max-width: none;
+    padding: 12px;
+    gap: 14px;
+  }
+
+  .top-bar-row {
+    flex-direction: row;
+    align-items: center;
   }
 
   .toggle-button {
     display: flex;
-    position: relative;
-    top: auto;
-    margin-bottom: 10px;
-    align-self: flex-start;
+    position: static;
   }
 
   .top-search {
-    width: 100%;
-    margin-bottom: 10px;
+    flex: 1;
   }
 
   .toggle-options {
     justify-content: center;
-    margin-bottom: 10px;
   }
 
   .toggle-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  #dream-btn {
-    white-space: nowrap;
-    padding: 8px 20px;
-    width: auto;
-  }
-
-  #sidebar-footer {
-    display: block;
-    margin-top: 20px;
-    margin-bottom: 10%;
+    justify-content: center;
+    gap: 10px;
   }
 }
