@@ -134,6 +134,8 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.addEventListener('click', closeSidebar);
   }
 
+document.getElementById('close-sidebar').addEventListener('click', closeSidebar);
+
   // === MOBILE: Blur search input when tapping outside ===
   document.addEventListener('click', function (e) {
     if (window.innerWidth > 768) return; // only on mobile

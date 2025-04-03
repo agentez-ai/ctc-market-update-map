@@ -34,7 +34,7 @@ body {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 12px;
   max-width: calc(100% - 282px);
   margin: 0 auto;
@@ -42,9 +42,9 @@ body {
 
 /* Search input */
 .top-search {
-  flex: 1 1 200px;
+  flex: 1 1 240px;
   min-width: 180px;
-  max-width: 280px;
+  max-width: 260px;
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -63,7 +63,7 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  display: none; /* hidden by default */
+  display: none;
 }
 
 /* Show hamburger on mobile only */
@@ -112,7 +112,7 @@ body {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 3000; /* on top of everything */
+  z-index: 3000;
 }
 
 #sidebar-overlay.show {
@@ -161,6 +161,7 @@ body {
     flex-direction: column;
     gap: 14px;
     align-items: stretch;
+    z-index: 1100;
   }
 
   .top-search {
@@ -181,7 +182,13 @@ body {
   #sidebar {
     left: -100%;
     width: 100%;
-    z-index: 4000;
+    z-index: 4001;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    transition: left 0.3s ease;
+    background-color: #fff;
+    overflow-y: auto;
   }
 
   #sidebar.show {
@@ -201,4 +208,21 @@ body {
   align-items: center;
   gap: 12px;
   width: 100%;
+}
+
+/* ✅ Close button inside mobile sidebar */
+#close-sidebar {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: #444;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+#close-sidebar:hover {
+  color: #000;
 }

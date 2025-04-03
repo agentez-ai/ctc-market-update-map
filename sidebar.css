@@ -93,3 +93,20 @@
     left: 0;
   }
 }
+
+/* ✅ Close button styling for sidebar */
+#close-sidebar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  color: #444;
+  cursor: pointer;
+  z-index: 1002;
+}
+
+#close-sidebar:hover {
+  color: #000;
+}
