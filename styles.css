@@ -1,139 +1,107 @@
-body, html {
+/* ========== GLOBAL RESET ========== */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", sans-serif;
-  height: 100%;
-  width: 100%;
+}
+
+/* ========== BODY ========== */
+body {
+  font-family: Arial, sans-serif;
+  height: 100vh;
   overflow: hidden;
 }
 
+/* ========== MAP CONTAINER ========== */
 #map {
   position: absolute;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-/* TOGGLE BAR */
+/* ========== TOGGLE BAR ========== */
 #toggle-bar {
   position: absolute;
   top: 10px;
-  left: 300px;
-  right: 20px;
-  z-index: 999;
+  left: 50%;
+  transform: translateX(-50%);
   background: white;
-  padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.toggle-row {
+  padding: 10px;
+  z-index: 10;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
   gap: 10px;
+  max-width: 95%;
 }
 
-.top-row {
-  width: 100%;
+/* ========== TOGGLE BAR ELEMENTS ========== */
+#toggle-bar .top-search {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  min-width: 200px;
+}
+
+#toggle-bar .radio-group {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
-.top-search {
-  flex-grow: 1;
-  padding: 8px;
+#toggle-bar .radio-group label {
   font-size: 14px;
+}
+
+#toggle-bar .toggle-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#toggle-bar button {
+  padding: 8px 12px;
+  background: white;
   border: 1px solid #ccc;
   border-radius: 6px;
-}
-
-#menu-toggle {
-  font-size: 20px;
-  background: #003366;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  width: 40px;
-  height: 36px;
-}
-
-.action-button {
-  padding: 10px 16px;
-  border: none;
-  background: #f1f1f1;
-  font-weight: bold;
-  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
 }
 
-.action-button:hover {
-  background: #e6e6e6;
-}
-
-/* SIDEBAR OVERLAY */
-#sidebar-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
-  z-index: 998;
+/* HIDE MENU ICON ON DESKTOP */
+#menu-toggle {
   display: none;
 }
 
-#sidebar-overlay.show {
-  display: block;
-}
-
-/* MAP CONTROLS */
-.mapboxgl-ctrl-top-right {
-  margin-top: 80px;
-}
-
-/* Responsive Layout */
-@media (max-width: 1024px) {
-  #toggle-bar {
-    top: 10px;
-    left: 10px;
-    right: 10px;
-  }
-}
-
+/* ========== RESPONSIVE ========== */
 @media (max-width: 768px) {
   #toggle-bar {
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    border-radius: 12px;
-    padding: 10px;
-    gap: 12px;
+    flex-direction: column;
+    align-items: stretch;
   }
 
-  .top-row {
-    flex-direction: row;
+  #menu-toggle {
+    display: inline-block;
+    background-color: #003366;
+    color: white;
+    border: none;
+    padding: 8px;
+    font-size: 18px;
+    border-radius: 6px;
+  }
+
+  #toggle-bar .top-search {
+    min-width: 100%;
+  }
+
+  #toggle-bar .toggle-buttons,
+  #toggle-bar .radio-group {
     justify-content: center;
-  }
-
-  .toggle-row {
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .top-search {
-    flex-grow: 1;
-    min-width: 0;
-  }
-
-  .action-button {
-    font-size: 14px;
-    padding: 8px 12px;
   }
 }

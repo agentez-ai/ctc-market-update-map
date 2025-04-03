@@ -134,7 +134,11 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.addEventListener('click', closeSidebar);
   }
 
-document.getElementById('close-sidebar').addEventListener('click', closeSidebar);
+  // === SAFELY Close Sidebar from Close Button ===
+  const closeBtn = document.getElementById('close-sidebar');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeSidebar);
+  }
 
   // === MOBILE: Blur search input when tapping outside ===
   document.addEventListener('click', function (e) {
