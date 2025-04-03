@@ -5,22 +5,22 @@ document.addEventListener('DOMContentLoaded', () => {
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebar-overlay');
 
-  // Function to toggle the sidebar
+  // ✅ Sidebar Toggle Logic
   function toggleSidebar() {
     sidebar.classList.toggle('show');
-    overlay.style.display = sidebar.classList.contains('show') ? 'block' : 'none';
+    overlay.classList.toggle('show');
   }
 
-  // Function to close the sidebar
   function closeSidebar() {
     sidebar.classList.remove('show');
-    overlay.style.display = 'none';
+    overlay.classList.remove('show');
   }
 
-  // Attach functions to global scope for inline HTML calls
+  // ✅ Make accessible globally for HTML inline calls
   window.toggleSidebar = toggleSidebar;
   window.closeSidebar = closeSidebar;
 
+  // ✅ Map + Layer Settings
   const settings = {
     desktop: {
       default: { center: [-81.2, 26.3], zoom: 6.99 },
@@ -70,11 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
     zoom: deviceSettings.default.zoom
   });
 
-  // Add navigation control
+  // Add controls
   const nav = new mapboxgl.NavigationControl();
   map.addControl(nav, 'top-right');
 
-  // Add scale control
   const scale = new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' });
   map.addControl(scale, 'bottom-right');
 
@@ -116,24 +115,21 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Label the zoom control for precise measurement
     document.querySelector('.mapboxgl-ctrl-top-right > .mapboxgl-ctrl').id = 'zoom-control';
   });
 
-  // Use the Mapbox idle event to position the toggle bar after rendering
+  // Toggle bar position logic
   map.on('idle', function () {
     updateToggleBarPosition();
   });
 
   window.addEventListener('resize', updateToggleBarPosition);
 
-  // Function to position the toggle bar
   function updateToggleBarPosition() {
     const sidebar = document.getElementById('sidebar');
     const toggleBar = document.getElementById('toggle-bar');
     const zoomControl = document.getElementById('zoom-control');
 
-    // Ensure all elements exist
     if (!sidebar || !toggleBar || !zoomControl) {
       console.error('Missing element for toggle positioning');
       return;
@@ -143,22 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const zoomRect = zoomControl.getBoundingClientRect();
     const toggleBarWidth = toggleBar.offsetWidth || 200;
 
-    // Calculate available space between sidebar and zoom control
     const availableWidth = zoomRect.left - sidebarRect.right;
     const left = sidebarRect.right + (availableWidth / 2) - (toggleBarWidth / 2);
 
-    // Apply positioning
     toggleBar.style.position = 'absolute';
     toggleBar.style.top = '10px';
     toggleBar.style.left = `${left}px`;
-
-    // Debug logs if needed
-    console.log({
-      'Sidebar Right Edge': sidebarRect.right,
-      'Zoom Left Edge': zoomRect.left,
-      'Available Width': availableWidth,
-      'ToggleBar Width': toggleBarWidth,
-      'Final Left': left
-    });
   }
 });
