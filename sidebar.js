@@ -116,4 +116,31 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   });
+
+  // === SIDEBAR MENU BUTTON ===
+  const menuToggle = document.getElementById('menu-toggle');
+  if (menuToggle) {
+    menuToggle.addEventListener('click', function () {
+      sidebar.classList.toggle('show');
+      overlay.classList.toggle('show');
+      if (sidebar.classList.contains('show')) {
+        sidebar.scrollTop = 0;
+      }
+    });
+  }
+
+  // === CLICK OUTSIDE TO BLUR SEARCH ON MOBILE ===
+  document.addEventListener('click', function (e) {
+    const toggleBar = document.getElementById('toggle-bar');
+    if (!toggleBar) return;
+    const searchInput = toggleBar.querySelector('input[type="text"]');
+    if (!toggleBar.contains(e.target)) {
+      searchInput.blur();
+    }
+  });
+
+  // === CLOSE SIDEBAR ON OVERLAY CLICK ===
+  if (overlay) {
+    overlay.addEventListener('click', closeSidebar);
+  }
 });
