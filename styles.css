@@ -10,7 +10,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Map Container */
 #map {
   position: absolute;
   top: 0;
@@ -20,17 +19,11 @@ body {
   z-index: 0;
 }
 
-@media screen and (max-width: 768px) {
-  #map {
-    left: 0;
-  }
-}
-
-/* Top Filter Bar */
-.top-bar {
+/* Toggle Bar */
+#toggle-bar {
   position: fixed;
-  top: 20px;
-  left: 300px;
+  top: 10px;
+  left: 262px;
   right: 20px;
   z-index: 1100;
   background: #fff;
@@ -43,25 +36,28 @@ body {
   gap: 10px;
 }
 
-.top-bar input[type="text"] {
+.top-search {
   flex: 1;
-  min-width: 200px;
+  min-width: 150px;
   padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
 }
 
-.top-bar label {
+.toggle-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   font-size: 14px;
-  margin-left: 10px;
 }
 
-.top-bar input[type="radio"] {
-  margin-left: 8px;
-  margin-right: 4px;
+.toggle-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.top-bar button {
+.toggle-buttons button {
   padding: 8px 16px;
   border: none;
   border-radius: 6px;
@@ -71,15 +67,15 @@ body {
   transition: background 0.2s;
 }
 
-.top-bar button:hover {
+.toggle-buttons button:hover {
   background-color: #e2e6ea;
 }
 
 /* Hamburger Menu */
-.hamburger {
+.toggle-button {
   display: none;
   position: fixed;
-  top: 20px;
+  top: 60px;
   left: 20px;
   z-index: 1500;
   background: #003366;
@@ -87,18 +83,15 @@ body {
   border-radius: 6px;
   width: 44px;
   height: 44px;
+  color: #fff;
+  font-size: 28px;
+  font-weight: bold;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
 
-.hamburger span {
-  color: white;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-/* Overlay for Sidebar */
+/* Overlay */
 #sidebar-overlay {
   display: none;
   position: fixed;
@@ -111,16 +104,26 @@ body {
   display: block;
 }
 
+/* Responsive */
 @media screen and (max-width: 768px) {
-  .top-bar {
-    top: 80px;
+  #map {
+    left: 0;
+  }
+
+  #toggle-bar {
+    top: 10px;
     left: 10px;
     right: 10px;
     flex-direction: column;
     align-items: stretch;
   }
 
-  .hamburger {
+  .toggle-button {
     display: flex;
+    top: 120px;
+  }
+
+  #sidebar.show + #toggle-bar {
+    margin-top: 100px; /* Shift below sidebar when open */
   }
 }
