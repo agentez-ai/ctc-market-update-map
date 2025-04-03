@@ -11,36 +11,40 @@
   overflow-y: auto;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
 }
 
-#sidebar .logo-container {
+/* ========== LOGO ========== */
+.logo-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  position: relative;
 }
 
-#sidebar .logo-container img {
+.logo-container img {
   max-width: 100%;
   height: auto;
   object-fit: contain;
 }
 
-#sidebar .close-button {
+/* ========== CLOSE BUTTON ========== */
+#close-sidebar {
   display: none;
   position: absolute;
-  top: 8px;
+  top: 10px;
   right: 10px;
-  font-size: 20px;
-  color: #007bff;
-  cursor: pointer;
+  font-size: 24px;
+  color: #003366;
   background: none;
   border: none;
+  cursor: pointer;
+  z-index: 10000;
 }
 
 /* ========== SEARCH BOX ========== */
-#sidebar input[type="text"] {
+.sidebar-search {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
@@ -49,13 +53,13 @@
 }
 
 /* ========== MENU ITEMS ========== */
-#sidebar .menu-section {
+.menu-section {
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-#sidebar .menu-section button {
+.sidebar-button {
   padding: 12px;
   border: none;
   background-color: #f6f6f6;
@@ -66,13 +70,13 @@
   transition: background-color 0.2s;
 }
 
-#sidebar .menu-section button:hover {
+.sidebar-button:hover {
   background-color: #e6e6e6;
 }
 
 /* ========== FOOTER ========== */
 .sidebar-footer {
-  margin-top: 40px;
+  margin-top: auto;
   padding-top: 20px;
   border-top: 1px solid #ddd;
   font-size: 14px;
@@ -83,6 +87,7 @@
 .sidebar-footer a {
   color: #007bff;
   text-decoration: none;
+  font-weight: 600;
 }
 
 .sidebar-footer a:hover {
@@ -111,7 +116,7 @@
     transform: translateX(0);
   }
 
-  #sidebar .close-button {
+  #close-sidebar {
     display: block;
   }
 

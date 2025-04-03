@@ -26,82 +26,102 @@ body {
 #toggle-bar {
   position: absolute;
   top: 10px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 300px; /* leaves space for sidebar */
+  right: 20px;
   background: white;
   border-radius: 10px;
-  padding: 10px;
+  padding: 12px;
   z-index: 10;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+}
+
+/* ========== TOGGLE BAR ROWS ========== */
+.toggle-row {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: center;
   gap: 10px;
-  max-width: 95%;
 }
 
-/* ========== TOGGLE BAR ELEMENTS ========== */
-#toggle-bar .top-search {
+.top-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ========== SEARCH INPUT ========== */
+.top-search {
+  flex-grow: 1;
   padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  min-width: 200px;
-}
-
-#toggle-bar .radio-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-#toggle-bar .radio-group label {
   font-size: 14px;
-}
-
-#toggle-bar .toggle-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-#toggle-bar button {
-  padding: 8px 12px;
-  background: white;
   border: 1px solid #ccc;
   border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
 }
 
-/* HIDE MENU ICON ON DESKTOP */
+/* ========== MENU ICON ========== */
 #menu-toggle {
   display: none;
+  font-size: 20px;
+  background: #003366;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  width: 40px;
+  height: 36px;
+  cursor: pointer;
+}
+
+/* ========== ACTION BUTTONS ========== */
+.action-button {
+  padding: 10px 16px;
+  border: none;
+  background: #f1f1f1;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  background: #e6e6e6;
 }
 
 /* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  #toggle-bar {
+    left: 10px;
+    right: 10px;
+  }
+}
+
 @media (max-width: 768px) {
   #toggle-bar {
     flex-direction: column;
     align-items: stretch;
+    border-radius: 12px;
+    padding: 10px;
+    gap: 12px;
+  }
+
+  .top-row {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .top-search {
+    min-width: 0;
+  }
+
+  .action-button {
+    font-size: 14px;
+    padding: 8px 12px;
   }
 
   #menu-toggle {
     display: inline-block;
-    background-color: #003366;
-    color: white;
-    border: none;
-    padding: 8px;
-    font-size: 18px;
-    border-radius: 6px;
-  }
-
-  #toggle-bar .top-search {
-    min-width: 100%;
-  }
-
-  #toggle-bar .toggle-buttons,
-  #toggle-bar .radio-group {
-    justify-content: center;
   }
 }
