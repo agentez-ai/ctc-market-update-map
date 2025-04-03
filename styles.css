@@ -1,136 +1,126 @@
-body {
+/* Reset and Base Styles */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #f7f8fa;
 }
 
-/* MAP CONTAINER */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* Map Container */
 #map {
   position: absolute;
   top: 0;
-  bottom: 0;
-  left: 262px; /* space for sidebar */
+  left: 262px;
   right: 0;
+  bottom: 0;
   z-index: 0;
 }
 
-/* TOGGLE BAR */
-#toggle-bar {
-  position: absolute;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
-  padding: 15px 20px;
+/* Top Filter Bar */
+.top-bar {
+  position: fixed;
+  top: 20px;
+  left: 300px;
+  right: 20px;
+  z-index: 1100;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
   display: flex;
   align-items: center;
-  gap: 15px;
-  z-index: 1001;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
-#search-bar {
-  padding: 10px;
-  font-size: 14px;
+.top-bar input[type="text"] {
+  flex: 1;
+  min-width: 200px;
+  padding: 8px 12px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  width: 220px;
 }
 
-#layer-options {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-#layer-options label {
+.top-bar label {
   font-size: 14px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
+  margin-left: 10px;
 }
 
-#actions {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+.top-bar input[type="radio"] {
+  margin-left: 8px;
+  margin-right: 4px;
 }
 
-#FDN-btn,
-#share-btn {
-  background: #f5f5f5;
-  padding: 10px 14px;
-  font-size: 13px;
-  border: 1px solid #ccc;
+.top-bar button {
+  padding: 8px 16px;
+  border: none;
   border-radius: 6px;
-  cursor: pointer;
+  background-color: #f8f9fa;
   font-weight: bold;
-  text-transform: uppercase;
+  cursor: pointer;
   transition: background 0.2s;
 }
 
-#FDN-btn:hover,
-#share-btn:hover {
-  background: #e2e6ea;
+.top-bar button:hover {
+  background-color: #e2e6ea;
 }
 
-/* MOBILE STYLES */
-@media (max-width: 768px) {
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1500;
+  background: #003366;
+  border: none;
+  border-radius: 6px;
+  width: 44px;
+  height: 44px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.hamburger span {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Overlay for Sidebar */
+#sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 900;
+}
+
+#sidebar-overlay.show {
+  display: block;
+}
+
+/* Responsive Mobile Styles */
+@media screen and (max-width: 768px) {
   #map {
     left: 0;
   }
 
-  #toggle-bar {
-    top: 10px;
-    left: 50%;
-    transform: translateX(-50%);
+  .top-bar {
+    top: 80px;
+    left: 10px;
+    right: 10px;
     flex-direction: column;
     align-items: stretch;
-    width: 95%;
-    padding: 10px;
   }
 
-  #search-bar {
-    width: 100%;
-    margin-bottom: 8px;
-  }
-
-  #layer-options {
-    justify-content: space-between;
-  }
-
-  #actions {
-    flex-direction: column;
-  }
-
-  #FDN-btn,
-  #share-btn {
-    width: 100%;
-    font-size: 14px;
-  }
-}
-
-/* HAMBURGER BUTTON */
-.mobile-toggle {
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 1100;
-  background: #003366;
-  color: white;
-  padding: 8px 12px;
-  border-radius: 6px;
-  font-size: 20px;
-  cursor: pointer;
-  display: none;
-}
-
-/* Only show toggle on mobile */
-@media (max-width: 768px) {
-  .mobile-toggle {
-    display: block;
+  .hamburger {
+    display: flex;
   }
 }

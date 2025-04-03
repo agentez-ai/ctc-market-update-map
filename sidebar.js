@@ -4,9 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebar-overlay');
-  const accordions = document.querySelectorAll('.accordion');
 
-  // ----- SIDEBAR TOGGLE -----
   function toggleSidebar() {
     sidebar.classList.toggle('show');
     overlay.classList.toggle('show');
@@ -20,20 +18,17 @@ document.addEventListener('DOMContentLoaded', () => {
   window.toggleSidebar = toggleSidebar;
   window.closeSidebar = closeSidebar;
 
-  // ----- ACCORDIONS -----
-  accordions.forEach((accordion) => {
-    accordion.addEventListener('click', function () {
-      this.classList.toggle('active');
-      const panel = this.nextElementSibling;
-      if (panel.style.display === 'block') {
-        panel.style.display = 'none';
-      } else {
-        panel.style.display = 'block';
-      }
+  // Accordion logic
+  const accordions = document.querySelectorAll('.accordion');
+  accordions.forEach(acc => {
+    acc.addEventListener('click', () => {
+      acc.classList.toggle('active');
+      const panel = acc.nextElementSibling;
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
     });
   });
 
-  // ----- DEVICE-SPECIFIC SETTINGS -----
+  // Device-specific settings
   const settings = {
     desktop: {
       default: { center: [-81.2, 26.3], zoom: 6.99 },
@@ -76,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const deviceSettings = getDeviceSettings();
 
-  // ----- INITIALIZE MAP -----
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
@@ -84,13 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
     zoom: deviceSettings.default.zoom
   });
 
-  const nav = new mapboxgl.NavigationControl();
-  map.addControl(nav, 'top-right');
+  // Add controls
+  map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+  map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }), 'bottom-right');
 
-  const scale = new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' });
-  map.addControl(scale, 'bottom-right');
-
-  // ----- LAYER TOGGLE -----
+  // Map layer toggling
   const layerMap = {
     state: ['ctc-florida-fill', 'ctc-florida-label'],
     metro: ['ctc-core7-msas-fill', 'ctc-core7-msas-label'],
@@ -123,36 +115,22 @@ document.addEventListener('DOMContentLoaded', () => {
   map.on('load', () => {
     toggleLayerVisibility('county');
 
-    document.querySelectorAll('input[name="layer"]').forEach(radio => {
+    document.querySelectorAll('input[name="toggle"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         toggleLayerVisibility(e.target.value);
       });
     });
-
-    const zoomControl = document.querySelector('.mapboxgl-ctrl-top-right > .mapboxgl-ctrl');
-    if (zoomControl) {
-      zoomControl.id = 'zoom-control';
-    }
   });
 
-  // ----- TOGGLE BAR POSITIONING -----
+  // Reposition toggle bar based on sidebar + zoom control (desktop only)
   function updateToggleBarPosition() {
-    const sidebar = document.getElementById('sidebar');
     const toggleBar = document.getElementById('toggle-bar');
-    const zoomControl = document.getElementById('zoom-control');
+    const zoomControl = document.querySelector('.mapboxgl-ctrl-top-right');
 
-    if (!sidebar || !toggleBar || !zoomControl) return;
+    if (!toggleBar || !zoomControl) return;
 
-    const sidebarRect = sidebar.getBoundingClientRect();
-    const zoomRect = zoomControl.getBoundingClientRect();
-    const toggleBarWidth = toggleBar.offsetWidth || 200;
-
-    const availableWidth = zoomRect.left - sidebarRect.right;
-    const left = sidebarRect.right + (availableWidth / 2) - (toggleBarWidth / 2);
-
-    toggleBar.style.left = `${left}px`;
-    toggleBar.style.top = '15px';
-    toggleBar.style.position = 'absolute';
+    const sidebarWidth = window.innerWidth > 768 ? 262 : 0;
+    toggleBar.style.left = `${sidebarWidth + 20}px`;
   }
 
   map.on('idle', updateToggleBarPosition);
