@@ -4,7 +4,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebar-overlay');
+  const accordions = document.querySelectorAll('.accordion');
 
+  // ----- SIDEBAR TOGGLE -----
   function toggleSidebar() {
     sidebar.classList.toggle('show');
     overlay.classList.toggle('show');
@@ -18,28 +20,51 @@ document.addEventListener('DOMContentLoaded', () => {
   window.toggleSidebar = toggleSidebar;
   window.closeSidebar = closeSidebar;
 
+  // ----- ACCORDIONS -----
+  accordions.forEach((accordion) => {
+    accordion.addEventListener('click', function () {
+      this.classList.toggle('active');
+      const panel = this.nextElementSibling;
+      if (panel.style.display === 'block') {
+        panel.style.display = 'none';
+      } else {
+        panel.style.display = 'block';
+      }
+    });
+  });
+
+  // ----- DEVICE-SPECIFIC SETTINGS -----
   const settings = {
-    desktop: { default: { center: [-81.2, 26.3], zoom: 6.99 }, layers: {
-      state: { center: [-83.5, 28.2], zoom: 5.8 },
-      metro: { center: [-81.2, 26.2], zoom: 6.99 },
-      county: { center: [-81.2, 26.2], zoom: 6.99 },
-      city: { center: [-81.2, 26.3], zoom: 7.4 },
-      zip: { center: [-81.2, 26.3], zoom: 7.4 }
-    }},
-    tablet: { default: { center: [-82.1, 26.3], zoom: 6.8 }, layers: {
-      state: { center: [-86.31, 28], zoom: 5.5 },
-      metro: { center: [-82.1, 26.3], zoom: 6.8 },
-      county: { center: [-82.1, 26.3], zoom: 6.8 },
-      city: { center: [-82.1, 26.3], zoom: 6.8 },
-      zip: { center: [-82.1, 26.3], zoom: 6.8 }
-    }},
-    mobile: { default: { center: [-81.25, 26.2], zoom: 6.8 }, layers: {
-      state: { center: [-83.6, 28.1], zoom: 5.29 },
-      metro: { center: [-81.25, 26.2], zoom: 6.85 },
-      county: { center: [-81.25, 26.2], zoom: 6.85 },
-      city: { center: [-81, 26], zoom: 6.59 },
-      zip: { center: [-81.17, 26.2], zoom: 6.8 }
-    }}
+    desktop: {
+      default: { center: [-81.2, 26.3], zoom: 6.99 },
+      layers: {
+        state: { center: [-83.5, 28.2], zoom: 5.8 },
+        metro: { center: [-81.2, 26.2], zoom: 6.99 },
+        county: { center: [-81.2, 26.2], zoom: 6.99 },
+        city: { center: [-81.2, 26.3], zoom: 7.4 },
+        zip: { center: [-81.2, 26.3], zoom: 7.4 }
+      }
+    },
+    tablet: {
+      default: { center: [-82.1, 26.3], zoom: 6.8 },
+      layers: {
+        state: { center: [-86.31, 28], zoom: 5.5 },
+        metro: { center: [-82.1, 26.3], zoom: 6.8 },
+        county: { center: [-82.1, 26.3], zoom: 6.8 },
+        city: { center: [-82.1, 26.3], zoom: 6.8 },
+        zip: { center: [-82.1, 26.3], zoom: 6.8 }
+      }
+    },
+    mobile: {
+      default: { center: [-81.25, 26.2], zoom: 6.8 },
+      layers: {
+        state: { center: [-83.6, 28.1], zoom: 5.29 },
+        metro: { center: [-81.25, 26.2], zoom: 6.85 },
+        county: { center: [-81.25, 26.2], zoom: 6.85 },
+        city: { center: [-81, 26], zoom: 6.59 },
+        zip: { center: [-81.17, 26.2], zoom: 6.8 }
+      }
+    }
   };
 
   function getDeviceSettings() {
@@ -51,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const deviceSettings = getDeviceSettings();
 
+  // ----- INITIALIZE MAP -----
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
@@ -64,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const scale = new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' });
   map.addControl(scale, 'bottom-right');
 
+  // ----- LAYER TOGGLE -----
   const layerMap = {
     state: ['ctc-florida-fill', 'ctc-florida-label'],
     metro: ['ctc-core7-msas-fill', 'ctc-core7-msas-label'],
@@ -95,10 +122,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
   map.on('load', () => {
     toggleLayerVisibility('county');
+
     document.querySelectorAll('input[name="layer"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         toggleLayerVisibility(e.target.value);
       });
     });
+
+    const zoomControl = document.querySelector('.mapboxgl-ctrl-top-right > .mapboxgl-ctrl');
+    if (zoomControl) {
+      zoomControl.id = 'zoom-control';
+    }
   });
+
+  // ----- TOGGLE BAR POSITIONING -----
+  function updateToggleBarPosition() {
+    const sidebar = document.getElementById('sidebar');
+    const toggleBar = document.getElementById('toggle-bar');
+    const zoomControl = document.getElementById('zoom-control');
+
+    if (!sidebar || !toggleBar || !zoomControl) return;
+
+    const sidebarRect = sidebar.getBoundingClientRect();
+    const zoomRect = zoomControl.getBoundingClientRect();
+    const toggleBarWidth = toggleBar.offsetWidth || 200;
+
+    const availableWidth = zoomRect.left - sidebarRect.right;
+    const left = sidebarRect.right + (availableWidth / 2) - (toggleBarWidth / 2);
+
+    toggleBar.style.left = `${left}px`;
+    toggleBar.style.top = '15px';
+    toggleBar.style.position = 'absolute';
+  }
+
+  map.on('idle', updateToggleBarPosition);
+  window.addEventListener('resize', updateToggleBarPosition);
 });

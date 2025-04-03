@@ -3,16 +3,18 @@
 <head>
   <meta charset="utf-8" />
   <title>CTC Market Update Map</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="sidebar.css" />
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sidebar.css">
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
 </head>
 <body>
 
-<div class="mobile-toggle" onclick="toggleSidebar()">☰ Filters</div>
+<!-- Mobile Toggle Button -->
+<div class="mobile-toggle" onclick="toggleSidebar()">☰</div>
 
+<!-- Sidebar -->
 <div id="sidebar">
   <div id="logo">
     <a href="https://cleartoclosehometeam.com" target="_blank">
@@ -23,39 +25,45 @@
     <input type="text" placeholder="Search..." />
   </div>
   <div id="filters">
-    <div class="filter-section"><button class="accordion">Popular Data</button>
+    <div class="filter-section">
+      <button class="accordion">Popular Data</button>
       <div class="panel">
         <label><input type="checkbox" onclick="closeSidebar()" /> Home Value</label>
         <label><input type="checkbox" onclick="closeSidebar()" /> Population Growth</label>
       </div>
     </div>
-    <div class="filter-section"><button class="accordion">Home Price & Affordability</button>
+    <div class="filter-section">
+      <button class="accordion">Home Price & Affordability</button>
       <div class="panel">
         <label><input type="checkbox" onclick="closeSidebar()" /> Median Price</label>
         <label><input type="checkbox" onclick="closeSidebar()" /> Price-to-Income Ratio</label>
       </div>
     </div>
-    <div class="filter-section"><button class="accordion">Market Trends</button>
+    <div class="filter-section">
+      <button class="accordion">Market Trends</button>
       <div class="panel">
         <label><input type="checkbox" onclick="closeSidebar()" /> Sales Volume</label>
         <label><input type="checkbox" onclick="closeSidebar()" /> Days on Market</label>
       </div>
     </div>
-    <div class="filter-section"><button class="accordion">Demographic</button>
+    <div class="filter-section">
+      <button class="accordion">Demographic</button>
       <div class="panel">
         <label><input type="checkbox" onclick="closeSidebar()" /> Population Density</label>
         <label><input type="checkbox" onclick="closeSidebar()" /> Age Distribution</label>
       </div>
     </div>
-    <div class="filter-section"><button class="accordion">Investor Metrics</button>
+    <div class="filter-section">
+      <button class="accordion">Investor Metrics</button>
       <div class="panel">
         <label><input type="checkbox" onclick="closeSidebar()" /> Rental Yield</label>
         <label><input type="checkbox" onclick="closeSidebar()" /> Vacancy Rate</label>
       </div>
     </div>
-    <div class="filter-section"><button class="accordion">CTC Home Team Insights</button>
+    <div class="filter-section">
+      <button class="accordion">CTC Home Team Insights</button>
       <div class="panel">
-        <label><input type="checkbox" onclick="closeSidebar()" /> CTC Home Team Score</label>
+        <label><input type="checkbox" onclick="closeSidebar()" /> CTC Score</label>
         <label><input type="checkbox" onclick="closeSidebar()" /> Neighborhood Rank</label>
       </div>
     </div>
@@ -66,10 +74,13 @@
   </footer>
 </div>
 
+<!-- Overlay for mobile -->
 <div id="sidebar-overlay" onclick="closeSidebar()"></div>
 
+<!-- Map Container -->
 <div id="map"></div>
 
+<!-- Toggle Bar -->
 <div id="toggle-bar">
   <input type="text" id="search-bar" placeholder="Search..." />
   <div id="layer-options">
@@ -80,13 +91,11 @@
     <label><input type="radio" name="layer" value="zip"> ZIP</label>
   </div>
   <div id="actions">
-    <button id="filter-btn">Filter</button>
     <button id="FDN-btn">Find My Dream Neighborhood</button>
     <button id="share-btn">Share</button>
   </div>
 </div>
 
 <script src="sidebar.js"></script>
-
 </body>
 </html>
