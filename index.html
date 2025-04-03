@@ -14,8 +14,9 @@
   <!-- Overlay for mobile sidebar -->
   <div id="sidebar-overlay" onclick="closeSidebar()"></div>
 
-  <!-- Toggle Bar (always at top) -->
+  <!-- Toggle Bar -->
   <div id="toggle-bar">
+    <button class="toggle-button" onclick="toggleSidebar()">☰</button>
     <input type="text" placeholder="Search..." class="top-search" />
 
     <div class="toggle-options">
@@ -28,13 +29,10 @@
 
     <div class="toggle-buttons">
       <button id="filter-btn">FILTER</button>
-      <button id="dream-btn">FIND MY DREAM<br/>NEIGHBORHOOD</button>
+      <button id="dream-btn">FIND MY DREAM NEIGHBORHOOD</button>
       <button id="share-btn">SHARE</button>
     </div>
   </div>
-
-  <!-- Hamburger Toggle (below top bar) -->
-  <button class="toggle-button" onclick="toggleSidebar()">☰</button>
 
   <!-- Sidebar -->
   <div id="sidebar">
