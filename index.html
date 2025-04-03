@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clear To Close Map</title>
-  <link href="styles.css" rel="stylesheet" />
-  <link href="sidebar.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentEz.ai Map</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sidebar.css">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css" rel="stylesheet" />
   <script defer src="sidebar.js"></script>
 </head>
+
 <body>
-  <div class="sidebar-container">
-    <button class="hamburger" id="hamburger-btn">☰</button>
-    <div class="sidebar" id="sidebar">
-      <div class="logo">
-        <img src="data/Logo - Orange brokered by EXP.png" alt="Logo" />
-      </div>
-      <input type="text" id="sidebarSearch" placeholder="Search..." />
-      <ul class="menu">
+  <div id="sidebar-container" class="sidebar-container">
+    <div class="sidebar">
+      <img src="data/Logo - Orange brokered by EXP.png" alt="Logo" class="sidebar-logo">
+      <input type="text" id="sidebar-search" placeholder="Search...">
+      <ul class="sidebar-menu">
         <li><button>Popular Data</button></li>
         <li><button>Home Price & Affordability</button></li>
         <li><button>Market Trends</button></li>
@@ -24,28 +25,34 @@
         <li><button>Investor Metrics</button></li>
         <li><button>CTC Home Team Insights</button></li>
       </ul>
-      <div class="footer">
-        <p>Powered by <a href="#">AgentEz.ai</a> | Partnered with <a href="https://GetYourPiece.com">GetYourPiece.com</a></p>
+      <div class="sidebar-footer">
+        <p>Powered by <a href="https://agentez.ai" target="_blank">AgentEz.ai</a> | Partnered with <a href="https://getyourpiece.com" target="_blank">GetYourPiece.com</a></p>
       </div>
     </div>
   </div>
 
-  <div class="top-bar">
-    <input type="text" id="search" placeholder="Search..." />
-    <div class="toggle-options">
-      <label><input type="radio" name="view" value="state" /> State</label>
-      <label><input type="radio" name="view" value="metro" /> Metro</label>
-      <label><input type="radio" name="view" value="county" checked /> County</label>
-      <label><input type="radio" name="view" value="city" /> City</label>
-      <label><input type="radio" name="view" value="zip" /> ZIP</label>
+  <!-- Hamburger -->
+  <button id="hamburger" class="hamburger">☰</button>
+
+  <!-- Toggle Bar -->
+  <div class="toggle-bar">
+    <input type="text" id="search" placeholder="Search...">
+    <div class="radio-buttons">
+      <label><input type="radio" name="geoLevel" value="state"> State</label>
+      <label><input type="radio" name="geoLevel" value="metro"> Metro</label>
+      <label><input type="radio" name="geoLevel" value="county" checked> County</label>
+      <label><input type="radio" name="geoLevel" value="city"> City</label>
+      <label><input type="radio" name="geoLevel" value="zip"> ZIP</label>
     </div>
     <div class="buttons">
-      <button>FILTER</button>
-      <button>FIND MY DREAM NEIGHBORHOOD</button>
-      <button>SHARE</button>
+      <button id="filter-btn">FILTER</button>
+      <button id="dream-btn">FIND MY DREAM NEIGHBORHOOD</button>
+      <button id="share-btn">SHARE</button>
     </div>
   </div>
 
+  <!-- Map -->
   <div id="map"></div>
 </body>
+
 </html>
