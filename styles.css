@@ -40,11 +40,13 @@ body {
 
 .sidebar-footer {
   margin-top: auto;
-  padding: 10px 0;
+  padding: 15px 0;
   font-size: 12px;
   text-align: center;
   border-top: 1px solid #e0e0e0;
   color: #666;
+  position: relative;
+  bottom: 0;
 }
 
 .sidebar-footer a {
@@ -60,10 +62,10 @@ body {
 /* ========== TOGGLE BAR ========== */
 #toggle-bar {
   position: absolute;
-  top: 10px;
+  top: 30px;
   left: 50%;
   transform: translateX(-50%);
-  max-width: 800px;
+  max-width: 760px;
   width: 100%;
   background: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -75,7 +77,6 @@ body {
   gap: 10px;
 }
 
-/* TOGGLE BAR SECTIONS */
 .toggle-row {
   display: flex;
   flex-wrap: wrap;
