@@ -3,23 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CTC Market Map</title>
+  <title>CTC Home Team Market Update</title>
   <link href="styles.css" rel="stylesheet" />
   <link href="sidebar.css" rel="stylesheet" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body>
-  <!-- Sidebar Overlay (Mobile Only) -->
-  <div id="sidebar-overlay"></div>
-
   <!-- Sidebar -->
   <div id="sidebar">
-    <button id="close-sidebar" aria-label="Close sidebar">&times;</button>
+    <button id="close-sidebar">&times;</button>
     <div class="logo-container">
-      <img src="https://cdn.jsdelivr.net/gh/rtamayo7/assets@main/ctc-white-logo.png" alt="CTC Logo" />
+      <img src="data/Logo%20-%20Orange%20brokered%20by%20EXP.png" alt="CTC Logo" />
     </div>
-    <input type="text" placeholder="Search..." class="sidebar-search" />
+    <input type="text" class="sidebar-search" placeholder="Search..." />
     <div class="menu-section">
       <button class="sidebar-button">Popular Data</button>
       <button class="sidebar-button">Home Price & Affordability</button>
@@ -29,25 +26,26 @@
       <button class="sidebar-button">CTC Home Team Insights</button>
     </div>
     <div class="sidebar-footer">
-      <p>
-        Powered by <a href="https://agentez.ai" target="_blank">AgentEz.ai</a><br />
-        Partnered with <a href="https://getyourpiece.com" target="_blank">GetYourPiece.com</a>
-      </p>
+      <p>Powered by <a href="#">AgentEz.ai</a></p>
+      <p>Partnered with <a href="#">GetYourPiece.com</a></p>
     </div>
   </div>
 
-  <!-- Top Toggle Bar -->
+  <!-- Overlay -->
+  <div id="sidebar-overlay"></div>
+
+  <!-- Toggle Bar -->
   <div id="toggle-bar">
     <div class="toggle-row top-row">
-      <button id="menu-toggle" aria-label="Toggle Menu">☰</button>
-      <input type="text" placeholder="Search..." class="top-search" />
+      <button id="menu-toggle">&#9776;</button>
+      <input type="text" class="top-search" placeholder="Search..." />
     </div>
     <div class="toggle-row">
-      <label><input type="radio" name="toggle" value="state" /> State</label>
-      <label><input type="radio" name="toggle" value="metro" /> Metro</label>
-      <label><input type="radio" name="toggle" value="county" checked /> County</label>
-      <label><input type="radio" name="toggle" value="city" /> City</label>
-      <label><input type="radio" name="toggle" value="zip" /> ZIP</label>
+      <label><input type="radio" name="map-level" value="state" /> State</label>
+      <label><input type="radio" name="map-level" value="metro" /> Metro</label>
+      <label><input type="radio" name="map-level" value="county" checked /> County</label>
+      <label><input type="radio" name="map-level" value="city" /> City</label>
+      <label><input type="radio" name="map-level" value="zip" /> ZIP</label>
     </div>
     <div class="toggle-row">
       <button class="action-button">Filter</button>
@@ -59,7 +57,7 @@
   <!-- Map -->
   <div id="map"></div>
 
-  <!-- JS Logic -->
+  <!-- Script -->
   <script src="sidebar.js"></script>
 </body>
 </html>
