@@ -1,37 +1,45 @@
-body, html {
+/* ========== GLOBAL RESET ========== */
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: "Segoe UI", sans-serif;
-  height: 100%;
-  width: 100%;
+}
+
+/* ========== BODY ========== */
+body {
+  font-family: Arial, sans-serif;
+  height: 100vh;
   overflow: hidden;
 }
 
+/* ========== MAP CONTAINER ========== */
 #map {
   position: absolute;
   top: 0;
-  bottom: 0;
   left: 0;
-  right: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
 
-/* TOGGLE BAR */
+/* ========== TOGGLE BAR ========== */
 #toggle-bar {
   position: absolute;
   top: 10px;
-  left: 300px;
+  left: 300px; /* leaves space for sidebar */
   right: 20px;
-  z-index: 999;
   background: white;
-  padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 10px;
 }
 
+/* ========== TOGGLE BAR ROWS ========== */
 .toggle-row {
   display: flex;
   flex-wrap: wrap;
@@ -46,6 +54,7 @@ body, html {
   gap: 10px;
 }
 
+/* ========== SEARCH INPUT ========== */
 .top-search {
   flex-grow: 1;
   padding: 8px;
@@ -54,7 +63,9 @@ body, html {
   border-radius: 6px;
 }
 
+/* ========== MENU ICON ========== */
 #menu-toggle {
+  display: none;
   font-size: 20px;
   background: #003366;
   color: white;
@@ -62,8 +73,10 @@ body, html {
   border-radius: 6px;
   width: 40px;
   height: 36px;
+  cursor: pointer;
 }
 
+/* ========== ACTION BUTTONS ========== */
 .action-button {
   padding: 10px 16px;
   border: none;
@@ -77,31 +90,9 @@ body, html {
   background: #e6e6e6;
 }
 
-/* SIDEBAR OVERLAY */
-#sidebar-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
-  z-index: 998;
-  display: none;
-}
-
-#sidebar-overlay.show {
-  display: block;
-}
-
-/* MAP CONTROLS */
-.mapboxgl-ctrl-top-right {
-  margin-top: 80px;
-}
-
-/* Responsive Layout */
+/* ========== RESPONSIVE ========== */
 @media (max-width: 1024px) {
   #toggle-bar {
-    top: 10px;
     left: 10px;
     right: 10px;
   }
@@ -109,9 +100,8 @@ body, html {
 
 @media (max-width: 768px) {
   #toggle-bar {
-    top: 10px;
-    left: 10px;
-    right: 10px;
+    flex-direction: column;
+    align-items: stretch;
     border-radius: 12px;
     padding: 10px;
     gap: 12px;
@@ -122,18 +112,16 @@ body, html {
     justify-content: center;
   }
 
-  .toggle-row {
-    justify-content: center;
-    gap: 10px;
-  }
-
   .top-search {
-    flex-grow: 1;
     min-width: 0;
   }
 
   .action-button {
     font-size: 14px;
     padding: 8px 12px;
+  }
+
+  #menu-toggle {
+    display: inline-block;
   }
 }

@@ -6,35 +6,40 @@
   <title>CTC Market Map</title>
   <link href="styles.css" rel="stylesheet" />
   <link href="sidebar.css" rel="stylesheet" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.13.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body>
-  <!-- SIDEBAR & OVERLAY -->
+  <!-- Sidebar Overlay (Mobile Only) -->
   <div id="sidebar-overlay"></div>
+
+  <!-- Sidebar -->
   <div id="sidebar">
-    <button id="close-sidebar" aria-label="Close sidebar">×</button>
-    <div class="logo-section">
-      <img src="data/Logo - Orange brokered by EXP.png" alt="Clear to Close Logo" class="logo" />
+    <button id="close-sidebar" aria-label="Close sidebar">&times;</button>
+    <div class="logo-container">
+      <img src="https://cdn.jsdelivr.net/gh/rtamayo7/assets@main/ctc-white-logo.png" alt="CTC Logo" />
     </div>
     <input type="text" placeholder="Search..." class="sidebar-search" />
-    <ul class="menu">
-      <li><button>Popular Data</button></li>
-      <li><button>Home Price & Affordability</button></li>
-      <li><button>Market Trends</button></li>
-      <li><button>Demographic</button></li>
-      <li><button>Investor Metrics</button></li>
-      <li><button>CTC Home Team Insights</button></li>
-    </ul>
-    <footer class="sidebar-footer">
-      <p>Powered by <a href="https://Agentez.ai" target="_blank">AgentEz.ai</a> | Partnered with <a href="https://GetYourPiece.com" target="_blank">GetYourPiece.com</a></p>
-    </footer>
+    <div class="menu-section">
+      <button class="sidebar-button">Popular Data</button>
+      <button class="sidebar-button">Home Price & Affordability</button>
+      <button class="sidebar-button">Market Trends</button>
+      <button class="sidebar-button">Demographic</button>
+      <button class="sidebar-button">Investor Metrics</button>
+      <button class="sidebar-button">CTC Home Team Insights</button>
+    </div>
+    <div class="sidebar-footer">
+      <p>
+        Powered by <a href="https://agentez.ai" target="_blank">AgentEz.ai</a><br />
+        Partnered with <a href="https://getyourpiece.com" target="_blank">GetYourPiece.com</a>
+      </p>
+    </div>
   </div>
 
-  <!-- TOGGLE BAR -->
+  <!-- Top Toggle Bar -->
   <div id="toggle-bar">
     <div class="toggle-row top-row">
-      <button id="menu-toggle" aria-label="Menu Toggle">☰</button>
+      <button id="menu-toggle" aria-label="Toggle Menu">☰</button>
       <input type="text" placeholder="Search..." class="top-search" />
     </div>
     <div class="toggle-row">
@@ -51,10 +56,10 @@
     </div>
   </div>
 
-  <!-- MAP -->
+  <!-- Map -->
   <div id="map"></div>
 
-  <!-- SCRIPT -->
+  <!-- JS Logic -->
   <script src="sidebar.js"></script>
 </body>
 </html>
