@@ -10,14 +10,11 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body>
-
   <!-- Sidebar -->
   <div id="sidebar">
     <button id="close-sidebar">&times;</button>
     <div class="logo-container">
-  	<a href="https://cleartoclosehometeam.com/" target="_blank" rel="noopener noreferrer">
-    	<img src="data/Logo%20-%20Orange%20brokered%20by%20EXP.png" alt="CTC Home Team Logo" />
-  	</a>
+      <img src="data/Logo%20-%20Orange%20brokered%20by%20EXP.png" alt="CTC Logo" />
     </div>
     <input type="text" class="sidebar-search" placeholder="Search..." />
     <div class="menu-section">
@@ -29,8 +26,8 @@
       <button class="sidebar-button">CTC Home Team Insights</button>
     </div>
     <div class="sidebar-footer">
-      <p>Powered by <a href="https://AgentEz.ai" target="_blank">AgentEz.ai</a></p>
-      <p>Partnered with <a href="https://GetYourPiece.com" target="_blank">GetYourPiece.com</a></p>
+      <p>Powered by <a href="#">AgentEz.ai</a></p>
+      <p>Partnered with <a href="#">GetYourPiece.com</a></p>
     </div>
   </div>
 
@@ -44,11 +41,11 @@
       <input type="text" class="top-search" placeholder="Search..." />
     </div>
     <div class="toggle-row">
-      <label><input type="radio" name="toggle" value="state" /> State</label>
-      <label><input type="radio" name="toggle" value="metro" /> Metro</label>
-      <label><input type="radio" name="toggle" value="county" checked /> County</label>
-      <label><input type="radio" name="toggle" value="city" /> City</label>
-      <label><input type="radio" name="toggle" value="zip" /> ZIP</label>
+      <label><input type="radio" name="map-level" value="state" /> State</label>
+      <label><input type="radio" name="map-level" value="metro" /> Metro</label>
+      <label><input type="radio" name="map-level" value="county" checked /> County</label>
+      <label><input type="radio" name="map-level" value="city" /> City</label>
+      <label><input type="radio" name="map-level" value="zip" /> ZIP</label>
     </div>
     <div class="toggle-row">
       <button class="action-button">Filter</button>
@@ -57,19 +54,18 @@
     </div>
   </div>
 
-  <!-- Map Container -->
+  <!-- Map -->
   <div id="map"></div>
 
-  <!-- Attribution / Mapbox Logo -->
-  <div id="mapbox-logo-container" class="mapbox-logo-container-desktop">
+  <!-- Mapbox Logo -->
+  <div id="mapbox-logo-container">
     <a href="https://www.mapbox.com/" target="_blank" rel="noopener noreferrer">
       <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Mapbox_logo_2019.svg/512px-Mapbox_logo_2019.svg.png" 
            alt="Mapbox logo" class="mapbox-logo-img">
     </a>
   </div>
 
-  <!-- Scripts -->
+  <!-- Script -->
   <script src="sidebar.js"></script>
-
 </body>
 </html>

@@ -1,10 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
-  mapboxgl.accessToken = accessToken;
-
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebar-overlay');
-  const toggleBar = document.getElementById('toggle-bar');
 
   function toggleSidebar() {
     sidebar.classList.toggle('show');
@@ -18,9 +14,6 @@ document.addEventListener('DOMContentLoaded', () => {
     sidebar.classList.remove('show');
     overlay.classList.remove('show');
   }
-
-  window.toggleSidebar = toggleSidebar;
-  window.closeSidebar = closeSidebar;
 
   const settings = {
     desktop: {
@@ -55,23 +48,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  function getDeviceSettings() {
-    const screenWidth = window.innerWidth;
-    if (screenWidth > 1024) return settings.desktop;
-    if (screenWidth > 768) return settings.tablet;
-    return settings.mobile;
-  }
-
-  const deviceSettings = getDeviceSettings();
-
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
-    center: deviceSettings.default.center,
-    zoom: deviceSettings.default.zoom
+    center: settings.desktop.default.center,
+    zoom: settings.desktop.default.zoom
   });
 
-  map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+  map.addControl(new mapboxgl.NavigationControl());
   map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }), 'bottom-right');
 
   const layerMap = {
@@ -96,43 +80,18 @@ document.addEventListener('DOMContentLoaded', () => {
         map.setLayoutProperty(layerId, 'visibility', 'visible');
       }
     });
-
-    const layerSettings = deviceSettings.layers[selectedLayer];
-    if (layerSettings) {
-      map.flyTo({ center: layerSettings.center, zoom: layerSettings.zoom });
-    }
   }
 
   map.on('load', () => {
     toggleLayerVisibility('county');
-    document.querySelectorAll('input[name="toggle"]').forEach(radio => {
+    document.querySelectorAll('input[name="map-level"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         toggleLayerVisibility(e.target.value);
       });
     });
   });
 
-  const menuToggle = document.getElementById('menu-toggle');
-  if (menuToggle) {
-    menuToggle.addEventListener('click', toggleSidebar);
-  }
-
-  if (overlay) {
-    overlay.addEventListener('click', closeSidebar);
-  }
-
-  const closeBtn = document.getElementById('close-sidebar');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeSidebar);
-  }
-
-  document.addEventListener('click', function (e) {
-    if (window.innerWidth > 768) return;
-    if (!toggleBar.contains(e.target)) {
-      const searchInput = toggleBar.querySelector('.top-search');
-      if (searchInput) {
-        searchInput.blur();
-      }
-    }
-  });
+  document.getElementById('menu-toggle').addEventListener('click', toggleSidebar);
+  document.getElementById('close-sidebar').addEventListener('click', closeSidebar);
+  overlay.addEventListener('click', closeSidebar);
 });
