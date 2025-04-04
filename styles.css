@@ -1,205 +1,139 @@
-/* ========== GLOBAL RESET ========== */
-* {
+body, html {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-}
-
-/* ========== BODY ========== */
-body {
-  font-family: Arial, sans-serif;
-  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  height: 100%;
+  width: 100%;
   overflow: hidden;
 }
 
-/* ========== MAP CONTAINER ========== */
 #map {
   position: absolute;
   top: 0;
   bottom: 0;
+  left: 0;
   right: 0;
-  left: 0;
-  z-index: 1;
 }
 
-/* ========== SIDEBAR ========== */
-#sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 280px;
-  height: 100%;
-  background: #fff;
-  z-index: 10;
-  padding: 20px 10px 20px 10px;
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.logo-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.logo-container img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-/* ========== SEARCH & MENU ========== */
-.sidebar-search {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  margin-bottom: 20px;
-}
-
-.menu button {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 10px;
-  background: #f6f6f6;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.menu button:hover {
-  background: #e6e6e6;
-}
-
-/* ========== FOOTER ========== */
-.sidebar-footer {
-  margin-top: auto;
-  padding-top: 20px;
-  font-size: 14px;
-  color: #555;
-  text-align: center;
-  border-top: 1px solid #ddd;
-}
-
-.sidebar-footer a {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.sidebar-footer a:hover {
-  text-decoration: underline;
-}
-
-/* ========== TOGGLE BUTTON (☰ MOBILE) ========== */
-#toggle-button {
-  display: none;
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 20;
-  font-size: 24px;
-  background: #003366;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-/* ========== TOP BAR (DESKTOP) ========== */
-.top-bar {
+/* TOGGLE BAR */
+#toggle-bar {
   position: absolute;
   top: 10px;
   left: 300px;
   right: 20px;
-  z-index: 15;
-  background: #fff;
-  padding: 10px 20px;
+  z-index: 999;
+  background: white;
+  padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.top-bar input[type="text"] {
-  flex: 1;
+.toggle-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.top-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-search {
+  flex-grow: 1;
   padding: 8px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  min-width: 200px;
 }
 
-.radio-options {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.button-group {
-  display: flex;
-  gap: 10px;
-}
-
-.button-group button {
-  padding: 10px 14px;
-  background: #f1f1f1;
+#menu-toggle {
+  font-size: 20px;
+  background: #003366;
+  color: white;
   border: none;
   border-radius: 6px;
+  width: 40px;
+  height: 36px;
+}
+
+.action-button {
+  padding: 10px 16px;
+  border: none;
+  background: #f1f1f1;
   font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-.button-group button:hover {
+.action-button:hover {
   background: #e6e6e6;
 }
 
-/* ========== MAPBOX LOGO (DESKTOP ONLY) ========== */
-.mapbox-logo-container-desktop {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  z-index: 5;
+/* SIDEBAR OVERLAY */
+#sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 998;
+  display: none;
 }
 
-.mapbox-logo-img {
-  height: 30px;
-  opacity: 0.85;
+#sidebar-overlay.show {
+  display: block;
 }
 
-/* ========== MOBILE RESPONSIVE ========== */
-@media (max-width: 768px) {
-  #sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    width: 100%;
-    max-width: 320px;
-  }
+/* MAP CONTROLS */
+.mapboxgl-ctrl-top-right {
+  margin-top: 80px;
+}
 
-  #sidebar.show {
-    transform: translateX(0);
-  }
-
-  #toggle-button {
-    display: block;
-  }
-
-  .top-bar {
+/* Responsive Layout */
+@media (max-width: 1024px) {
+  #toggle-bar {
+    top: 10px;
     left: 10px;
     right: 10px;
-    flex-direction: column;
-    align-items: stretch;
-    padding: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  #toggle-bar {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    border-radius: 12px;
+    padding: 10px;
     gap: 12px;
   }
 
-  .mapbox-logo-container-desktop {
-    display: none;
+  .top-row {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .toggle-row {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .top-search {
+    flex-grow: 1;
+    min-width: 0;
+  }
+
+  .action-button {
+    font-size: 14px;
+    padding: 8px 12px;
   }
 }
