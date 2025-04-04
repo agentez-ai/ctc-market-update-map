@@ -38,7 +38,7 @@ body {
   flex-direction: column;
 }
 
-#sidebar-footer {
+.sidebar-footer {
   margin-top: auto;
   padding: 10px 0;
   font-size: 12px;
@@ -47,32 +47,35 @@ body {
   color: #666;
 }
 
-#sidebar-footer a {
+.sidebar-footer a {
   text-decoration: none;
   color: #007bff;
   font-weight: bold;
 }
 
-#sidebar-footer a:hover {
+.sidebar-footer a:hover {
   text-decoration: underline;
 }
 
 /* ========== TOGGLE BAR ========== */
 #toggle-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 800px;
+  width: 100%;
   background: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 10px 20px;
-  position: absolute;
-  top: 10px;
-  left: 310px;
-  right: 20px;
   z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
+/* TOGGLE BAR SECTIONS */
 .toggle-row {
   display: flex;
   flex-wrap: wrap;
@@ -94,16 +97,6 @@ body {
   border: 1px solid #ccc;
   border-radius: 6px;
   max-width: 400px;
-}
-
-#layer-options {
-  display: flex;
-  gap: 10px;
-}
-
-#actions {
-  display: flex;
-  gap: 10px;
 }
 
 .action-button {
@@ -161,14 +154,15 @@ body {
   }
 
   #toggle-bar {
-    flex-direction: column;
-    align-items: stretch;
     left: 10px;
     right: 10px;
+    transform: none;
+    max-width: none;
+    flex-direction: column;
+    align-items: stretch;
     border-radius: 12px;
     padding: 10px;
     gap: 12px;
-    width: auto;
   }
 
   .top-row {
