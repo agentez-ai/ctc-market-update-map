@@ -22,19 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.toggleSidebar = toggleSidebar;
   window.closeSidebar = closeSidebar;
 
-  // Accordion toggle (future ready)
-  const accordions = document.querySelectorAll('.accordion');
-  accordions.forEach(acc => {
-    acc.addEventListener('click', () => {
-      acc.classList.toggle('active');
-      const panel = acc.nextElementSibling;
-      if (panel) {
-        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-      }
-    });
-  });
-
-  // Responsive layer settings
   const settings = {
     desktop: {
       default: { center: [-81.2, 26.3], zoom: 6.99 },
@@ -104,11 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    layerMap[selectedLayer].forEach(layerId => {
-      if (map.getLayer(layerId)) {
-        map.setLayoutProperty(layerId, 'visibility', 'visible');
-      }
-    });
+    if (layerMap[selectedLayer]) {
+      layerMap[selectedLayer].forEach(layerId => {
+        if (map.getLayer(layerId)) {
+          map.setLayoutProperty(layerId, 'visibility', 'visible');
+        }
+      });
+    }
 
     const layerSettings = deviceSettings.layers[selectedLayer];
     if (layerSettings) {
@@ -119,35 +108,38 @@ document.addEventListener('DOMContentLoaded', () => {
   map.on('load', () => {
     toggleLayerVisibility('county');
 
-    // Work with name="toggle" and name="mapView" just in case
-    document.querySelectorAll('input[name="toggle"], input[name="mapView"]').forEach(radio => {
+    const radios = document.querySelectorAll('input[name="toggle"]');
+    radios.forEach(radio => {
       radio.addEventListener('change', (e) => {
-        toggleLayerVisibility(e.target.value);
+        const selected = e.target.value;
+        toggleLayerVisibility(selected);
       });
     });
   });
 
-  // Hamburger menu open
+  // === SIDEBAR MENU BUTTON ===
   const menuToggle = document.getElementById('menu-toggle');
   if (menuToggle) {
-    menuToggle.addEventListener('click', toggleSidebar);
+    menuToggle.addEventListener('click', function () {
+      toggleSidebar();
+    });
   }
 
-  // Sidebar close (X)
+  // === CLOSE SIDEBAR ON OVERLAY CLICK ===
+  if (overlay) {
+    overlay.addEventListener('click', closeSidebar);
+  }
+
+  // === SAFELY Close Sidebar from Close Button ===
   const closeBtn = document.getElementById('close-sidebar');
   if (closeBtn) {
     closeBtn.addEventListener('click', closeSidebar);
   }
 
-  // Click outside (on overlay)
-  if (overlay) {
-    overlay.addEventListener('click', closeSidebar);
-  }
-
-  // Mobile blur logic
+  // === MOBILE: Blur search input when tapping outside ===
   document.addEventListener('click', function (e) {
-    if (window.innerWidth > 768) return;
-    if (!toggleBar.contains(e.target)) {
+    if (window.innerWidth > 768) return; // only on mobile
+    if (toggleBar && !toggleBar.contains(e.target)) {
       const searchInput = toggleBar.querySelector('.top-search');
       if (searchInput) {
         searchInput.blur();
