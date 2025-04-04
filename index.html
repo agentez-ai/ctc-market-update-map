@@ -1,63 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CTC Home Team Market Update</title>
-  <link href="styles.css" rel="stylesheet" />
-  <link href="sidebar.css" rel="stylesheet" />
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <title>CTC Interactive Real Estate Market Map</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="styles.css" rel="stylesheet">
+  <link href="sidebar.css" rel="stylesheet">
 </head>
+
 <body>
   <!-- Sidebar -->
   <div id="sidebar">
-    <button id="close-sidebar">&times;</button>
-    <div class="logo-container">
-      <img src="data/Logo%20-%20Orange%20brokered%20by%20EXP.png" alt="CTC Logo" />
+    <!-- Logo -->
+    <div id="sidebar-logo">
+      <img src="data/Logo - Orange brokered by EXP.png" alt="CTC Logo" style="max-width: 100%; height: auto;">
     </div>
-    <input type="text" class="sidebar-search" placeholder="Search..." />
-    <div class="menu-section">
-      <button class="sidebar-button">Popular Data</button>
-      <button class="sidebar-button">Home Price & Affordability</button>
-      <button class="sidebar-button">Market Trends</button>
-      <button class="sidebar-button">Demographic</button>
-      <button class="sidebar-button">Investor Metrics</button>
-      <button class="sidebar-button">CTC Home Team Insights</button>
+
+    <!-- Search -->
+    <div class="top-row" style="margin: 20px 0;">
+      <input type="text" id="search-input" class="top-search" placeholder="Search..." />
     </div>
+
+    <!-- Accordion / Layer Buttons -->
+    <div id="layer-options" class="toggle-row">
+      <label><input type="radio" name="toggle" value="state"> State</label>
+      <label><input type="radio" name="toggle" value="metro"> Metro</label>
+      <label><input type="radio" name="toggle" value="county"> County</label>
+      <label><input type="radio" name="toggle" value="city"> City</label>
+      <label><input type="radio" name="toggle" value="zip"> Zip</label>
+    </div>
+
+    <!-- Sidebar Footer -->
     <div class="sidebar-footer">
-      <p>Powered by <a href="#">AgentEz.ai</a></p>
-      <p>Partnered with <a href="#">GetYourPiece.com</a></p>
-    </div>
-  </div>
-
-  <!-- Overlay -->
-  <div id="sidebar-overlay"></div>
-
-  <!-- Toggle Bar -->
-  <div id="toggle-bar">
-    <div class="toggle-row top-row">
-      <button id="menu-toggle">&#9776;</button>
-      <input type="text" class="top-search" placeholder="Search..." />
-    </div>
-    <div class="toggle-row">
-      <label><input type="radio" name="map-level" value="state" /> State</label>
-      <label><input type="radio" name="map-level" value="metro" /> Metro</label>
-      <label><input type="radio" name="map-level" value="county" checked /> County</label>
-      <label><input type="radio" name="map-level" value="city" /> City</label>
-      <label><input type="radio" name="map-level" value="zip" /> ZIP</label>
-    </div>
-    <div class="toggle-row">
-      <button class="action-button">Filter</button>
-      <button class="action-button">Find My Dream Neighborhood</button>
-      <button class="action-button">Share</button>
+      <p>© 2025 Clear To Close Home Team</p>
+      <p><a href="#">Privacy Policy</a></p>
     </div>
   </div>
 
   <!-- Map -->
   <div id="map"></div>
 
-  <!-- Script -->
+  <!-- Toggle Bar (Mobile + Desktop) -->
+  <div id="toggle-bar">
+    <div class="top-row">
+      <button id="menu-toggle">☰</button>
+      <input type="text" id="search" class="top-search" placeholder="Search Map...">
+    </div>
+
+    <div id="layer-options" class="toggle-row">
+      <label><input type="radio" name="toggle" value="state"> State</label>
+      <label><input type="radio" name="toggle" value="metro"> Metro</label>
+      <label><input type="radio" name="toggle" value="county"> County</label>
+      <label><input type="radio" name="toggle" value="city"> City</label>
+      <label><input type="radio" name="toggle" value="zip"> Zip</label>
+    </div>
+
+    <div id="actions" class="toggle-row">
+      <button class="action-button">Zoom Out</button>
+      <button class="action-button">Reset</button>
+      <button class="action-button">Info</button>
+    </div>
+  </div>
+
+  <!-- Mapbox Logo (Desktop Only) -->
+  <div class="mapbox-logo-container-desktop">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Mapbox_logo_2019.svg/2560px-Mapbox_logo_2019.svg.png" class="mapbox-logo-img" alt="Mapbox Logo">
+  </div>
+
+  <!-- JavaScript -->
   <script src="sidebar.js"></script>
+
 </body>
 </html>
