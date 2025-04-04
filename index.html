@@ -1,191 +1,76 @@
-/* ========== GLOBAL RESET ========== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CTC Home Team Market Update</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="sidebar.css" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet"/>
+</head>
+<body>
+  <div id="sidebar" class="sidebar">
+    <div class="logo-container">
+      <img src="data/Logo - Orange brokered by EXP.png" alt="CTC Logo" />
+    </div>
+    <input type="text" placeholder="Search..." class="sidebar-search" />
+    <div class="menu">
+      <button>Popular Data</button>
+      <button>Home Price & Affordability</button>
+      <button>Market Trends</button>
+      <button>Demographic</button>
+      <button>Investor Metrics</button>
+      <button>CTC Home Team Insights</button>
+    </div>
+    <footer class="sidebar-footer">
+      <p>
+        Powered by <a href="https://Agentez.ai" target="_blank">AgentEz.ai</a><br/>
+        Partnered with <a href="https://GetYourPiece.com" target="_blank">GetYourPiece.com</a>
+      </p>
+    </footer>
+  </div>
 
-/* ========== BODY ========== */
-body {
-  font-family: Arial, sans-serif;
-  height: 100vh;
-  overflow: hidden;
-}
+  <div id="toggle-button" class="toggle-button">&#9776;</div>
 
-/* ========== MAP CONTAINER ========== */
-#map {
-  position: absolute;
-  top: 0;
-  left: 300px;
-  right: 0;
-  bottom: 0;
-  z-index: 1;
-}
+  <div class="main-container">
+    <div class="top-bar">
+      <input type="text" placeholder="Search..." />
+      <div class="radio-options">
+        <label><input type="radio" name="area" /> State</label>
+        <label><input type="radio" name="area" /> Metro</label>
+        <label><input type="radio" name="area" checked /> County</label>
+        <label><input type="radio" name="area" /> City</label>
+        <label><input type="radio" name="area" /> ZIP</label>
+      </div>
+      <div class="button-group">
+        <button>Filter</button>
+        <button>Find My Dream Neighborhood</button>
+        <button>Share</button>
+      </div>
+    </div>
+    <div id="map"></div>
+  </div>
 
-/* ========== SIDEBAR ========== */
-#sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 300px;
-  background: #ffffff;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
-  padding: 20px;
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-}
+  <!-- Attribution container for bottom-left Mapbox logo (desktop) -->
+  <div id="mapbox-logo-container" class="mapbox-logo-container-desktop">
+    <a href="https://www.mapbox.com/" target="_blank" rel="noopener noreferrer">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Mapbox_logo_2019.svg/512px-Mapbox_logo_2019.svg.png" 
+           alt="Mapbox logo" class="mapbox-logo-img">
+    </a>
+  </div>
 
-.sidebar-footer {
-  margin-top: auto;
-  padding: 15px 0;
-  font-size: 12px;
-  text-align: center;
-  border-top: 1px solid #e0e0e0;
-  color: #666;
-}
+  <script src="sidebar.js"></script>
+  <script>
+    mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN'; // Replace with your token
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
+      center: [-81.5158, 27.6648], // Florida center
+      zoom: 6
+    });
 
-.sidebar-footer a {
-  text-decoration: none;
-  color: #007bff;
-  font-weight: bold;
-}
-
-.sidebar-footer a:hover {
-  text-decoration: underline;
-}
-
-/* ========== TOGGLE BAR ========== */
-#toggle-bar {
-  position: absolute;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: 740px;
-  width: 100%;
-  background: #ffffff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 10px 20px;
-  z-index: 1001;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.toggle-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.top-row {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.top-search {
-  flex-grow: 1;
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  max-width: 400px;
-}
-
-.action-button {
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #f8f9fa;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.action-button:hover {
-  background: #e6e6e6;
-}
-
-/* ========== MENU ICON ========== */
-#menu-toggle {
-  display: none;
-  font-size: 20px;
-  background: #003366;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  width: 40px;
-  height: 36px;
-  cursor: pointer;
-}
-
-/* ========== MAPBOX LOGO (DESKTOP ONLY) ========== */
-.mapbox-logo-container-desktop {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  z-index: 5;
-}
-
-.mapbox-logo-img {
-  height: 30px;
-  opacity: 0.85;
-}
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 1024px) {
-  #map {
-    left: 0;
-  }
-
-  #sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
-    box-shadow: none;
-    padding: 10px;
-  }
-
-  #toggle-bar {
-    position: relative;
-    top: auto;
-    left: auto;
-    transform: none;
-    max-width: none;
-    flex-direction: column;
-    align-items: stretch;
-    border-radius: 12px;
-    padding: 10px;
-    gap: 12px;
-    margin: 10px;
-  }
-
-  .top-row {
-    flex-direction: row;
-    justify-content: center;
-  }
-
-  .top-search {
-    min-width: 0;
-    max-width: none;
-  }
-
-  .action-button {
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-
-  #menu-toggle {
-    display: inline-block;
-  }
-
-  .mapbox-logo-container-desktop {
-    display: none;
-  }
-}
+    map.addControl(new mapboxgl.NavigationControl());
+  </script>
+</body>
+</html>
