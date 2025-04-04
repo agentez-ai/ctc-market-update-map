@@ -1,205 +1,218 @@
-/* ========== GLOBAL RESET ========== */
-* {
+/* ========== Base Layout ========== */
+body, html {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  height: 100%;
+  font-family: Arial, sans-serif;
 }
 
-/* ========== BODY ========== */
-body {
-  font-family: Arial, sans-serif;
+.container {
+  display: flex;
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
 }
 
-/* ========== MAP CONTAINER ========== */
-#map {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: 1;
-}
-
-/* ========== SIDEBAR ========== */
-#sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 280px;
-  height: 100%;
+/* ========== Sidebar ========== */
+.sidebar {
+  width: 300px;
   background: #fff;
-  z-index: 10;
-  padding: 20px 10px 20px 10px;
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
-  overflow-y: auto;
+  border-right: 1px solid #ccc;
   display: flex;
   flex-direction: column;
+  transition: transform 0.3s ease;
+  z-index: 10;
 }
 
-.logo-container {
+.sidebar-content {
   display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.logo-container img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-/* ========== SEARCH & MENU ========== */
-.sidebar-search {
-  width: 100%;
+  flex-direction: column;
+  height: 100%;
   padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  margin-bottom: 20px;
+  box-sizing: border-box;
 }
 
-.menu button {
+.sidebar-logo {
   width: 100%;
+  max-width: 250px;
+  margin: 0 auto 10px auto;
+  display: block;
+}
+
+.sidebar-search {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.sidebar-menu button {
+  background: #f5f5f5;
+  border: none;
   padding: 12px;
   margin-bottom: 10px;
-  background: #f6f6f6;
-  border: none;
-  border-radius: 6px;
   font-weight: bold;
+  text-align: left;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.sidebar-menu button:hover {
+  background: #e0e0e0;
   cursor: pointer;
 }
 
-.menu button:hover {
-  background: #e6e6e6;
-}
-
-/* ========== FOOTER ========== */
 .sidebar-footer {
   margin-top: auto;
-  padding-top: 20px;
-  font-size: 14px;
-  color: #555;
+  font-size: 13px;
   text-align: center;
-  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  color: #555;
 }
 
 .sidebar-footer a {
   color: #007bff;
   text-decoration: none;
-  font-weight: bold;
 }
 
 .sidebar-footer a:hover {
   text-decoration: underline;
 }
 
-/* ========== TOGGLE BUTTON (☰ MOBILE) ========== */
-#toggle-button {
-  display: none;
-  position: fixed;
-  top: 15px;
-  left: 15px;
-  z-index: 20;
-  font-size: 24px;
-  background: #003366;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 12px;
-  cursor: pointer;
-}
-
-/* ========== TOP BAR (DESKTOP) ========== */
-.top-bar {
-  position: absolute;
-  top: 10px;
-  left: 300px;
-  right: 20px;
-  z-index: 15;
-  background: #fff;
-  padding: 10px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.top-bar input[type="text"] {
+/* ========== Map & Controls ========== */
+.map-container {
   flex: 1;
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
-.radio-options {
+.mapbox-map {
+  flex-grow: 1;
+  height: 100%;
+  width: 100%;
+}
+
+/* ========== Controls Card ========== */
+.controls-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  margin: 10px;
+  z-index: 5;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
+  max-width: 95%;
 }
 
-.button-group {
+.controls-search {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  flex: 1 1 250px;
+  min-width: 150px;
+}
+
+.toggle-group {
   display: flex;
   gap: 10px;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
 }
 
-.button-group button {
-  padding: 10px 14px;
-  background: #f1f1f1;
+.toggle-group label {
+  white-space: nowrap;
+}
+
+.controls-buttons {
+  display: flex;
+  gap: 10px;
+  flex: 1 1 auto;
+  flex-wrap: wrap;
+}
+
+.controls-buttons button {
+  padding: 10px 16px;
   border: none;
+  background-color: #f5f5f5;
   border-radius: 6px;
   font-weight: bold;
   cursor: pointer;
 }
 
-.button-group button:hover {
-  background: #e6e6e6;
+.controls-buttons button:hover {
+  background-color: #e0e0e0;
 }
 
-/* ========== MAPBOX LOGO (DESKTOP ONLY) ========== */
-.mapbox-logo-container-desktop {
+/* ========== Mobile ========== */
+.hamburger {
+  display: none;
+  font-size: 28px;
+  background: #003366;
+  color: white;
+  padding: 10px 15px;
+  border: none;
   position: absolute;
-  bottom: 10px;
+  top: 10px;
   left: 10px;
-  z-index: 5;
+  z-index: 15;
+  border-radius: 6px;
 }
 
-.mapbox-logo-img {
-  height: 30px;
-  opacity: 0.85;
-}
-
-/* ========== MOBILE RESPONSIVE ========== */
+/* Responsive tweaks */
 @media (max-width: 768px) {
-  #sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    width: 100%;
-    max-width: 320px;
+  .container {
+    flex-direction: column;
   }
 
-  #sidebar.show {
+  .sidebar {
+    position: absolute;
+    transform: translateX(-100%);
+    width: 80%;
+    max-width: 300px;
+    height: 100%;
+    z-index: 100;
+    background: white;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .sidebar.open {
     transform: translateX(0);
   }
 
-  #toggle-button {
+  .hamburger {
     display: block;
   }
 
-  .top-bar {
-    left: 10px;
-    right: 10px;
-    flex-direction: column;
-    align-items: stretch;
-    padding: 12px;
-    gap: 12px;
+  .map-container {
+    flex: 1;
+    height: 100%;
   }
 
-  .mapbox-logo-container-desktop {
-    display: none;
+  .controls-card {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 95%;
+    margin-top: 60px;
+  }
+
+  .controls-search,
+  .controls-buttons,
+  .toggle-group {
+    width: 100%;
+  }
+
+  .controls-buttons {
+    justify-content: space-between;
+  }
+
+  .controls-buttons button {
+    flex: 1 1 auto;
+    margin: 5px 0;
   }
 }

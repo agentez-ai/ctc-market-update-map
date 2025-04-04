@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.toggleSidebar = toggleSidebar;
   window.closeSidebar = closeSidebar;
 
+  // Accordion toggle (future ready)
   const accordions = document.querySelectorAll('.accordion');
   accordions.forEach(acc => {
     acc.addEventListener('click', () => {
@@ -31,6 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Responsive layer settings
   const settings = {
     desktop: {
       default: { center: [-81.2, 26.3], zoom: 6.99 },
@@ -114,35 +116,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   map.on('load', () => {
     toggleLayerVisibility('county');
-    document.querySelectorAll('input[name="toggle"]').forEach(radio => {
+
+    // Make toggle bar radios work
+    document.querySelectorAll('input[name="mapView"], input[name="toggle"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         toggleLayerVisibility(e.target.value);
       });
     });
   });
 
-  // === SIDEBAR MENU BUTTON ===
-  const menuToggle = document.getElementById('menu-toggle');
+  // === Hamburger menu toggle ===
+  const menuToggle = document.getElementById('menu-toggle') || document.getElementById('sidebarToggle');
   if (menuToggle) {
-    menuToggle.addEventListener('click', function () {
-      toggleSidebar();
-    });
+    menuToggle.addEventListener('click', toggleSidebar);
   }
 
-  // === CLOSE SIDEBAR ON OVERLAY CLICK ===
-  if (overlay) {
-    overlay.addEventListener('click', closeSidebar);
-  }
-
-  // === SAFELY Close Sidebar from Close Button ===
+  // === Close button support
   const closeBtn = document.getElementById('close-sidebar');
   if (closeBtn) {
     closeBtn.addEventListener('click', closeSidebar);
   }
 
-  // === MOBILE: Blur search input when tapping outside ===
+  // === Overlay click closes sidebar
+  if (overlay) {
+    overlay.addEventListener('click', closeSidebar);
+  }
+
+  // === Blur mobile search input when tapping out
   document.addEventListener('click', function (e) {
-    if (window.innerWidth > 768) return; // only on mobile
+    if (window.innerWidth > 768) return; // Only run on mobile
     if (!toggleBar.contains(e.target)) {
       const searchInput = toggleBar.querySelector('.top-search');
       if (searchInput) {
