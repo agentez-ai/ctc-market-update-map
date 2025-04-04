@@ -28,7 +28,9 @@ document.addEventListener('DOMContentLoaded', () => {
     acc.addEventListener('click', () => {
       acc.classList.toggle('active');
       const panel = acc.nextElementSibling;
-      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+      if (panel) {
+        panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+      }
     });
   });
 
@@ -117,34 +119,34 @@ document.addEventListener('DOMContentLoaded', () => {
   map.on('load', () => {
     toggleLayerVisibility('county');
 
-    // Make toggle bar radios work
-    document.querySelectorAll('input[name="mapView"], input[name="toggle"]').forEach(radio => {
+    // Work with name="toggle" and name="mapView" just in case
+    document.querySelectorAll('input[name="toggle"], input[name="mapView"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         toggleLayerVisibility(e.target.value);
       });
     });
   });
 
-  // === Hamburger menu toggle ===
-  const menuToggle = document.getElementById('menu-toggle') || document.getElementById('sidebarToggle');
+  // Hamburger menu open
+  const menuToggle = document.getElementById('menu-toggle');
   if (menuToggle) {
     menuToggle.addEventListener('click', toggleSidebar);
   }
 
-  // === Close button support
+  // Sidebar close (X)
   const closeBtn = document.getElementById('close-sidebar');
   if (closeBtn) {
     closeBtn.addEventListener('click', closeSidebar);
   }
 
-  // === Overlay click closes sidebar
+  // Click outside (on overlay)
   if (overlay) {
     overlay.addEventListener('click', closeSidebar);
   }
 
-  // === Blur mobile search input when tapping out
+  // Mobile blur logic
   document.addEventListener('click', function (e) {
-    if (window.innerWidth > 768) return; // Only run on mobile
+    if (window.innerWidth > 768) return;
     if (!toggleBar.contains(e.target)) {
       const searchInput = toggleBar.querySelector('.top-search');
       if (searchInput) {

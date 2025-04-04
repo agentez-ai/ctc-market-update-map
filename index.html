@@ -6,71 +6,58 @@
   <title>CTC Home Team Market Update</title>
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="sidebar.css" />
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet"/>
 </head>
 <body>
-  <div class="container">
-    <!-- Sidebar -->
-    <div id="sidebar" class="sidebar">
-      <button id="sidebarToggle" class="hamburger">&#9776;</button>
-      <div class="sidebar-content">
-        <a href="#" class="logo-link">
-          <img src="data/Logo - Orange brokered by EXP.png" alt="CTC Logo" class="sidebar-logo"/>
-        </a>
-        <input type="text" placeholder="Search..." class="sidebar-search" />
-        <nav class="sidebar-menu">
-          <button>Popular Data</button>
-          <button>Home Price & Affordability</button>
-          <button>Market Trends</button>
-          <button>Demographic</button>
-          <button>Investor Metrics</button>
-          <button>CTC Home Team Insights</button>
-        </nav>
-        <footer class="sidebar-footer">
-          <p>
-            Powered by <a href="https://AgentEz.ai" target="_blank">AgentEz.ai</a><br/>
-            Partnered with <a href="https://GetYourPiece.com" target="_blank">GetYourPiece.com</a>
-          </p>
-        </footer>
-      </div>
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <button id="close-sidebar">&times;</button>
+    <div class="logo-container">
+      <img src="data/Logo - Orange brokered by EXP.png" alt="CTC Logo" />
     </div>
-
-    <!-- Map and Controls -->
-    <div class="map-container">
-      <div class="controls-card">
-        <input type="text" placeholder="Search..." class="controls-search" />
-        <div class="toggle-group">
-          <label><input type="radio" name="mapView" value="state" /> State</label>
-          <label><input type="radio" name="mapView" value="metro" /> Metro</label>
-          <label><input type="radio" name="mapView" value="county" checked /> County</label>
-          <label><input type="radio" name="mapView" value="city" /> City</label>
-          <label><input type="radio" name="mapView" value="zip" /> ZIP</label>
-        </div>
-        <div class="controls-buttons">
-          <button>Filter</button>
-          <button>Find My Dream Neighborhood</button>
-          <button>Share</button>
-        </div>
-      </div>
-      <div id="map" class="mapbox-map"></div>
+    <input type="text" class="sidebar-search" placeholder="Search..." />
+    <div class="menu-section">
+      <button class="accordion">Popular Data</button>
+      <button class="accordion">Home Price & Affordability</button>
+      <button class="accordion">Market Trends</button>
+      <button class="accordion">Demographic</button>
+      <button class="accordion">Investor Metrics</button>
+      <button class="accordion">CTC Home Team Insights</button>
+    </div>
+    <div class="sidebar-footer">
+      <p>Powered by <a href="#">AgentEz.ai</a></p>
+      <p>Partnered with <a href="#">GetYourPiece.com</a></p>
     </div>
   </div>
 
-  <!-- Scripts -->
-  <script src="sidebar.js"></script>
-  <script>
-    // Map layer switching logic
-    document.querySelectorAll('input[name="mapView"]').forEach(radio => {
-      radio.addEventListener('change', (e) => {
-        const view = e.target.value;
-        console.log("Switching to:", view);
-        // Replace this with your layer switching logic
-        alert(`Switching to: ${view}`);
-      });
-    });
-  </script>
+  <!-- Overlay -->
+  <div id="sidebar-overlay"></div>
 
-  <!-- Mapbox Attribution (included by default) -->
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet" />
+  <!-- Toggle Bar -->
+  <div id="toggle-bar" class="top-bar">
+    <div class="top-bar-inner">
+      <button id="menu-toggle">&#9776;</button>
+      <input type="text" class="top-search" placeholder="Search..." />
+      <div class="radio-group">
+        <label><input type="radio" name="toggle" value="state" /> State</label>
+        <label><input type="radio" name="toggle" value="metro" /> Metro</label>
+        <label><input type="radio" name="toggle" value="county" checked /> County</label>
+        <label><input type="radio" name="toggle" value="city" /> City</label>
+        <label><input type="radio" name="toggle" value="zip" /> ZIP</label>
+      </div>
+      <div class="button-group">
+        <button>Filter</button>
+        <button>Find My Dream Neighborhood</button>
+        <button>Share</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map -->
+  <div id="map"></div>
+
+  <!-- Scripts -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <script src="sidebar.js"></script>
 </body>
 </html>
