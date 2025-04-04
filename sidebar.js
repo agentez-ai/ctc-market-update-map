@@ -22,6 +22,15 @@ document.addEventListener('DOMContentLoaded', () => {
   window.toggleSidebar = toggleSidebar;
   window.closeSidebar = closeSidebar;
 
+  const accordions = document.querySelectorAll('.accordion');
+  accordions.forEach(acc => {
+    acc.addEventListener('click', () => {
+      acc.classList.toggle('active');
+      const panel = acc.nextElementSibling;
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    });
+  });
+
   const settings = {
     desktop: {
       default: { center: [-81.2, 26.3], zoom: 6.99 },
@@ -91,13 +100,11 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    if (layerMap[selectedLayer]) {
-      layerMap[selectedLayer].forEach(layerId => {
-        if (map.getLayer(layerId)) {
-          map.setLayoutProperty(layerId, 'visibility', 'visible');
-        }
-      });
-    }
+    layerMap[selectedLayer].forEach(layerId => {
+      if (map.getLayer(layerId)) {
+        map.setLayoutProperty(layerId, 'visibility', 'visible');
+      }
+    });
 
     const layerSettings = deviceSettings.layers[selectedLayer];
     if (layerSettings) {
@@ -107,9 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   map.on('load', () => {
     toggleLayerVisibility('county');
-
-    // 🎯 This is the only real fix: listen to name="map-level"
-    document.querySelectorAll('input[name="map-level"]').forEach(radio => {
+    document.querySelectorAll('input[name="toggle"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         toggleLayerVisibility(e.target.value);
       });
