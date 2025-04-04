@@ -1,165 +1,97 @@
-/* ========== SIDEBAR ========== */
-#sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 280px;
-  height: 100%;
-  background-color: #fff;
-  z-index: 9999;
-  padding: 20px 10px 20px 10px;
-  overflow-y: auto;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  display: flex;
-  flex-direction: column;
-}
+document.addEventListener('DOMContentLoaded', () => {
+  const sidebar = document.getElementById('sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
 
-/* ========== LOGO ========== */
-.logo-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.logo-container img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-}
-
-/* ========== CLOSE BUTTON (Mobile Only) ========== */
-#close-sidebar {
-  display: none;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  color: #003366;
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 10000;
-}
-
-/* ========== SEARCH ========== */
-.sidebar-search {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-/* ========== MENU BUTTONS ========== */
-.menu-section {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.sidebar-button {
-  padding: 12px;
-  border: none;
-  background-color: #f6f6f6;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  text-align: left;
-  transition: background-color 0.2s;
-}
-
-.sidebar-button:hover {
-  background-color: #e6e6e6;
-}
-
-/* ========== FOOTER ========== */
-.sidebar-footer {
-  margin-top: auto;
-  padding-top: 20px;
-  border-top: 1px solid #ddd;
-  font-size: 14px;
-  color: #555;
-  text-align: center;
-}
-
-.sidebar-footer a {
-  color: #007bff;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.sidebar-footer a:hover {
-  text-decoration: underline;
-}
-
-/* ========== OVERLAY (Mobile Only) ========== */
-#sidebar-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9998;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.25);
-}
-
-/* ========== TOGGLE BAR ========== */
-#toggle-bar {
-  position: absolute;
-  top: 10px;
-  left: 300px;
-  right: 20px;
-  background: white;
-  border-radius: 10px;
-  padding: 12px;
-  z-index: 10;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 10px;
-}
-
-.top-search {
-  flex-grow: 1;
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  max-width: 300px; /* Adjusted width */
-}
-
-/* ========== MAPBOX LOGO ========== */
-#mapbox-logo-container {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  z-index: 5;
-}
-
-.mapbox-logo-img {
-  height: 30px;
-  opacity: 0.85;
-}
-
-/* ========== MOBILE OVERRIDES ========== */
-@media (max-width: 768px) {
-  #sidebar {
-    transform: translateX(-100%);
+  function toggleSidebar() {
+    sidebar.classList.toggle('show');
+    overlay.classList.toggle('show');
+    if (sidebar.classList.contains('show')) {
+      sidebar.scrollTop = 0;
+    }
   }
 
-  #sidebar.show {
-    transform: translateX(0);
+  function closeSidebar() {
+    sidebar.classList.remove('show');
+    overlay.classList.remove('show');
   }
 
-  #close-sidebar {
-    display: block;
+  const settings = {
+    desktop: {
+      default: { center: [-81.2, 26.3], zoom: 6.99 },
+      layers: {
+        state: { center: [-83.5, 28.2], zoom: 5.8 },
+        metro: { center: [-81.2, 26.2], zoom: 6.99 },
+        county: { center: [-81.2, 26.2], zoom: 6.99 },
+        city: { center: [-81.2, 26.3], zoom: 7.4 },
+        zip: { center: [-81.2, 26.3], zoom: 7.4 }
+      }
+    },
+    tablet: {
+      default: { center: [-82.1, 26.3], zoom: 6.8 },
+      layers: {
+        state: { center: [-86.31, 28], zoom: 5.5 },
+        metro: { center: [-82.1, 26.3], zoom: 6.8 },
+        county: { center: [-82.1, 26.3], zoom: 6.8 },
+        city: { center: [-82.1, 26.3], zoom: 6.8 },
+        zip: { center: [-82.1, 26.3], zoom: 6.8 }
+      }
+    },
+    mobile: {
+      default: { center: [-81.25, 26.2], zoom: 6.8 },
+      layers: {
+        state: { center: [-83.6, 28.1], zoom: 5.29 },
+        metro: { center: [-81.25, 26.2], zoom: 6.85 },
+        county: { center: [-81.25, 26.2], zoom: 6.85 },
+        city: { center: [-81, 26], zoom: 6.59 },
+        zip: { center: [-81.17, 26.2], zoom: 6.8 }
+      }
+    }
+  };
+
+  const map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11', // Default Mapbox style
+    center: settings.desktop.default.center,
+    zoom: settings.desktop.default.zoom
+  });
+
+  map.addControl(new mapboxgl.NavigationControl());
+  map.addControl(new mapboxgl.ScaleControl({ maxWidth: 100, unit: 'imperial' }), 'bottom-right');
+
+  const layerMap = {
+    state: ['ctc-florida-fill', 'ctc-florida-label'],
+    metro: ['ctc-core7-msas-fill', 'ctc-core7-msas-label'],
+    county: ['ctc-core7-counties-fill', 'ctc-core7-counties-label'],
+    city: ['ctc-core7-cities-fill', 'ctc-core7-cities-label'],
+    zip: ['ctc-core7-zipcodes-fill', 'ctc-core7-zipcodes-label']
+  };
+
+  function toggleLayerVisibility(selectedLayer) {
+    Object.keys(layerMap).forEach(layerGroup => {
+      layerMap[layerGroup].forEach(layerId => {
+        if (map.getLayer(layerId)) {
+          map.setLayoutProperty(layerId, 'visibility', 'none');
+        }
+      });
+    });
+
+    layerMap[selectedLayer].forEach(layerId => {
+      if (map.getLayer(layerId)) {
+        map.setLayoutProperty(layerId, 'visibility', 'visible');
+      }
+    });
   }
 
-  #sidebar-overlay.show {
-    display: block;
-  }
-}
+  map.on('load', () => {
+    toggleLayerVisibility('county');
+    document.querySelectorAll('input[name="map-level"]').forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        toggleLayerVisibility(e.target.value);
+      });
+    });
+  });
+
+  document.getElementById('menu-toggle').addEventListener('click', toggleSidebar);
+  document.getElementById('close-sidebar').addEventListener('click', closeSidebar);
+  overlay.addEventListener('click', closeSidebar);
+});
