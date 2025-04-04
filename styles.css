@@ -1,8 +1,8 @@
 /* ========== GLOBAL RESET ========== */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 /* ========== BODY ========== */
@@ -16,112 +16,190 @@ body {
 #map {
   position: absolute;
   top: 0;
+  bottom: 0;
+  right: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
   z-index: 1;
 }
 
-/* ========== TOGGLE BAR ========== */
-#toggle-bar {
-  position: absolute;
-  top: 10px;
-  left: 300px; /* leaves space for sidebar */
-  right: 20px;
-  background: white;
-  border-radius: 10px;
-  padding: 12px;
+/* ========== SIDEBAR ========== */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100%;
+  background: #fff;
   z-index: 10;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 20px 10px 20px 10px;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 10px;
 }
 
-/* ========== TOGGLE BAR ROWS ========== */
-.toggle-row {
+.logo-container {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.top-row {
+.logo-container img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ========== SEARCH & MENU ========== */
+.sidebar-search {
   width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* ========== SEARCH INPUT ========== */
-.top-search {
-  flex-grow: 1;
-  padding: 8px;
-  font-size: 14px;
-  border: 1px solid #ccc;
+  padding: 10px;
   border-radius: 6px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
 }
 
-/* ========== MENU ICON ========== */
-#menu-toggle {
+.menu button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  background: #f6f6f6;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.menu button:hover {
+  background: #e6e6e6;
+}
+
+/* ========== FOOTER ========== */
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: 20px;
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+.sidebar-footer a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.sidebar-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ========== TOGGLE BUTTON (☰ MOBILE) ========== */
+#toggle-button {
   display: none;
-  font-size: 20px;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 20;
+  font-size: 24px;
   background: #003366;
   color: white;
   border: none;
   border-radius: 6px;
-  width: 40px;
-  height: 36px;
+  padding: 8px 12px;
   cursor: pointer;
 }
 
-/* ========== ACTION BUTTONS ========== */
-.action-button {
-  padding: 10px 16px;
-  border: none;
-  background: #f1f1f1;
-  font-weight: bold;
+/* ========== TOP BAR (DESKTOP) ========== */
+.top-bar {
+  position: absolute;
+  top: 10px;
+  left: 300px;
+  right: 20px;
+  z-index: 15;
+  background: #fff;
+  padding: 10px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.top-bar input[type="text"] {
+  flex: 1;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
   border-radius: 6px;
+  min-width: 200px;
+}
+
+.radio-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.button-group button {
+  padding: 10px 14px;
+  background: #f1f1f1;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
   cursor: pointer;
 }
 
-.action-button:hover {
+.button-group button:hover {
   background: #e6e6e6;
 }
 
-/* ========== RESPONSIVE ========== */
-@media (max-width: 1024px) {
-  #toggle-bar {
-    left: 10px;
-    right: 10px;
-  }
+/* ========== MAPBOX LOGO (DESKTOP ONLY) ========== */
+.mapbox-logo-container-desktop {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 5;
 }
 
+.mapbox-logo-img {
+  height: 30px;
+  opacity: 0.85;
+}
+
+/* ========== MOBILE RESPONSIVE ========== */
 @media (max-width: 768px) {
-  #toggle-bar {
+  #sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  #sidebar.show {
+    transform: translateX(0);
+  }
+
+  #toggle-button {
+    display: block;
+  }
+
+  .top-bar {
+    left: 10px;
+    right: 10px;
     flex-direction: column;
     align-items: stretch;
-    border-radius: 12px;
-    padding: 10px;
+    padding: 12px;
     gap: 12px;
   }
 
-  .top-row {
-    flex-direction: row;
-    justify-content: center;
-  }
-
-  .top-search {
-    min-width: 0;
-  }
-
-  .action-button {
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-
-  #menu-toggle {
-    display: inline-block;
+  .mapbox-logo-container-desktop {
+    display: none;
   }
 }
