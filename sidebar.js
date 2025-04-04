@@ -4,10 +4,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebar-overlay');
+  const toggleBar = document.getElementById('toggle-bar');
 
   function toggleSidebar() {
     sidebar.classList.toggle('show');
     overlay.classList.toggle('show');
+    if (sidebar.classList.contains('show')) {
+      sidebar.scrollTop = 0;
+    }
   }
 
   function closeSidebar() {
@@ -17,15 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.toggleSidebar = toggleSidebar;
   window.closeSidebar = closeSidebar;
-
-  const accordions = document.querySelectorAll('.accordion');
-  accordions.forEach(acc => {
-    acc.addEventListener('click', () => {
-      acc.classList.toggle('active');
-      const panel = acc.nextElementSibling;
-      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-    });
-  });
 
   const settings = {
     desktop: {
@@ -115,5 +110,29 @@ document.addEventListener('DOMContentLoaded', () => {
         toggleLayerVisibility(e.target.value);
       });
     });
+  });
+
+  const menuToggle = document.getElementById('menu-toggle');
+  if (menuToggle) {
+    menuToggle.addEventListener('click', toggleSidebar);
+  }
+
+  if (overlay) {
+    overlay.addEventListener('click', closeSidebar);
+  }
+
+  const closeBtn = document.getElementById('close-sidebar');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeSidebar);
+  }
+
+  document.addEventListener('click', function (e) {
+    if (window.innerWidth > 768) return;
+    if (!toggleBar.contains(e.target)) {
+      const searchInput = toggleBar.querySelector('.top-search');
+      if (searchInput) {
+        searchInput.blur();
+      }
+    }
   });
 });

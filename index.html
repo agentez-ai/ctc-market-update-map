@@ -2,78 +2,71 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ClearToClose Map</title>
-  <link rel="stylesheet" href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" />
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="sidebar.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CTC Home Team Market Update</title>
+  <link href="styles.css" rel="stylesheet" />
+  <link href="sidebar.css" rel="stylesheet" />
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body>
 
-  <!-- Overlay for mobile sidebar -->
-  <div id="sidebar-overlay" onclick="closeSidebar()"></div>
-
   <!-- Sidebar -->
   <div id="sidebar">
-    <div id="logo">
-      <img src="data/Logo - Orange brokered by EXP.png" alt="Logo" />
+    <button id="close-sidebar">&times;</button>
+    <div class="logo-container">
+      <img src="data/Logo%20-%20Orange%20brokered%20by%20EXP.png" alt="CTC Logo" />
     </div>
-    <div id="search">
-      <input type="text" placeholder="Search..." />
+    <input type="text" class="sidebar-search" placeholder="Search..." />
+    <div class="menu-section">
+      <button class="sidebar-button">Popular Data</button>
+      <button class="sidebar-button">Home Price & Affordability</button>
+      <button class="sidebar-button">Market Trends</button>
+      <button class="sidebar-button">Demographic</button>
+      <button class="sidebar-button">Investor Metrics</button>
+      <button class="sidebar-button">CTC Home Team Insights</button>
     </div>
-    <div class="filter-section">
-      <button class="accordion">Popular Data</button>
-      <div class="panel"><label><input type="checkbox"> Population Growth</label></div>
-
-      <button class="accordion">Home Price & Affordability</button>
-      <div class="panel"><label><input type="checkbox"> Median Sale Price</label></div>
-
-      <button class="accordion">Market Trends</button>
-      <div class="panel"><label><input type="checkbox"> Days on Market</label></div>
-
-      <button class="accordion">Demographic</button>
-      <div class="panel"><label><input type="checkbox"> Owner-Occupancy Rate</label></div>
-
-      <button class="accordion">Investor Metrics</button>
-      <div class="panel"><label><input type="checkbox"> Cash Sales %</label></div>
-
-      <button class="accordion">CTC Home Team Insights</button>
-      <div class="panel"><label><input type="checkbox"> Rental Demand</label></div>
-    </div>
-
-    <div id="sidebar-footer">
-      <p>
-        Powered by <a href="https://AgentEz.ai" target="_blank">AgentEz.ai</a> |
-        Partnered with <a href="https://GetYourPiece.com" target="_blank">GetYourPiece.com</a>
-      </p>
+    <div class="sidebar-footer">
+      <p>Powered by <a href="https://AgentEz.ai" target="_blank">AgentEz.ai</a></p>
+      <p>Partnered with <a href="https://GetYourPiece.com" target="_blank">GetYourPiece.com</a></p>
     </div>
   </div>
 
-  <!-- Hamburger Button (Mobile) -->
-  <button class="hamburger" onclick="toggleSidebar()"><span>☰</span></button>
+  <!-- Overlay -->
+  <div id="sidebar-overlay"></div>
 
-  <!-- Top Filter Bar -->
-  <div class="top-bar" id="toggle-bar">
-    <input type="text" placeholder="Search..." class="top-search" />
-    <div class="toggle-options">
-      <label><input type="radio" name="toggle" value="state"> State</label>
-      <label><input type="radio" name="toggle" value="metro"> Metro</label>
-      <label><input type="radio" name="toggle" value="county" checked> County</label>
-      <label><input type="radio" name="toggle" value="city"> City</label>
-      <label><input type="radio" name="toggle" value="zip"> ZIP</label>
+  <!-- Toggle Bar -->
+  <div id="toggle-bar">
+    <div class="toggle-row top-row">
+      <button id="menu-toggle">&#9776;</button>
+      <input type="text" class="top-search" placeholder="Search..." />
     </div>
-    <div class="toggle-buttons">
-      <button id="filter-btn">FILTER</button>
-      <button id="dream-btn">FIND MY DREAM NEIGHBORHOOD</button>
-      <button id="share-btn">SHARE</button>
+    <div class="toggle-row">
+      <label><input type="radio" name="toggle" value="state" /> State</label>
+      <label><input type="radio" name="toggle" value="metro" /> Metro</label>
+      <label><input type="radio" name="toggle" value="county" checked /> County</label>
+      <label><input type="radio" name="toggle" value="city" /> City</label>
+      <label><input type="radio" name="toggle" value="zip" /> ZIP</label>
+    </div>
+    <div class="toggle-row">
+      <button class="action-button">Filter</button>
+      <button class="action-button">Find My Dream Neighborhood</button>
+      <button class="action-button">Share</button>
     </div>
   </div>
 
   <!-- Map Container -->
   <div id="map"></div>
 
+  <!-- Attribution / Mapbox Logo -->
+  <div id="mapbox-logo-container" class="mapbox-logo-container-desktop">
+    <a href="https://www.mapbox.com/" target="_blank" rel="noopener noreferrer">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Mapbox_logo_2019.svg/512px-Mapbox_logo_2019.svg.png" 
+           alt="Mapbox logo" class="mapbox-logo-img">
+    </a>
+  </div>
+
   <!-- Scripts -->
-  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <script src="sidebar.js"></script>
 
 </body>
