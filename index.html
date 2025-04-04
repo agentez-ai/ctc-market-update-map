@@ -2,82 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CTC Home Team Market Update</title>
-  <link rel="stylesheet" href="styles.css" />
-  <link rel="stylesheet" href="sidebar.css" />
+  <link href="styles.css" rel="stylesheet" />
+  <link href="sidebar.css" rel="stylesheet" />
   <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet"/>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body>
-
   <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
+  <div id="sidebar">
+    <button id="close-sidebar">&times;</button>
     <div class="logo-container">
-      <img src="data/Logo - Orange brokered by EXP.png" alt="CTC Logo" />
+      <img src="data/Logo%20-%20Orange%20brokered%20by%20EXP.png" alt="CTC Logo" />
     </div>
-    <input type="text" placeholder="Search..." class="sidebar-search" />
-    <div class="menu">
-      <button>Popular Data</button>
-      <button>Home Price & Affordability</button>
-      <button>Market Trends</button>
-      <button>Demographic</button>
-      <button>Investor Metrics</button>
-      <button>CTC Home Team Insights</button>
+    <input type="text" class="sidebar-search" placeholder="Search..." />
+    <div class="menu-section">
+      <button class="sidebar-button">Popular Data</button>
+      <button class="sidebar-button">Home Price & Affordability</button>
+      <button class="sidebar-button">Market Trends</button>
+      <button class="sidebar-button">Demographic</button>
+      <button class="sidebar-button">Investor Metrics</button>
+      <button class="sidebar-button">CTC Home Team Insights</button>
     </div>
-    <footer class="sidebar-footer">
-      <p>
-        Powered by <a href="https://Agentez.ai" target="_blank">AgentEz.ai</a><br/>
-        Partnered with <a href="https://GetYourPiece.com" target="_blank">GetYourPiece.com</a>
-      </p>
-    </footer>
+    <div class="sidebar-footer">
+      <p>Powered by <a href="#">AgentEz.ai</a></p>
+      <p>Partnered with <a href="#">GetYourPiece.com</a></p>
+    </div>
   </div>
 
-  <!-- Sidebar Overlay for Mobile -->
+  <!-- Overlay for mobile -->
   <div id="sidebar-overlay"></div>
 
   <!-- Toggle Bar -->
-  <div id="toggle-bar" class="top-bar">
-    <button id="menu-toggle">&#9776;</button>
-    <input type="text" class="top-search" placeholder="Search..." />
-    <div class="radio-options">
-      <label><input type="radio" name="toggle" value="state" /> State</label>
-      <label><input type="radio" name="toggle" value="metro" /> Metro</label>
-      <label><input type="radio" name="toggle" value="county" checked /> County</label>
-      <label><input type="radio" name="toggle" value="city" /> City</label>
-      <label><input type="radio" name="toggle" value="zip" /> ZIP</label>
+  <div id="toggle-bar">
+    <div class="toggle-row top-row">
+      <button id="menu-toggle">&#9776;</button>
+      <input type="text" class="top-search" placeholder="Search..." />
     </div>
-    <div class="button-group">
-      <button>Filter</button>
-      <button>Find My Dream Neighborhood</button>
-      <button>Share</button>
+    <div class="toggle-row">
+      <label><input type="radio" name="map-level" value="state" /> State</label>
+      <label><input type="radio" name="map-level" value="metro" /> Metro</label>
+      <label><input type="radio" name="map-level" value="county" checked /> County</label>
+      <label><input type="radio" name="map-level" value="city" /> City</label>
+      <label><input type="radio" name="map-level" value="zip" /> ZIP</label>
+    </div>
+    <div class="toggle-row">
+      <button class="action-button">Filter</button>
+      <button class="action-button">Find My Dream Neighborhood</button>
+      <button class="action-button">Share</button>
     </div>
   </div>
 
   <!-- Map -->
   <div id="map"></div>
 
-  <!-- Mapbox Logo (Desktop Only) -->
+  <!-- Mapbox Logo (Desktop) -->
   <div id="mapbox-logo-container" class="mapbox-logo-container-desktop">
     <a href="https://www.mapbox.com/" target="_blank" rel="noopener noreferrer">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Mapbox_logo_2019.svg/512px-Mapbox_logo_2019.svg.png" 
-           alt="Mapbox logo" class="mapbox-logo-img">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Mapbox_logo_2019.svg/512px-Mapbox_logo_2019.svg.png"
+           alt="Mapbox Logo" class="mapbox-logo-img" />
     </a>
   </div>
 
   <!-- Scripts -->
   <script src="sidebar.js"></script>
-  <script>
-    mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN'; // Replace with your token
-    const map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
-      center: [-81.5158, 27.6648], // Florida center
-      zoom: 6
-    });
-
-    map.addControl(new mapboxgl.NavigationControl());
-  </script>
-
 </body>
 </html>

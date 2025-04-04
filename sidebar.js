@@ -108,11 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
   map.on('load', () => {
     toggleLayerVisibility('county');
 
-    const radios = document.querySelectorAll('input[name="toggle"]');
-    radios.forEach(radio => {
+    // 🎯 This is the only real fix: listen to name="map-level"
+    document.querySelectorAll('input[name="map-level"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
-        const selected = e.target.value;
-        toggleLayerVisibility(selected);
+        toggleLayerVisibility(e.target.value);
       });
     });
   });
@@ -139,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // === MOBILE: Blur search input when tapping outside ===
   document.addEventListener('click', function (e) {
     if (window.innerWidth > 768) return; // only on mobile
-    if (toggleBar && !toggleBar.contains(e.target)) {
+    if (!toggleBar.contains(e.target)) {
       const searchInput = toggleBar.querySelector('.top-search');
       if (searchInput) {
         searchInput.blur();
