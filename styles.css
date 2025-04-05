@@ -25,25 +25,27 @@ body {
 /* ========== TOGGLE BAR ========== */
 #toggle-bar {
   position: absolute;
-  top: 10px;
+  top: 20px;
   left: 300px;
   right: 20px;
+  margin: 0 auto;
+  width: 900px;
   background: white;
   border-radius: 10px;
-  padding: 12px;
+  padding: 10px 20px;
   z-index: 10;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 10px;
+  gap: 12px;
 }
 
 /* ========== TOGGLE BAR ROWS ========== */
 .toggle-row {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: space-between;
   gap: 10px;
 }
 
@@ -61,6 +63,8 @@ body {
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  min-width: 200px;
+  max-width: 400px;
 }
 
 /* ========== MENU ICON ========== */
@@ -84,6 +88,7 @@ body {
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .action-button:hover {
@@ -103,11 +108,13 @@ body {
   opacity: 0.85;
 }
 
-/* ========== RESPONSIVE ========== */
+/* ========== RESPONSIVE (Tablet and Mobile Adjustments) ========== */
 @media (max-width: 1024px) {
   #toggle-bar {
     left: 10px;
     right: 10px;
+    width: auto;
+    max-width: none;
   }
 }
 
@@ -116,8 +123,9 @@ body {
     flex-direction: column;
     align-items: stretch;
     border-radius: 12px;
-    padding: 10px;
+    padding: 12px;
     gap: 12px;
+    top: 15px;
   }
 
   .top-row {
@@ -127,6 +135,7 @@ body {
 
   .top-search {
     min-width: 0;
+    max-width: 100%;
   }
 
   .action-button {
