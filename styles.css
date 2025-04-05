@@ -44,8 +44,9 @@ body {
 /* ========== TOGGLE BAR ROWS ========== */
 .toggle-row {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: nowrap; /* 🔥 force one line */
   justify-content: space-between;
+  align-items: center;
   gap: 10px;
 }
 
@@ -58,13 +59,14 @@ body {
 
 /* ========== SEARCH INPUT ========== */
 .top-search {
-  flex-grow: 1;
+  flex-grow: 0;
+  width: 250px; /* 🔥 slightly reduced width to fit */
+  min-width: 200px;
+  max-width: 300px;
   padding: 8px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  min-width: 200px;
-  max-width: 400px;
 }
 
 /* ========== MENU ICON ========== */
@@ -88,7 +90,7 @@ body {
   font-weight: bold;
   border-radius: 6px;
   cursor: pointer;
-  white-space: nowrap;
+  white-space: nowrap; /* 🔥 prevent button text from wrapping */
 }
 
 .action-button:hover {
@@ -116,6 +118,11 @@ body {
     width: auto;
     max-width: none;
   }
+
+  .toggle-row {
+    flex-wrap: wrap; /* 🔥 allow wrapping on tablet and below */
+    justify-content: center;
+  }
 }
 
 @media (max-width: 768px) {
@@ -136,6 +143,7 @@ body {
   .top-search {
     min-width: 0;
     max-width: 100%;
+    width: 100%;
   }
 
   .action-button {
