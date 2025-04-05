@@ -114,14 +114,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   map.on('load', () => {
     toggleLayerVisibility('county');
-    document.querySelectorAll('input[name="toggle"]').forEach(radio => {
+
+    // ✅ Updated selector to match your HTML:
+    document.querySelectorAll('input[name="map-level"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         toggleLayerVisibility(e.target.value);
       });
     });
   });
 
-  // === SIDEBAR MENU BUTTON ===
   const menuToggle = document.getElementById('menu-toggle');
   if (menuToggle) {
     menuToggle.addEventListener('click', function () {
@@ -129,20 +130,17 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // === CLOSE SIDEBAR ON OVERLAY CLICK ===
   if (overlay) {
     overlay.addEventListener('click', closeSidebar);
   }
 
-  // === SAFELY Close Sidebar from Close Button ===
   const closeBtn = document.getElementById('close-sidebar');
   if (closeBtn) {
     closeBtn.addEventListener('click', closeSidebar);
   }
 
-  // === MOBILE: Blur search input when tapping outside ===
   document.addEventListener('click', function (e) {
-    if (window.innerWidth > 768) return; // only on mobile
+    if (window.innerWidth > 768) return;
     if (!toggleBar.contains(e.target)) {
       const searchInput = toggleBar.querySelector('.top-search');
       if (searchInput) {
