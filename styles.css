@@ -26,7 +26,7 @@ body {
 #toggle-bar {
   position: absolute;
   top: 10px;
-  left: 300px; /* leaves space for sidebar */
+  left: 300px;
   right: 20px;
   background: white;
   border-radius: 10px;
@@ -90,6 +90,19 @@ body {
   background: #e6e6e6;
 }
 
+/* ========== MAPBOX LOGO (DESKTOP ONLY) ========== */
+.mapbox-logo-container-desktop {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 5;
+}
+
+.mapbox-logo-img {
+  height: 30px;
+  opacity: 0.85;
+}
+
 /* ========== RESPONSIVE ========== */
 @media (max-width: 1024px) {
   #toggle-bar {
@@ -123,5 +136,9 @@ body {
 
   #menu-toggle {
     display: inline-block;
+  }
+
+  .mapbox-logo-container-desktop {
+    display: none;
   }
 }
