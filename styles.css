@@ -68,10 +68,19 @@ body {
 
 /* ===== DESKTOP: Action Buttons ===== */
 #actions {
+  padding: 10px 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #f8f9fa;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
   flex-wrap: nowrap;
 }
 
