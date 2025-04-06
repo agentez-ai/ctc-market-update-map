@@ -10,6 +10,7 @@
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
 </head>
 <body>
+
   <!-- Sidebar -->
   <div id="sidebar">
     <button id="close-sidebar">&times;</button>
@@ -36,28 +37,34 @@
 
   <!-- Toggle Bar -->
   <div id="toggle-bar">
-    <div class="toggle-row top-row">
+
+    <!-- Row 1: Hamburger + Search -->
+    <div class="search-container">
       <button id="menu-toggle">&#9776;</button>
-      <input type="text" class="top-search" placeholder="Search..." />
+      <input type="text" id="search-input" placeholder="Search..." />
     </div>
-    <div class="toggle-row">
+
+    <!-- Row 2: Radio buttons -->
+    <div class="radio-group">
       <label><input type="radio" name="map-level" value="state" /> State</label>
       <label><input type="radio" name="map-level" value="metro" /> Metro</label>
       <label><input type="radio" name="map-level" value="county" checked /> County</label>
       <label><input type="radio" name="map-level" value="city" /> City</label>
       <label><input type="radio" name="map-level" value="zip" /> ZIP</label>
     </div>
-    <div class="toggle-row">
-      <button class="action-button">Filter</button>
-      <button class="action-button">Find My Dream Neighborhood</button>
-      <button class="action-button">Share</button>
-    </div>
+
+    <!-- Row 3: Action Buttons -->
+    <button id="filter-btn">Filter</button>
+    <button id="dream-btn">Find My Dream Neighborhood</button>
+    <button id="share-btn">Share</button>
+
   </div>
 
   <!-- Map -->
   <div id="map"></div>
 
-  <!-- Script -->
+  <!-- Scripts -->
   <script src="sidebar.js"></script>
+
 </body>
 </html>
