@@ -22,6 +22,28 @@ body {
   z-index: 1;
 }
 
+/* ===== DESKTOP: Mapbox Logo ===== */
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 300px; /* Offset for the sidebar */
+  right: 0;
+  z-index: 0;
+}
+
+.mapbox-logo-container-desktop {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 5;
+}
+
+.mapbox-logo-img {
+  height: 30px;
+  opacity: 0.8;
+}
+
 /* ========== TOGGLE BAR (Default Desktop) ========== */
 #toggle-bar {
   display: flex;
@@ -124,19 +146,6 @@ body {
   align-items: center;
   gap: 10px;
   width: 100%;
-}
-
-/* ===== DESKTOP: Mapbox Logo ===== */
-.mapbox-logo-container-desktop {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  z-index: 5;
-}
-
-.mapbox-logo-img {
-  height: 30px;
-  opacity: 0.8;
 }
 
 /* ========== RESPONSIVE: MOBILE / TABLET ========== */
