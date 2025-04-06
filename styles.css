@@ -4,7 +4,6 @@ body, html {
   padding: 0;
   height: 100%;
   width: 100%;
-  font-family: Arial, sans-serif;
 }
 
 /* --- MAP CONTAINER --- */
@@ -49,30 +48,30 @@ body, html {
   transform: translateX(-50%);
   background: white;
   border-radius: 20px;
-  padding: 12px 25px;
+  padding: 10px 20px;
   display: flex;
-  flex-wrap: nowrap; /* NO wrapping on desktop */
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   gap: 15px;
   z-index: 950;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 95%;
 }
 
-/* --- TOP SEARCH INPUT --- */
-.top-search {
+/* --- SEARCH INPUT --- */
+#toggle-bar input[type="text"] {
   padding: 8px 12px;
   border: 1px solid #aaa;
   border-radius: 6px;
   font-size: 16px;
-  width: 250px;
+  width: 260px; /* Adjusted wider for desktop */
 }
 
 /* --- RADIO BUTTONS --- */
 #toggle-bar label {
-  margin: 0 10px;
+  margin: 0 8px;
   font-size: 18px;
-  white-space: nowrap;
 }
 
 #toggle-bar input[type="radio"] {
@@ -80,8 +79,8 @@ body, html {
   transform: scale(1.2);
 }
 
-/* --- ACTION BUTTONS --- */
-.action-button {
+/* --- BUTTONS --- */
+#toggle-bar button {
   padding: 10px 16px;
   border: none;
   background: #eee;
@@ -92,86 +91,60 @@ body, html {
   transition: background 0.3s;
 }
 
-.action-button:hover {
+#toggle-bar button:hover {
   background: #ddd;
 }
 
-/* --- MENU TOGGLE BUTTON (HIDDEN DESKTOP) --- */
+/* --- MENU TOGGLE BUTTON (MOBILE) --- */
 #menu-toggle {
-  display: none;
-}
-
-/* --- FLEX ROWS --- */
-.toggle-row, .toggle-radio-row, .toggle-button-row {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-  gap: 15px;
-}
-
-.toggle-top-row {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
+  background: #003366;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: none; /* only show on mobile */
 }
 
 /* --- MOBILE RESPONSIVE --- */
 @media (max-width: 768px) {
   #toggle-bar {
+    top: 10px; /* moved up slightly to cover zoom */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
     flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    top: 10px;
-    width: 90%;
-    padding: 15px;
-    gap: 12px;
+    gap: 8px;
+    padding: 10px;
   }
 
-  .toggle-top-row {
-    flex-direction: row;
-    justify-content: center;
+  #toggle-bar input[type="text"] {
+    width: 75%; /* wider for mobile */
+    margin-top: 8px;
+  }
+
+  #toggle-bar .search-container {
+    display: flex;
+    align-items: center;
     width: 100%;
     gap: 10px;
+    justify-content: center;
   }
 
   #menu-toggle {
     display: block;
-    background: #003366;
-    color: white;
-    padding: 12px;
-    border-radius: 12px;
-    border: none;
-    min-width: 50px;
-    height: 50px;
-  }
-
-  .top-search {
-    width: 70%;
-  }
-
-  .toggle-radio-row {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
   }
 
   #toggle-bar label {
-    font-size: 16px;
+    font-size: 17px;
   }
 
   #toggle-bar input[type="radio"] {
     transform: scale(1.4);
   }
 
-  .toggle-button-row {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .action-button {
-    width: 100%;
-    font-size: 17px;
+  #toggle-bar button {
+    width: 90%;
+    font-size: 18px;
   }
 }
