@@ -103,7 +103,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 auto;
+  flex: 1 1 auto; /* 🚀 fix: allow buttons to grow/shrink properly */
   white-space: normal;
   word-break: break-word;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -204,7 +204,7 @@ body {
 
   #actions {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
     width: 100%;
