@@ -1,184 +1,149 @@
-/* ========== GLOBAL RESET ========== */
-* {
-  box-sizing: border-box;
+/* --- GLOBAL RESET --- */
+body, html {
   margin: 0;
   padding: 0;
+  height: 100%;
+  width: 100%;
 }
 
-/* ========== BODY ========== */
-body {
-  font-family: Arial, sans-serif;
-  height: 100vh;
-  overflow: hidden;
-}
-
-/* ========== MAP CONTAINER ========== */
+/* --- MAP CONTAINER --- */
 #map {
   position: absolute;
   top: 0;
+  bottom: 0;
+  right: 0;
   left: 0;
-  width: 100%;
+}
+
+/* --- SIDEBAR STYLES --- */
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
   height: 100%;
-  z-index: 1;
-}
-
-/* ========== TOGGLE BAR (Default Desktop) ========== */
-#toggle-bar {
-  position: absolute;
-  top: 20px;
-  left: 300px;
-  right: 20px;
-  margin: 0 auto;
-  width: 950px;
-  max-width: 950px;
   background: white;
-  border-radius: 12px;
-  padding: 12px 20px;
-  z-index: 10;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: nowrap;
+  overflow-y: auto;
+  z-index: 1000;
+  padding: 20px 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* ===== DESKTOP: Hamburger (hidden) ===== */
-#menu-toggle {
+#sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 900;
   display: none;
 }
 
-/* ===== DESKTOP: Search Bar ===== */
-#search-bar {
-  width: 300px;
-  min-width: 250px;
-  max-width: 350px;
-  padding: 8px 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-/* ===== DESKTOP: Radio Buttons ===== */
-#layer-options {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: nowrap;
-}
-
-/* ===== DESKTOP: Action Buttons ===== */
-#actions {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: nowrap;
-}
-
-.action-button {
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  background-color: #f2f2f2;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.action-button:hover {
-  background-color: #e0e0e0;
-}
-
-/* ===== DESKTOP: Mapbox Logo ===== */
-.mapbox-logo-container-desktop {
+/* --- TOGGLE BAR BASE --- */
+#toggle-bar {
   position: absolute;
-  bottom: 10px;
-  left: 10px;
-  z-index: 5;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border-radius: 20px;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  gap: 15px;
+  z-index: 950;
 }
 
-.mapbox-logo-img {
-  height: 30px;
-  opacity: 0.8;
+/* --- SEARCH INPUT --- */
+#toggle-bar input[type="text"] {
+  padding: 8px 12px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 260px; /* Adjusted wider for desktop */
 }
 
-/* ========== RESPONSIVE: MOBILE / TABLET ========== */
-@media (max-width: 1024px) {
+/* --- RADIO BUTTONS --- */
+#toggle-bar label {
+  margin: 0 8px;
+  font-size: 18px;
+}
+
+#toggle-bar input[type="radio"] {
+  margin-right: 5px;
+  transform: scale(1.2);
+}
+
+/* --- BUTTONS --- */
+#toggle-bar button {
+  padding: 10px 16px;
+  border: none;
+  background: #eee;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#toggle-bar button:hover {
+  background: #ddd;
+}
+
+/* --- MENU TOGGLE BUTTON (MOBILE) --- */
+#menu-toggle {
+  background: #003366;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: none; /* only show on mobile */
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
   #toggle-bar {
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    width: auto;
-    max-width: none;
-    padding: 12px;
+    top: 10px; /* moved up slightly to cover zoom */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
     flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
-  /* ===== MOBILE: Hamburger visible ===== */
-  #menu-toggle {
-    display: inline-block;
-    background: #003366;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-  }
-
-  /* ===== MOBILE: Top Row (Hamburger + Search Bar) ===== */
-  .top-row {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    width: 100%;
-  }
-
-  #search-bar {
-    flex-grow: 1;
-    width: auto;
-    min-width: 0;
-    max-width: none;
+    gap: 8px;
     padding: 10px;
-    font-size: 14px;
   }
 
-  /* ===== MOBILE: Radios and Buttons centered ===== */
-  #layer-options {
+  #toggle-bar input[type="text"] {
+    width: 75%; /* wider for mobile */
+    margin-top: 8px;
+  }
+
+  #toggle-bar .search-container {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
+    align-items: center;
     width: 100%;
-  }
-
-  #actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: 10px;
-    width: 100%;
+    justify-content: center;
   }
 
-  .action-button {
-    font-size: 14px;
-    padding: 8px 12px;
-    flex-grow: 1;
-    text-align: center;
+  #menu-toggle {
+    display: block;
   }
 
-  /* ===== MOBILE: Hide desktop Mapbox logo ===== */
-  .mapbox-logo-container-desktop {
-    display: none;
+  #toggle-bar label {
+    font-size: 17px;
+  }
+
+  #toggle-bar input[type="radio"] {
+    transform: scale(1.4);
+  }
+
+  #toggle-bar button {
+    width: 90%;
+    font-size: 18px;
   }
 }
