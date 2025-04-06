@@ -238,7 +238,7 @@ body {
     flex: 1 1 auto; /* 🔥 allow flexible width */
     height: 44px; /* 🔥 keep height same */
     padding: 10px 16px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     border-radius: 8px;
     text-align: center;
