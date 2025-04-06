@@ -113,8 +113,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   map.on('load', () => {
-    toggleLayerVisibility('county');
-    document.querySelectorAll('input[name="toggle"]').forEach(radio => {
+    toggleLayerVisibility('county'); // default view
+
+    document.querySelectorAll('input[name="map-level"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         toggleLayerVisibility(e.target.value);
       });
@@ -142,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // === MOBILE: Blur search input when tapping outside ===
   document.addEventListener('click', function (e) {
-    if (window.innerWidth > 768) return; // only on mobile
+    if (window.innerWidth > 768) return; // Only on mobile
     if (!toggleBar.contains(e.target)) {
       const searchInput = toggleBar.querySelector('.top-search');
       if (searchInput) {
