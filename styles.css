@@ -44,23 +44,22 @@ body, html {
 /* --- TOGGLE BAR BASE --- */
 #toggle-bar {
   position: absolute;
-  top: 15px;
+  top: 20px;
   left: 50%;
   transform: translateX(-50%);
   background: white;
   border-radius: 20px;
-  padding: 15px 25px;
+  padding: 12px 25px;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* NO wrapping on desktop */
   align-items: center;
   justify-content: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   gap: 15px;
   z-index: 950;
-  max-width: 90%;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* --- SEARCH INPUT --- */
+/* --- TOP SEARCH INPUT --- */
 .top-search {
   padding: 8px 12px;
   border: 1px solid #aaa;
@@ -71,7 +70,7 @@ body, html {
 
 /* --- RADIO BUTTONS --- */
 #toggle-bar label {
-  margin: 0 6px;
+  margin: 0 10px;
   font-size: 18px;
   white-space: nowrap;
 }
@@ -81,7 +80,7 @@ body, html {
   transform: scale(1.2);
 }
 
-/* --- BUTTONS --- */
+/* --- ACTION BUTTONS --- */
 .action-button {
   padding: 10px 16px;
   border: none;
@@ -97,69 +96,82 @@ body, html {
   background: #ddd;
 }
 
-/* --- MENU TOGGLE BUTTON (MOBILE) --- */
+/* --- MENU TOGGLE BUTTON (HIDDEN DESKTOP) --- */
 #menu-toggle {
-  background: #003366;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
   display: none;
 }
 
-/* --- ROWS INSIDE TOGGLE BAR --- */
-.toggle-row {
+/* --- FLEX ROWS --- */
+.toggle-row, .toggle-radio-row, .toggle-button-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
+  flex-wrap: nowrap;
+  gap: 15px;
 }
 
-.top-row {
+.toggle-top-row {
+  display: flex;
+  align-items: center;
   justify-content: flex-start;
-  width: 100%;
-  gap: 12px;
+  gap: 10px;
 }
 
-/* --- MOBILE STYLES --- */
+/* --- MOBILE RESPONSIVE --- */
 @media (max-width: 768px) {
   #toggle-bar {
     flex-direction: column;
+    flex-wrap: nowrap;
     align-items: stretch;
     top: 10px;
-    width: 95%;
+    width: 90%;
     padding: 15px;
-    gap: 10px;
+    gap: 12px;
   }
 
-  .top-row {
+  .toggle-top-row {
     flex-direction: row;
     justify-content: center;
+    width: 100%;
     gap: 10px;
   }
 
   #menu-toggle {
     display: block;
+    background: #003366;
+    color: white;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    min-width: 50px;
+    height: 50px;
   }
 
   .top-search {
     width: 70%;
   }
 
-  #toggle-bar label {
-    font-size: 16px;
-    margin: 0 6px;
-  }
-
-  .toggle-row {
+  .toggle-radio-row {
     flex-wrap: wrap;
     justify-content: center;
+    gap: 10px;
+  }
+
+  #toggle-bar label {
+    font-size: 16px;
+  }
+
+  #toggle-bar input[type="radio"] {
+    transform: scale(1.4);
+  }
+
+  .toggle-button-row {
+    flex-direction: column;
+    gap: 10px;
   }
 
   .action-button {
-    width: 90%;
+    width: 100%;
     font-size: 17px;
   }
 }
