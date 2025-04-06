@@ -1,9 +1,14 @@
+// Full FINAL sidebar.js — preserving all functionality and making it polished!
+
+// Wait for full DOM to load
 document.addEventListener('DOMContentLoaded', () => {
   const accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
   mapboxgl.accessToken = accessToken;
 
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebar-overlay');
+  const menuToggle = document.getElementById('menu-toggle');
+  const closeSidebarBtn = document.getElementById('close-sidebar');
   const toggleBar = document.getElementById('toggle-bar');
 
   function toggleSidebar() {
@@ -19,18 +24,32 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.classList.remove('show');
   }
 
-  window.toggleSidebar = toggleSidebar;
-  window.closeSidebar = closeSidebar;
+  // Menu Toggle Event
+  if (menuToggle) {
+    menuToggle.addEventListener('click', toggleSidebar);
+  }
 
+  // Close Sidebar on Overlay Click
+  if (overlay) {
+    overlay.addEventListener('click', closeSidebar);
+  }
+
+  // Close Sidebar with 'X' button
+  if (closeSidebarBtn) {
+    closeSidebarBtn.addEventListener('click', closeSidebar);
+  }
+
+  // Accordion functionality for Sidebar
   const accordions = document.querySelectorAll('.accordion');
   accordions.forEach(acc => {
     acc.addEventListener('click', () => {
       acc.classList.toggle('active');
       const panel = acc.nextElementSibling;
-      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+      panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
     });
   });
 
+  // Settings for different devices
   const settings = {
     desktop: {
       default: { center: [-81.2, 26.3], zoom: 6.99 },
@@ -73,6 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const deviceSettings = getDeviceSettings();
 
+  // Initialize Map
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
@@ -114,35 +134,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   map.on('load', () => {
     toggleLayerVisibility('county');
-
-    // ✅ Updated selector to match your HTML:
-    document.querySelectorAll('input[name="map-level"]').forEach(radio => {
+    document.querySelectorAll('input[name="toggle"]').forEach(radio => {
       radio.addEventListener('change', (e) => {
         toggleLayerVisibility(e.target.value);
       });
     });
   });
 
-  const menuToggle = document.getElementById('menu-toggle');
-  if (menuToggle) {
-    menuToggle.addEventListener('click', function () {
-      toggleSidebar();
-    });
-  }
-
-  if (overlay) {
-    overlay.addEventListener('click', closeSidebar);
-  }
-
-  const closeBtn = document.getElementById('close-sidebar');
-  if (closeBtn) {
-    closeBtn.addEventListener('click', closeSidebar);
-  }
-
+  // Blur search input on mobile outside click
   document.addEventListener('click', function (e) {
-    if (window.innerWidth > 768) return;
+    if (window.innerWidth > 768) return; // Only mobile
     if (!toggleBar.contains(e.target)) {
-      const searchInput = toggleBar.querySelector('.top-search');
+      const searchInput = toggleBar.querySelector('input[type="text"]');
       if (searchInput) {
         searchInput.blur();
       }
