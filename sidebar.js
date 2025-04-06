@@ -1,14 +1,9 @@
-// Full FINAL sidebar.js — preserving all functionality and making it polished!
-
-// Wait for full DOM to load
 document.addEventListener('DOMContentLoaded', () => {
   const accessToken = 'pk.eyJ1IjoicnRhbWF5bzciLCJhIjoiY2x0MHN2aXNvMHEzZDJxcXl0ZGdyem12biJ9.jFqQ8YQsP77PJtxgaBhuIg';
   mapboxgl.accessToken = accessToken;
 
   const sidebar = document.getElementById('sidebar');
   const overlay = document.getElementById('sidebar-overlay');
-  const menuToggle = document.getElementById('menu-toggle');
-  const closeSidebarBtn = document.getElementById('close-sidebar');
   const toggleBar = document.getElementById('toggle-bar');
 
   function toggleSidebar() {
@@ -24,32 +19,18 @@ document.addEventListener('DOMContentLoaded', () => {
     overlay.classList.remove('show');
   }
 
-  // Menu Toggle Event
-  if (menuToggle) {
-    menuToggle.addEventListener('click', toggleSidebar);
-  }
+  window.toggleSidebar = toggleSidebar;
+  window.closeSidebar = closeSidebar;
 
-  // Close Sidebar on Overlay Click
-  if (overlay) {
-    overlay.addEventListener('click', closeSidebar);
-  }
-
-  // Close Sidebar with 'X' button
-  if (closeSidebarBtn) {
-    closeSidebarBtn.addEventListener('click', closeSidebar);
-  }
-
-  // Accordion functionality for Sidebar
   const accordions = document.querySelectorAll('.accordion');
   accordions.forEach(acc => {
     acc.addEventListener('click', () => {
       acc.classList.toggle('active');
       const panel = acc.nextElementSibling;
-      panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
     });
   });
 
-  // Settings for different devices
   const settings = {
     desktop: {
       default: { center: [-81.2, 26.3], zoom: 6.99 },
@@ -92,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const deviceSettings = getDeviceSettings();
 
-  // Initialize Map
   const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/rtamayo7/cm8sape5r00jc01s354wd73jd',
@@ -141,11 +121,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Blur search input on mobile outside click
+  // === SIDEBAR MENU BUTTON ===
+  const menuToggle = document.getElementById('menu-toggle');
+  if (menuToggle) {
+    menuToggle.addEventListener('click', function () {
+      toggleSidebar();
+    });
+  }
+
+  // === CLOSE SIDEBAR ON OVERLAY CLICK ===
+  if (overlay) {
+    overlay.addEventListener('click', closeSidebar);
+  }
+
+  // === SAFELY Close Sidebar from Close Button ===
+  const closeBtn = document.getElementById('close-sidebar');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeSidebar);
+  }
+
+  // === MOBILE: Blur search input when tapping outside ===
   document.addEventListener('click', function (e) {
-    if (window.innerWidth > 768) return; // Only mobile
+    if (window.innerWidth > 768) return; // only on mobile
     if (!toggleBar.contains(e.target)) {
-      const searchInput = toggleBar.querySelector('input[type="text"]');
+      const searchInput = toggleBar.querySelector('.top-search');
       if (searchInput) {
         searchInput.blur();
       }

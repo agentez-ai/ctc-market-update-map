@@ -1,131 +1,126 @@
-/* === Sidebar Base Styles === */
-.sidebar {
+/* ========== SIDEBAR ========== */
+#sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 260px;
+  width: 280px;
   height: 100%;
-  background-color: #003366;
-  color: white;
+  background-color: #fff;
+  z-index: 9999;
+  padding: 20px 10px 20px 10px;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  z-index: 1000;
-  transition: transform 0.3s ease;
 }
 
-/* Hide sidebar by default on mobile */
-.sidebar.hidden {
-  transform: translateX(-100%);
-}
-
-/* === Sidebar Header === */
-.sidebar-header {
+/* ========== LOGO ========== */
+.logo-container {
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
+  margin-bottom: 20px;
 }
 
-.sidebar-logo {
-  max-width: 120px;
+.logo-container img {
+  max-width: 100%;
   height: auto;
+  object-fit: contain;
 }
 
-.close-button {
+/* ========== CLOSE BUTTON (Mobile Only) ========== */
+#close-sidebar {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  color: #003366;
   background: none;
   border: none;
-  font-size: 2rem;
-  color: white;
   cursor: pointer;
+  z-index: 10000;
 }
 
-/* === Sidebar Nav === */
-.sidebar-nav {
-  flex: 1;
-  padding: 1rem;
+/* ========== SEARCH ========== */
+.sidebar-search {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-.sidebar-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+/* ========== MENU BUTTONS ========== */
+.menu-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.sidebar-nav li {
-  margin-bottom: 1rem;
+.sidebar-button {
+  padding: 12px;
+  border: none;
+  background-color: #f6f6f6;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: left;
+  transition: background-color 0.2s;
 }
 
-.sidebar-nav a {
-  color: white;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
+.sidebar-button:hover {
+  background-color: #e6e6e6;
 }
 
-.sidebar-nav a:hover {
-  text-decoration: underline;
-}
-
-/* === Sidebar Footer === */
+/* ========== FOOTER ========== */
 .sidebar-footer {
-  padding: 1rem;
-  font-size: 0.8rem;
-  color: #ccc;
-  text-align: center;
   margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+  font-size: 14px;
+  color: #555;
+  text-align: center;
 }
 
 .sidebar-footer a {
-  color: #ccc;
-  text-decoration: underline;
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .sidebar-footer a:hover {
-  color: white;
+  text-decoration: underline;
 }
 
-/* === Toggle Button (Hamburger) === */
-.toggle-button {
-  display: none; /* Hide by default for desktop */
-  background-color: white;
-  border: 2px solid #ccc;
-  padding: 5px;
-  border-radius: 10px;
-  margin: 10px;
-  cursor: pointer;
-}
-
-.toggle-button img {
-  width: 24px;
-  height: 24px;
-}
-
-/* === Main Content Area === */
-#main-content {
-  margin-left: 260px; /* Leave space for the sidebar */
-  transition: margin-left 0.3s ease;
-}
-
-#map {
+/* ========== OVERLAY (Mobile Only) ========== */
+#sidebar-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
   width: 100%;
-  height: 100vh;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.25);
 }
 
-/* === Responsive Mobile Styles === */
+/* ========== MOBILE OVERRIDES ========== */
 @media (max-width: 768px) {
-  .sidebar {
+  #sidebar {
     transform: translateX(-100%);
   }
 
-  .sidebar.show {
+  #sidebar.show {
     transform: translateX(0);
   }
 
-  #main-content {
-    margin-left: 0;
+  #close-sidebar {
+    display: block;
   }
 
-  .toggle-button {
+  #sidebar-overlay.show {
     display: block;
   }
 }
