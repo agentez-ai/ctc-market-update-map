@@ -32,6 +32,14 @@ body {
   z-index: 0;
 }
 
+.mapboxgl-ctrl-top-right {
+  z-index: 15;
+}
+
+.mapboxgl-ctrl-bottom-right {
+  z-index: 15;
+}
+
 .mapbox-logo-container-desktop {
   position: absolute;
   bottom: 10px;
@@ -150,6 +158,10 @@ body {
 
 /* ========== RESPONSIVE: MOBILE / TABLET ========== */
 @media (max-width: 1024px) {
+  #map {
+    left: 0; /* No sidebar offset on small screens */
+  }
+
   #toggle-bar {
     top: 0px;
     left: 10px;
