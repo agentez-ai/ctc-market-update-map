@@ -82,42 +82,38 @@ body {
 }
 
 /* ===== DESKTOP: Action Buttons ===== */
-#actions {
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #f8f9fa;
-  cursor: pointer;
-  font-size: 14px;
-  color: #333;
-  font-weight: bold;
-  text-transform: uppercase;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-}
-
-.action-button {
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  background-color: #f2f2f2;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.action-button:hover {
-  background-color: #e0e0e0;
-}
 
 #FDN-btn {
   width: 200px;
   white-space: normal;
   word-break: break-word;
+}
+
+.action-button {
+  height: 44px;
+  padding: 0 20px;
+  font-size: 15px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background-color: #003366;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  white-space: normal;
+  word-break: break-word;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: #002244;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
 }
 
 /* ===== DESKTOP: Mapbox Logo ===== */
@@ -206,21 +202,4 @@ body {
     width: 100%;
   }
 
- .action-button {
-  padding: 10px 16px;
-  font-size: 14px;
-  font-weight: bold;
-  border: none;
-  border-radius: 8px;
-  background-color: #f2f2f2;
-  cursor: pointer;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 0 0 auto;
-  height: 40px;
-  white-space: normal; /* <-- IMPORTANT! Allow text to wrap */
-  word-break: break-word; /* Optional: break long words if needed */
 }
- }
