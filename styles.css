@@ -27,7 +27,7 @@ body {
   position: absolute;
   top: 0;
   bottom: 0;
-  left: 300px; /* Offset for the sidebar */
+  left: 280px; /* Offset for the sidebar */
   right: 0;
   z-index: 0;
 }
