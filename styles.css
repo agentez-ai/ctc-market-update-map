@@ -44,11 +44,6 @@ body {
   opacity: 1 !important;
 }
 
-.mapboxgl-ctrl {
-  z-index: 15 !important;
-  display: flex !important;
-  opacity: 1 !important;
-}
 
 /* ========== TOGGLE BAR (Default Desktop) ========== */
 #toggle-bar {
