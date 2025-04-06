@@ -201,9 +201,12 @@ body {
   }
 
   .action-button {
-    font-size: 14px;
-    padding: 8px 12px;
-    flex-grow: 1;
-    text-align: center;
-  }
+  font-size: 14px;
+  padding: 8px 12px;
+  flex-grow: 1;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
  }
