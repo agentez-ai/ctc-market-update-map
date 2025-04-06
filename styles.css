@@ -22,7 +22,7 @@ body {
   z-index: 1;
 }
 
-/* ========== TOGGLE BAR (Default Desktop) ========== */
+/* ========== TOGGLE BAR DESKTOP ========== */
 #toggle-bar {
   position: absolute;
   top: 20px;
@@ -39,7 +39,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 14px;
   flex-wrap: nowrap;
 }
 
@@ -50,9 +50,9 @@ body {
 
 /* ===== DESKTOP: Search Bar ===== */
 #search-bar {
-  width: 300px;
-  min-width: 250px;
-  max-width: 350px;
+  width: 250px;
+  min-width: 200px;
+  max-width: 300px;
   padding: 8px 10px;
   font-size: 14px;
   border: 1px solid #ccc;
@@ -64,7 +64,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
   flex-wrap: nowrap;
 }
 
@@ -73,7 +73,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 10px;
   flex-wrap: nowrap;
 }
 
@@ -108,14 +108,14 @@ body {
 /* ========== RESPONSIVE: MOBILE / TABLET ========== */
 @media (max-width: 1024px) {
   #toggle-bar {
-    top: 10px;
+    top: 15px;
     left: 10px;
     right: 10px;
     width: auto;
     max-width: none;
-    padding: 12px;
+    padding: 15px;
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 12px;
   }
 
@@ -149,25 +149,25 @@ body {
     width: auto;
     min-width: 0;
     max-width: none;
-    padding: 10px;
+    padding: 8px;
     font-size: 14px;
   }
 
-  /* ===== MOBILE: Radios and Buttons centered ===== */
+  /* ===== MOBILE: Radios & Buttons stacked ===== */
   #layer-options {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
     width: 100%;
+    gap: 10px;
   }
 
   #actions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 10px;
     width: 100%;
+    gap: 10px;
   }
 
   .action-button {
@@ -177,7 +177,7 @@ body {
     text-align: center;
   }
 
-  /* ===== MOBILE: Hide desktop Mapbox logo ===== */
+  /* ===== MOBILE: Hide desktop logo ===== */
   .mapbox-logo-container-desktop {
     display: none;
   }
