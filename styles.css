@@ -119,9 +119,9 @@ body {
 
  #toggle-button-row {
   display: flex;
-  flex-wrap: nowrap; /* 🔥 keep in 1 line */
-  justify-content: center;
-  align-items: center; /* 🔥 vertically center if needed */
+  flex-wrap: nowrap;
+  justify-content: space-between; /* <--- THIS! */
+  align-items: center;
   gap: 10px;
   width: 100%;
 }
