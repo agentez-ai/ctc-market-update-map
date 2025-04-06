@@ -63,27 +63,17 @@ body {
   width: 300px; /* Adjusted wider for desktop */
 }
 
-/* ===== DESKTOP: Radio Buttons ===== */
-#layer-options {
-  padding: 10px 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: #f8f9fa;
-  cursor: pointer;
-  font-size: 14px;
-  color: #333;
-  font-weight: bold;
-  text-transform: uppercase;
-  height: 40px;
+
+/* ===== RADIO BUTTONS GROUP (DESKTOP) ===== */
+.toggle-radio-row {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: nowrap;
   gap: 20px;
 }
 
-/* NEW */
-#layer-options label {
+/* ===== RADIO BUTTON + LABEL styling ===== */
+.toggle-radio-row label {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -186,7 +176,7 @@ body {
 }
 
   /* ===== MOBILE: Radios and Buttons centered ===== */
-  #layer-options {
+  .toggle-radio-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
