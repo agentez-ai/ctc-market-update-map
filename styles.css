@@ -141,6 +141,23 @@ body {
     gap: 12px;
   }
 
+/* ===== MOBILE: Radios and Buttons centered ===== */
+.toggle-radio-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.toggle-radio-row label {
+  flex-direction: row; /* <-- make radio button and label SIDE BY SIDE */
+  align-items: center;
+  gap: 5px;
+  font-size: 14px;
+  width: auto;
+}
+
   /* ===== MOBILE: Hamburger visible ===== */
   #menu-toggle {
     display: inline-block;
@@ -175,15 +192,6 @@ body {
   font-size: 14px;
 }
 
-  /* ===== MOBILE: Radios and Buttons centered ===== */
-  .toggle-radio-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-  }
-
   #actions {
     display: flex;
     flex-wrap: wrap;
@@ -198,5 +206,4 @@ body {
     flex-grow: 1;
     text-align: center;
   }
-
  }
