@@ -184,7 +184,7 @@ body {
   }
 
  .top-search {
-  width: 80%;
+  width: 50%;
   max-width: none;
   padding: 12px 16px;
   font-size: 16px;
@@ -208,6 +208,5 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: nowrap;
 }
  }
