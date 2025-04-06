@@ -25,7 +25,7 @@ body {
 /* ========== TOGGLE BAR (Default Desktop) ========== */
 #toggle-bar {
   display: flex;
-  flex-direction: column; /* 🛠️ Important fix */
+  flex-direction: row; /* 🛠️ Important fix */
   align-items: center;
   justify-content: center;
   gap: 15px;
