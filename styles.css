@@ -219,6 +219,7 @@ body {
   align-items: center;
   justify-content: center;
   flex: 0 0 auto;
+  height: 40px;
   white-space: normal; /* <-- IMPORTANT! Allow text to wrap */
   word-break: break-word; /* Optional: break long words if needed */
 }
