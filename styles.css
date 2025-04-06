@@ -116,6 +116,8 @@ body {
 
 #FDN-btn {
   width: 200px;
+  white-space: normal;
+  word-break: break-word;
 }
 
 /* ===== DESKTOP: Mapbox Logo ===== */
@@ -205,17 +207,19 @@ body {
   }
 
  .action-button {
+  padding: 10px 16px;
   font-size: 14px;
-  padding: 10px 20px;
+  font-weight: bold;
   border: none;
   border-radius: 8px;
   background-color: #f2f2f2;
   cursor: pointer;
-  white-space: nowrap;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 auto; 
+  flex: 0 0 auto;
+  white-space: normal; /* <-- IMPORTANT! Allow text to wrap */
+  word-break: break-word; /* Optional: break long words if needed */
 }
  }
