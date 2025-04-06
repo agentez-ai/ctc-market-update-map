@@ -154,6 +154,10 @@ body {
     background: white;
   }
 
+.mapboxgl-ctrl-top-left {
+    margin-top: 80px; /* push zoom buttons down further */
+  }
+
 /* ===== MOBILE: Radios and Buttons centered ===== */
 .toggle-radio-row {
   display: flex;
