@@ -50,9 +50,9 @@ body {
 
 /* ===== DESKTOP: Search Bar ===== */
 #search-bar {
-  width: 1000px;
-  min-width: 1000px;
-  max-width: 1000px;
+  width: 450px;
+  min-width: 350px;
+  max-width: 550px;
   padding: 8px 10px;
   font-size: 14px;
   border: 1px solid #ccc;
@@ -64,7 +64,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 25px;
   flex-wrap: nowrap;
 }
 
@@ -73,7 +73,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
+  gap: 25px;
   flex-wrap: nowrap;
 }
 
