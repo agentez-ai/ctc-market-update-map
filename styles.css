@@ -48,16 +48,6 @@ body {
   display: none;
 }
 
-/* ===== DESKTOP: Search Bar ===== */
-#search-bar {
-  width: 450px;
-  min-width: 350px;
-  max-width: 550px;
-  padding: 8px 10px;
-  font-size: 14px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
 
 /* ===== DESKTOP: Radio Buttons ===== */
 #layer-options {
