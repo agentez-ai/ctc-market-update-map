@@ -155,7 +155,7 @@ body {
   }
 
 .mapboxgl-ctrl-top-left {
-    margin-top: 80px; /* push zoom buttons down further */
+    margin-top: 100px; /* push zoom buttons down further */
   }
 
 /* ===== MOBILE: Radios and Buttons centered ===== */
