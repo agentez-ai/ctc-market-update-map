@@ -192,7 +192,7 @@ body {
   text-align: center; /* Optional if you want text inside centered */
 }
 
-  #actions {
+  .actions {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -200,7 +200,7 @@ body {
     width: 100%;
   }
 
-  .action-button {
+ .action-button {
   font-size: 14px;
   padding: 8px 12px;
   flex-grow: 1;
@@ -208,5 +208,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: nowrap;
 }
  }
