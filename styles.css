@@ -37,7 +37,7 @@ body {
   padding: 12px 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   position: absolute;
-  top: 5px;
+  top: 0px;
   left: 300px;
   right: 20px;
   z-index: 10;
