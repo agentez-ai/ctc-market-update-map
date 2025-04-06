@@ -65,7 +65,7 @@ body {
 
 /* ===== DESKTOP: Radio Buttons ===== */
 #layer-options {
- padding: 10px 15px;
+  padding: 10px 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background: #f8f9fa;
@@ -79,7 +79,16 @@ body {
   align-items: center;
   justify-content: center;
   flex-wrap: nowrap;
-  gap: 15px;
+  gap: 20px;
+}
+
+/* NEW */
+#layer-options label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  gap: 5px; /* space between radio button and text */
 }
 
 /* ===== DESKTOP: Action Buttons ===== */
