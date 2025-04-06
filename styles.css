@@ -84,7 +84,9 @@ body {
 /* ===== DESKTOP: Action Buttons ===== */
 
 #FDN-btn {
-  width: 220px; /* or whatever looks good */
+  width: 220px;
+  white-space: normal; /* 👈 allow wrapping for this button ONLY */
+  word-break: break-word; /* 👈 break long text nicely */
 }
 
 .action-button {
