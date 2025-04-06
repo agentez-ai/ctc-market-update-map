@@ -177,6 +177,5 @@ body {
 
   /* ===== MOBILE: Hide desktop Mapbox logo ===== */
   .mapbox-logo-container-desktop {
-    display: none;
   }
 }
