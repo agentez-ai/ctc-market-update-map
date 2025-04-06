@@ -48,13 +48,23 @@ body {
   display: none;
 }
 
+/* ===== DESKTOP: Search Bar ===== */
+#search-bar {
+  width: 300px;
+  min-width: 250px;
+  max-width: 350px;
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
 
 /* ===== DESKTOP: Radio Buttons ===== */
 #layer-options {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 25px;
+  gap: 15px;
   flex-wrap: nowrap;
 }
 
@@ -63,7 +73,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 25px;
+  gap: 15px;
   flex-wrap: nowrap;
 }
 
