@@ -84,12 +84,12 @@ body {
 /* ===== DESKTOP: Action Buttons ===== */
 
 #FDN-btn {
-  width: 150px;
+  width: 200px;
   white-space: normal; /* 👈 allow wrapping for this button ONLY */
   word-break: break-word; /* 👈 break long text nicely */
 }
 
-.action-button {
+.toggle-button-row-button {
   height: 44px;
   padding: 0 20px;
   font-size: 15px;
@@ -111,13 +111,13 @@ body {
   transition: all 0.3s ease;
 }
 
-.action-button:hover {
+.toggle-button-row-button:hover {
   background-color: #002244;
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   transform: translateY(-2px);
 }
 
-#actions {
+ #toggle-button-row {
   display: flex;
   flex-wrap: nowrap; /* 🔥 keep in 1 line */
   justify-content: center;
@@ -204,7 +204,7 @@ body {
   text-align: center; /* Optional if you want text inside centered */
 }
 
-  #actions {
+  .toggle-button-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -212,7 +212,7 @@ body {
     width: 100%;
   }
 
-.action-button {
+ .toggle-button-row-button {
     flex: 1 1 auto; /* 🔥 allow flexible width */
     min-width: 120px; /* 🔥 minimum button size */
     height: 44px; /* 🔥 keep height same */
