@@ -4,6 +4,8 @@ body, html {
   padding: 0;
   height: 100%;
   width: 100%;
+  font-family: Arial, sans-serif;
+  overflow: hidden;
 }
 
 /* --- MAP CONTAINER --- */
@@ -11,8 +13,9 @@ body, html {
   position: absolute;
   top: 0;
   bottom: 0;
+  left: 280px; /* leave space for sidebar */
   right: 0;
-  left: 0;
+  transition: left 0.3s ease;
 }
 
 /* --- SIDEBAR STYLES --- */
@@ -26,7 +29,8 @@ body, html {
   overflow-y: auto;
   z-index: 1000;
   padding: 20px 10px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
 }
 
 #sidebar-overlay {
@@ -35,9 +39,48 @@ body, html {
   left: 0;
   width: 0;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0,0,0,0.5);
   z-index: 900;
   display: none;
+}
+
+#sidebar.hidden {
+  transform: translateX(-100%);
+}
+
+#sidebar.hidden + #map {
+  left: 0;
+}
+
+/* --- SIDEBAR CONTENT --- */
+#sidebar-search {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.sidebar-links a {
+  display: block;
+  padding: 10px;
+  margin: 8px 0;
+  background: #f7f7f7;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.sidebar-links a:hover {
+  background: #ddd;
+}
+
+.sidebar-footer {
+  font-size: 12px;
+  text-align: center;
+  margin-top: 30px;
+  color: #777;
 }
 
 /* --- TOGGLE BAR BASE --- */
@@ -48,28 +91,34 @@ body, html {
   transform: translateX(-50%);
   background: white;
   border-radius: 20px;
-  padding: 10px 20px;
+  padding: 12px 20px;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
   gap: 15px;
-  z-index: 950;
+  z-index: 1100;
 }
 
-/* --- SEARCH INPUT --- */
+/* --- SEARCH INPUT INSIDE TOGGLE --- */
+#toggle-bar .search-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 #toggle-bar input[type="text"] {
   padding: 8px 12px;
   border: 1px solid #aaa;
   border-radius: 6px;
   font-size: 16px;
-  width: 260px; /* Adjusted wider for desktop */
+  width: 250px;
 }
 
 /* --- RADIO BUTTONS --- */
 #toggle-bar label {
-  margin: 0 8px;
+  margin: 0 6px;
   font-size: 18px;
 }
 
@@ -78,7 +127,7 @@ body, html {
   transform: scale(1.2);
 }
 
-/* --- BUTTONS --- */
+/* --- BUTTONS INSIDE TOGGLE BAR --- */
 #toggle-bar button {
   padding: 10px 16px;
   border: none;
@@ -94,48 +143,54 @@ body, html {
   background: #ddd;
 }
 
-/* --- MENU TOGGLE BUTTON (MOBILE) --- */
+/* --- HAMBURGER MENU (MOBILE ONLY) --- */
 #menu-toggle {
   background: #003366;
   color: white;
-  padding: 12px;
+  padding: 10px 14px;
   border: none;
-  border-radius: 12px;
+  border-radius: 8px;
   cursor: pointer;
-  display: none; /* only show on mobile */
+  display: none; /* shown only on mobile */
 }
 
 /* --- MOBILE RESPONSIVE --- */
 @media (max-width: 768px) {
-  #toggle-bar {
-    top: 10px; /* moved up slightly to cover zoom */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 95%;
-    flex-direction: column;
-    gap: 8px;
-    padding: 10px;
+  #map {
+    left: 0;
   }
 
-  #toggle-bar input[type="text"] {
-    width: 75%; /* wider for mobile */
-    margin-top: 8px;
+  #sidebar {
+    transform: translateX(-100%);
   }
 
-  #toggle-bar .search-container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    gap: 10px;
-    justify-content: center;
+  #sidebar.hidden {
+    transform: translateX(0);
   }
 
   #menu-toggle {
-    display: block;
+    display: inline-block;
+  }
+
+  #toggle-bar {
+    top: 10px;
+    width: 95%;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  #toggle-bar .search-container {
+    width: 100%;
+    justify-content: center;
+  }
+
+  #toggle-bar input[type="text"] {
+    width: 75%;
   }
 
   #toggle-bar label {
-    font-size: 17px;
+    font-size: 16px;
   }
 
   #toggle-bar input[type="radio"] {
