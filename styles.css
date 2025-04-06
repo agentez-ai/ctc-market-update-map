@@ -50,9 +50,9 @@ body {
 
 /* ===== DESKTOP: Search Bar ===== */
 #search-bar {
-  width: 300px;
-  min-width: 250px;
-  max-width: 350px;
+  width: 400px;
+  min-width: 350px;
+  max-width: 450px;
   padding: 8px 10px;
   font-size: 14px;
   border: 1px solid #ccc;
