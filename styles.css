@@ -84,9 +84,7 @@ body {
 /* ===== DESKTOP: Action Buttons ===== */
 
 #FDN-btn {
-  width: 200px;
-  white-space: normal;
-  word-break: break-word;
+  width: 220px; /* or whatever looks good */
 }
 
 .action-button {
@@ -103,9 +101,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 1 1 auto; /* 🚀 fix: allow buttons to grow/shrink properly */
-  white-space: normal;
-  word-break: break-word;
+  flex: 0 0 auto; /* 🔥 CHANGE THIS — no grow/shrink weirdness */
+  white-space: nowrap; /* 🔥 prevent wrapping inside buttons */
+  word-break: normal; /* optional — just keep default */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
 }
@@ -118,8 +116,9 @@ body {
 
 #actions {
   display: flex;
-  flex-wrap: nowrap; /* 🚀 no wrapping on desktop */
+  flex-wrap: nowrap; /* 🔥 keep in 1 line */
   justify-content: center;
+  align-items: center; /* 🔥 vertically center if needed */
   gap: 10px;
   width: 100%;
 }
@@ -210,4 +209,16 @@ body {
     width: 100%;
   }
 
+.action-button {
+    flex: 1 1 auto; /* 🔥 allow flexible width */
+    min-width: 120px; /* 🔥 minimum button size */
+    height: 44px; /* 🔥 keep height same */
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-align: center;
+    white-space: normal; /* 🔥 allow wrapping */
+    word-break: break-word; /* 🔥 avoid overflow */
+  }
 }
