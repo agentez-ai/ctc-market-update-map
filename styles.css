@@ -24,23 +24,23 @@ body {
 
 /* ========== TOGGLE BAR (Default Desktop) ========== */
 #toggle-bar {
+  display: flex;
+  flex-direction: column; /* 🛠️ Important fix */
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  width: 1050px;
+  max-width: 1050px;
+  margin: 20px auto 0;
+  background: white;
+  border-radius: 12px;
+  padding: 12px 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   position: absolute;
   top: 20px;
   left: 300px;
   right: 20px;
-  margin: 0 auto;
-  width: 1050px;
-  max-width: 1050px;
-  background: white;
-  border-radius: 12px;
-  padding: 12px 15px;
   z-index: 10;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: nowrap;
 }
 
 /* ===== DESKTOP: Hamburger (hidden) ===== */
@@ -117,10 +117,10 @@ body {
   transform: translateY(-2px);
 }
 
- #toggle-button-row {
+ .toggle-button-row {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between; /* <--- THIS! */
+  flex-wrap: nowrap; /* 🔥 keep buttons in 1 line */
+  justify-content: center; /* 🔥 center the buttons inside their own line */
   align-items: center;
   gap: 10px;
   width: 100%;
