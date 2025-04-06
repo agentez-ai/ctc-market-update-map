@@ -84,30 +84,26 @@ body {
 /* ===== DESKTOP: Action Buttons ===== */
 
 #FDN-btn {
-  width: 220px;
-  white-space: normal; /* 👈 allow wrapping for this button ONLY */
-  word-break: break-word; /* 👈 break long text nicely */
+  width: 200px; /* 🔥 specifically control only this one */
 }
 
 .action-button {
-  height: 44px;
-  padding: 0 20px;
-  font-size: 15px;
-  font-weight: 600;
-  border: none;
+  padding: 10px 15px;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #003366;
-  color: white;
+  background: #f8f9fa;
   cursor: pointer;
-  text-align: center;
+  font-size: 14px;
+  color: #333;
+  font-weight: bold;
+  text-transform: uppercase;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 auto; /* 🔥 CHANGE THIS — no grow/shrink weirdness */
-  white-space: nowrap; /* 🔥 prevent wrapping inside buttons */
-  word-break: normal; /* optional — just keep default */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s ease;
+  white-space: normal; /* 🔥 allow wrapping */
+  word-break: break-word; /* 🔥 allow breaking */
+  flex: 0 1 auto; /* 🔥 allow shrinking if needed */
 }
 
 .action-button:hover {
@@ -118,11 +114,10 @@ body {
 
 #actions {
   display: flex;
-  flex-wrap: nowrap; /* 🔥 keep in 1 line */
-  justify-content: center;
-  align-items: center; /* 🔥 vertically center if needed */
+  align-items: center;
+  justify-content: center; /* or space-between if you want more separation */
   gap: 10px;
-  width: 100%;
+  flex-wrap: nowrap; /* 🔥 STAY in a row */
 }
 
 /* ===== DESKTOP: Mapbox Logo ===== */
