@@ -114,6 +114,10 @@ body {
   background-color: #e0e0e0;
 }
 
+#FDN-btn {
+  width: 200px;
+}
+
 /* ===== DESKTOP: Mapbox Logo ===== */
 .mapbox-logo-container-desktop {
   position: absolute;
