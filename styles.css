@@ -116,6 +116,14 @@ body {
   transform: translateY(-2px);
 }
 
+#actions {
+  display: flex;
+  flex-wrap: nowrap; /* 🚀 no wrapping on desktop */
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
 /* ===== DESKTOP: Mapbox Logo ===== */
 .mapbox-logo-container-desktop {
   position: absolute;
@@ -196,7 +204,7 @@ body {
 
   #actions {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
     gap: 10px;
     width: 100%;
