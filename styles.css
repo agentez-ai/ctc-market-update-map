@@ -32,12 +32,10 @@ body {
   z-index: 0;
 }
 
-.mapboxgl-ctrl-top-right {
-  z-index: 15;
-}
-
-.mapboxgl-ctrl-bottom-right {
-  z-index: 15;
+.mapboxgl-ctrl-top-right,
+.mapboxgl-ctrl-bottom-right,
+.mapboxgl-ctrl {
+  z-index: 15 !important;
 }
 
 /* ========== TOGGLE BAR (Default Desktop) ========== */
