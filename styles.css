@@ -41,6 +41,12 @@ body {
   justify-content: center;
   gap: 20px;
   flex-wrap: nowrap;
+}
+
+/* ===== DESKTOP: Hamburger (hidden) ===== */
+#menu-toggle {
+  display: none;
+}
 
 /* --- SEARCH INPUT --- */
 #toggle-bar input[type="text"] {
